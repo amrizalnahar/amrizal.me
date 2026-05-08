@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Optimasi Query Laravel Eloquent untuk Data Besar — Blog — amrizal.me</title>
+  <meta name="description" content="Teknik eager loading, select specific columns, dan query caching untuk meningkatkan performa aplikasi Laravel.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              950: '#280905',
+              900: '#740A03',
+              600: '#C3110C',
+              400: '#E6501B',
+            },
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    .text-balance { text-wrap: balance; }
+    .card-animate {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .card-animate[data-delay="1"] { transition-delay: 0.1s; }
+    .card-animate[data-delay="2"] { transition-delay: 0.2s; }
+    html, body, div, nav, footer, section, article, aside, header {
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 200ms;
+    }
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: inherit;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    .article-content h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: inherit;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
+    }
+    .article-content p {
+      margin-bottom: 1rem;
+      line-height: 1.75;
+      color: inherit;
+    }
+    .article-content ul, .article-content ol {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li {
+      margin-bottom: 0.5rem;
+      line-height: 1.75;
+    }
+    .article-content pre {
+      background-color: #f5f5f5;
+      border: 1px solid #e5e5e5;
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+    .dark .article-content pre {
+      background-color: #171717;
+      border-color: #404040;
+    }
+    .article-content code {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.875rem;
+    }
+    .article-content pre code {
+      background: transparent;
+      padding: 0;
+      color: inherit;
+    }
+    .article-content p code {
+      background-color: #f5f5f5;
+      border: 1px solid #e5e5e5;
+      border-radius: 0.25rem;
+      padding: 0.125rem 0.375rem;
+      color: #C3110C;
+    }
+    .dark .article-content p code {
+      background-color: #171717;
+      border-color: #404040;
+      color: #E6501B;
+    }
+    .article-content blockquote {
+      border-left: 3px solid #C3110C;
+      padding-left: 1rem;
+      margin-bottom: 1rem;
+      font-style: italic;
+      color: #737373;
+    }
+    .dark .article-content blockquote {
+      color: #a3a3a3;
+    }
+  </style>
+  <script>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+</head>
+<body class="font-sans bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 antialiased">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
+          amrizal<span class="text-primary-600">.</span>me
+        </a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Beranda</a>
+          <a href="about.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Tentang Saya</a>
+          <a href="portfolio.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Portofolio</a>
+          <a href="blog.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary-600 bg-primary-600/5">Blog</a>
+          <a href="contact.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Kontak</a>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex items-center bg-neutral-100 dark:bg-neutral-800 rounded-full p-0.5">
+            <button class="px-2.5 py-1 rounded-full text-xs font-medium bg-primary-600 text-white">ID</button>
+            <button class="px-2.5 py-1 rounded-full text-xs font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors">EN</button>
+          </div>
+          <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors" aria-label="Toggle theme">
+            <svg class="hidden dark:block w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <svg class="block dark:hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          </button>
+          <button id="mobile-menu-btn" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors" aria-label="Menu">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Backdrop -->
+  <div id="mobile-backdrop" class="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0"></div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer" class="fixed top-0 right-0 bottom-0 z-50 w-72 max-w-full bg-white dark:bg-neutral-900 shadow-2xl transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-neutral-200 dark:border-neutral-800 shrink-0">
+      <span class="text-lg font-bold tracking-tight text-neutral-900 dark:text-white">Menu</span>
+      <button id="mobile-close-btn" class="w-9 h-9 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors" aria-label="Tutup menu">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-4 sm:px-6">
+      <div class="flex flex-col gap-1">
+        <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Beranda</a>
+        <a href="about.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Tentang Saya</a>
+        <a href="portfolio.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Portofolio</a>
+        <a href="blog.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Blog</a>
+        <a href="contact.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Kontak</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb -->
+  <section class="pt-24 pb-4 md:pt-28">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <a href="blog.html" class="inline-flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        Kembali ke Blog
+      </a>
+    </div>
+  </section>
+
+  <!-- Article Header -->
+  <section class="pt-4 pb-8 md:pb-12">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">Tutorial</span>
+        <span class="text-xs text-neutral-500 dark:text-neutral-400">7 Mei 2026 · 5 menit baca</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">Optimasi Query Laravel Eloquent untuk Data Besar</h1>
+      <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 text-balance">Beberapa teknik praktis untuk membuat aplikasi Laravel tetap responsif saat menangani dataset dengan jutaan baris.</p>
+    </div>
+  </section>
+
+  <!-- Thumbnail -->
+  <section class="pb-10 md:pb-14">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="aspect-[16/9] bg-neutral-200 dark:bg-neutral-800 rounded-xl overflow-hidden flex items-center justify-center">
+        <svg class="w-24 h-24 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Article Content -->
+  <section class="pb-16 md:pb-24">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="card-animate article-content text-neutral-800 dark:text-neutral-200" data-delay="1">
+        <p>Saat aplikasi Laravel mulai menangani data dalam skala besar, performa query sering kali menjadi bottleneck pertama yang dirasakan. Halaman yang sebelumnya responsif tiba-tiba memerlukan waktu beberapa detik untuk memuat. Artikel ini membahas tiga teknik fundamental yang saya terapkan secara rutin: eager loading, pemilihan kolom spesifik, dan query caching.</p>
+
+        <h2>1. Eager Loading untuk Mengatasi N+1</h2>
+        <p>Masalah N+1 query adalah klasik di dunia ORM. Ketika kita memuat daftar model beserta relasinya tanpa eager loading, Laravel akan menjalankan satu query untuk model utama, kemudian satu query tambahan untuk setiap relasi yang diakses.</p>
+
+        <pre><code>// Hindari: N+1 problem
+$users = User::all();
+foreach ($users as $user) {
+    echo $user->profile->bio;
+}</code></pre>
+
+        <p>Solusinya adalah menggunakan <code>with()</code> untuk eager load relasi yang dibutuhkan:</p>
+
+        <pre><code>// Gunakan eager loading
+$users = User::with('profile')->get();
+foreach ($users as $user) {
+    echo $user->profile->bio;
+}</code></pre>
+
+        <p>Perbedaannya sangat signifikan. Jika ada 100 user, contoh pertama menjalankan 101 query, sedangkan contoh kedua hanya menjalankan 2 query.</p>
+
+        <h2>2. Select Kolom Spesifik</h2>
+        <p>Secara default, Eloquent memilih semua kolom dari tabel (<code>SELECT *</code>). Saat tabel memiliki banyak kolom atau kolom dengan tipe data besar seperti <code>TEXT</code> dan <code>JSON</code>, ini bisa memperlambat transfer data dari database ke aplikasi.</p>
+
+        <pre><code>// Hanya pilih kolom yang diperlukan
+$posts = Post::select('id', 'title', 'slug', 'published_at')
+    ->with('author:id,name')
+    ->get();</code></pre>
+
+        <p>Tips tambahan: jika Anda sering menggunakan subset kolom yang sama, pertimbangkan untuk membuat <code>scope</code> di model agar query tetap DRY.</p>
+
+        <h2>3. Query Caching untuk Data Jarang Berubah</h2>
+        <p>Tidak semua data perlu diambil dari database setiap kali halaman dimuat. Data seperti daftar kategori, pengaturan situs, atau daftar provinsi sangat cocok untuk di-cache.</p>
+
+        <pre><code>$categories = Cache::remember('categories.all', 3600, function () {
+    return Category::all();
+});</code></pre>
+
+        <p>Laravel menyediakan berbagai driver cache: file, database, Redis, dan Memcached. Untuk produksi, Redis adalah pilihan terbaik karena performa dan fitur expiration yang handal.</p>
+
+        <h2>Kesimpulan</h2>
+        <p>Optimasi query bukan tentang melakukan segalanya sekaligus, melainkan mengidentifikasi bottleneck melalui profiling dan menerapkan solusi yang paling berdampak. Gunakan Laravel Debug Bar atau Telescope untuk memantau query yang dijalankan, lalu terapkan teknik-teknik di atas secara bertahap.</p>
+
+        <blockquote>
+          <p>"Premature optimization is the root of all evil" — tapi ignorance of obvious bottlenecks is just as bad.</p>
+        </blockquote>
+      </div>
+
+      <!-- Tags -->
+      <div class="mt-10 pt-8 border-t border-neutral-200 dark:border-neutral-800 card-animate" data-delay="2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-sm text-neutral-500 dark:text-neutral-400">Tag:</span>
+          <a href="blog.html" class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:text-primary-600 transition-colors">Laravel</a>
+          <a href="blog.html" class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:text-primary-600 transition-colors">Database</a>
+          <a href="blog.html" class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:text-primary-600 transition-colors">Performa</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artikel Terkait -->
+  <section class="pb-10 md:pb-14">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-xl font-bold text-neutral-900 dark:text-white mb-6">Artikel Terkait</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="blog-detail.html" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="1">
+          <div class="aspect-[16/10] bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+            <div class="w-full h-full flex items-center justify-center">
+              <svg class="w-10 h-10 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-primary-600/10 text-primary-600">Tutorial</span>
+              <span class="text-[10px] text-neutral-500 dark:text-neutral-400">6 menit baca</span>
+            </div>
+            <h3 class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2">Membangun Panel Admin dengan Laravel Filament</h3>
+          </div>
+        </a>
+        <a href="blog-detail.html" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="2">
+          <div class="aspect-[16/10] bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+            <div class="w-full h-full flex items-center justify-center">
+              <svg class="w-10 h-10 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-primary-600/10 text-primary-600">Arsitektur</span>
+              <span class="text-[10px] text-neutral-500 dark:text-neutral-400">12 menit baca</span>
+            </div>
+            <h3 class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2">Domain-Driven Design untuk Proyek Skala Menengah</h3>
+          </div>
+        </a>
+        <a href="blog-detail.html" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="3">
+          <div class="aspect-[16/10] bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+            <div class="w-full h-full flex items-center justify-center">
+              <svg class="w-10 h-10 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+            </div>
+          </div>
+          <div class="p-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-primary-600/10 text-primary-600">Insight</span>
+              <span class="text-[10px] text-neutral-500 dark:text-neutral-400">8 menit baca</span>
+            </div>
+            <h3 class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2">Mengapa Saya Memilih Laravel untuk Personal Website</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Prev / Next -->
+  <section class="pb-16 md:pb-24 border-t border-neutral-200 dark:border-neutral-800">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <a href="blog-detail.html" class="group flex items-center gap-3 text-left">
+          <svg class="w-5 h-5 text-neutral-400 group-hover:text-primary-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          <div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">Artikel Sebelumnya</p>
+            <p class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors">Checklist SEO untuk Website Personal</p>
+          </div>
+        </a>
+        <a href="blog-detail.html" class="group flex items-center gap-3 text-right sm:flex-row-reverse">
+          <svg class="w-5 h-5 text-neutral-400 group-hover:text-primary-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          <div>
+            <p class="text-xs text-neutral-500 dark:text-neutral-400">Artikel Selanjutnya</p>
+            <p class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors">Mengapa Saya Memilih Laravel untuk Personal Website</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-neutral-50 dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left">
+          <a href="index.html" class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">amrizal<span class="text-primary-600">.</span>me</a>
+          <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Analisis sistem. Rancang arsitektur. Bangun dengan kode.</p>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="#" class="text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+          <a href="#" class="text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+          <a href="#" class="text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-neutral-200 dark:border-neutral-800 text-center">
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">&copy; <span id="year"></span> Amrizal. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    toggleBtn.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Mobile drawer
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileCloseBtn = document.getElementById('mobile-close-btn');
+    const mobileBackdrop = document.getElementById('mobile-backdrop');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    function openMobileMenu() {
+      mobileBackdrop.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        mobileBackdrop.classList.remove('opacity-0');
+        mobileDrawer.classList.remove('translate-x-full');
+      });
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      mobileBackdrop.classList.add('opacity-0');
+      mobileDrawer.classList.add('translate-x-full');
+      setTimeout(() => {
+        mobileBackdrop.classList.add('hidden');
+      }, 300);
+      document.body.style.overflow = '';
+    }
+    mobileMenuBtn.addEventListener('click', openMobileMenu);
+    mobileCloseBtn.addEventListener('click', closeMobileMenu);
+    mobileBackdrop.addEventListener('click', closeMobileMenu);
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.card-animate').forEach(card => observer.observe(card));
+  </script>
+</body>
+</html>

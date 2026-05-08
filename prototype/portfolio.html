@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio — amrizal.me</title>
+  <meta name="description" content="Portofolio proyek dan sertifikat Amrizal — System Analyst & Builder.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              950: '#280905',
+              900: '#740A03',
+              600: '#C3110C',
+              400: '#E6501B',
+            },
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    .text-balance { text-wrap: balance; }
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-animate {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .card-animate[data-delay="1"] { transition-delay: 0.1s; }
+    .card-animate[data-delay="2"] { transition-delay: 0.2s; }
+    .card-animate[data-delay="3"] { transition-delay: 0.3s; }
+    html, body, div, nav, footer, section, article, aside, header {
+      transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 200ms;
+    }
+  </style>
+  <script>
+    (function() {
+      const stored = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.classList.add('dark');
+      }
+    })();
+  </script>
+</head>
+<body class="font-sans bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 antialiased">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <a href="index.html" class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">amrizal<span class="text-primary-600">.</span>me</a>
+        <div class="hidden md:flex items-center gap-1">
+          <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Beranda</a>
+          <a href="about.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Tentang Saya</a>
+          <a href="portfolio.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary-600 bg-primary-600/5">Portofolio</a>
+          <a href="blog.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Blog</a>
+          <a href="contact.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Kontak</a>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="flex items-center bg-neutral-100 dark:bg-neutral-800 rounded-full p-0.5">
+            <button class="px-2.5 py-1 rounded-full text-xs font-medium bg-primary-600 text-white">ID</button>
+            <button class="px-2.5 py-1 rounded-full text-xs font-medium text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors">EN</button>
+          </div>
+          <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors" aria-label="Toggle theme">
+            <svg class="hidden dark:block w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <svg class="block dark:hidden w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+          </button>
+          <button id="mobile-menu-btn" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors" aria-label="Menu">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Backdrop -->
+  <div id="mobile-backdrop" class="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm hidden transition-opacity duration-300 opacity-0"></div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer" class="fixed top-0 right-0 bottom-0 z-50 w-72 max-w-full bg-white dark:bg-neutral-900 shadow-2xl transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
+    <div class="flex items-center justify-between h-16 px-4 sm:px-6 border-b border-neutral-200 dark:border-neutral-800 shrink-0">
+      <span class="text-lg font-bold tracking-tight text-neutral-900 dark:text-white">Menu</span>
+      <button id="mobile-close-btn" class="w-9 h-9 flex items-center justify-center rounded-full text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors" aria-label="Tutup menu">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </div>
+    <div class="flex-1 overflow-y-auto p-4 sm:px-6">
+      <div class="flex flex-col gap-1">
+        <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Beranda</a>
+        <a href="about.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Tentang Saya</a>
+        <a href="portfolio.html" class="px-3 py-2 rounded-md text-sm font-medium text-primary-600 bg-primary-600/5">Portofolio</a>
+        <a href="blog.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Blog</a>
+        <a href="contact.html" class="px-3 py-2 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors">Kontak</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <section class="pt-32 pb-12 md:pt-40 md:pb-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-2xl">
+        <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase">Portofolio</p>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">Portofolio</h1>
+        <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 text-balance">Kumpulan proyek yang pernah dikerjakan, baik secara pribadi maupun profesional di perusahaan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters -->
+  <section id="portfolio-filters" class="pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div class="flex flex-wrap gap-2">
+          <button id="filter-all" class="px-4 py-1.5 rounded-full text-sm font-medium bg-primary-600 text-white">Semua</button>
+          <button id="filter-projects" class="px-4 py-1.5 rounded-full text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Proyek</button>
+          <button id="filter-certificates" class="px-4 py-1.5 rounded-full text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Sertifikat & Lisensi</button>
+        </div>
+        <div class="relative w-full sm:w-auto">
+          <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          <input type="text" id="portfolio-search-input" placeholder="Cari proyek atau sertifikat..." class="w-full sm:w-64 pl-9 pr-4 py-2 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border border-transparent focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all text-neutral-900 dark:text-white placeholder:text-neutral-500">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section id="projects-section" class="pb-16 md:pb-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="1">
+          <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center"><svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+            <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-400/10 text-primary-400 border border-primary-400/20 backdrop-blur-sm">PT. Digital Nusantara</span></div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors"><a href="portfolio-detail.html" class="hover:underline">Sistem Manajemen Inventori</a></h3>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">Aplikasi web untuk mengelola stok barang, pembelian, dan pelaporan secara real-time dengan dashboard analitik.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Laravel</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Vue.js</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">MySQL</span>
+            </div>
+            <div class="mt-5 flex items-center gap-3">
+              <a href="portfolio-detail.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Detail</a>
+              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
+              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>Repository</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="2">
+          <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center"><svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+            <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20 backdrop-blur-sm">Pribadi</span></div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors"><a href="portfolio-detail.html" class="hover:underline">amrizal.me Personal Site</a></h3>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">Website portofolio pribadi dengan fitur bilingual, dark mode, dan manajemen konten via panel admin.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Laravel</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Tailwind CSS</span>
+            </div>
+            <div class="mt-5 flex items-center gap-3">
+              <a href="portfolio-detail.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Detail</a>
+              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
+              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>Repository</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="3">
+          <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center"><svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
+            <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20 backdrop-blur-sm">Pribadi</span></div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors"><a href="portfolio-detail.html" class="hover:underline">Task Manager CLI</a></h3>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">Aplikasi manajemen tugas berbasis terminal yang ringan dengan fitur prioritas dan deadline tracking.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Node.js</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">SQLite</span>
+            </div>
+            <div class="mt-5 flex items-center gap-3">
+              <a href="portfolio-detail.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Detail</a>
+              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>Repository</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certificates Section -->
+  <section id="certificates-section" class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900 border-y border-neutral-200 dark:border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">Sertifikat & Lisensi</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6 shadow-sm hover:shadow-md transition-all" data-delay="1">
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 w-12 h-12 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center border border-neutral-200 dark:border-neutral-700"><svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-base font-semibold text-neutral-900 dark:text-white">AWS Certified Solutions Architect</h3>
+              <p class="text-sm text-primary-600">Amazon Web Services</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1">Diterbitkan: Maret 2025 · Berlaku s/d Maret 2028</p>
+              <a href="#" class="inline-flex items-center gap-1 mt-3 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>Verifikasi</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6 shadow-sm hover:shadow-md transition-all" data-delay="2">
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 w-12 h-12 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center border border-neutral-200 dark:border-neutral-700"><svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-base font-semibold text-neutral-900 dark:text-white">Laravel Certified Developer</h3>
+              <p class="text-sm text-primary-600">Laravel LLC</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1">Diterbitkan: Agustus 2024</p>
+              <a href="#" class="inline-flex items-center gap-1 mt-3 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>Verifikasi</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6 shadow-sm hover:shadow-md transition-all" data-delay="3">
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 w-12 h-12 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center border border-neutral-200 dark:border-neutral-700"><svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-base font-semibold text-neutral-900 dark:text-white">Google UX Design Certificate</h3>
+              <p class="text-sm text-primary-600">Coursera / Google</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1">Diterbitkan: Januari 2024</p>
+              <a href="#" class="inline-flex items-center gap-1 mt-3 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>Verifikasi</a>
+            </div>
+          </div>
+        </div>
+        <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6 shadow-sm hover:shadow-md transition-all" data-delay="1">
+          <div class="flex items-start gap-4">
+            <div class="shrink-0 w-12 h-12 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center border border-neutral-200 dark:border-neutral-700"><svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-base font-semibold text-neutral-900 dark:text-white">Scrum Foundation Professional Certificate</h3>
+              <p class="text-sm text-primary-600">CertiProf</p>
+              <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1">Diterbitkan: Juni 2023</p>
+              <a href="#" class="inline-flex items-center gap-1 mt-3 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>Verifikasi</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-neutral-50 dark:bg-neutral-900 border-t border-neutral-200 dark:border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left">
+          <a href="index.html" class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">amrizal<span class="text-primary-600">.</span>me</a>
+          <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">Analisis sistem. Rancang arsitektur. Bangun dengan kode.</p>
+        </div>
+        <div class="flex items-center gap-6">
+          <a href="#" class="text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+          <a href="#" class="text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+          <a href="#" class="text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+        </div>
+      </div>
+      <div class="mt-8 pt-8 border-t border-neutral-200 dark:border-neutral-800 text-center">
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">&copy; <span id="year"></span> Amrizal. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    toggleBtn.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Mobile drawer
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileCloseBtn = document.getElementById('mobile-close-btn');
+    const mobileBackdrop = document.getElementById('mobile-backdrop');
+    const mobileDrawer = document.getElementById('mobile-drawer');
+    function openMobileMenu() {
+      mobileBackdrop.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        mobileBackdrop.classList.remove('opacity-0');
+        mobileDrawer.classList.remove('translate-x-full');
+      });
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMobileMenu() {
+      mobileBackdrop.classList.add('opacity-0');
+      mobileDrawer.classList.add('translate-x-full');
+      setTimeout(() => {
+        mobileBackdrop.classList.add('hidden');
+      }, 300);
+      document.body.style.overflow = '';
+    }
+    mobileMenuBtn.addEventListener('click', openMobileMenu);
+    mobileCloseBtn.addEventListener('click', closeMobileMenu);
+    mobileBackdrop.addEventListener('click', closeMobileMenu);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.card-animate').forEach(card => observer.observe(card));
+
+    // Portfolio filters
+    const filterAll = document.getElementById('filter-all');
+    const filterProjects = document.getElementById('filter-projects');
+    const filterCertificates = document.getElementById('filter-certificates');
+    const projectsSection = document.getElementById('projects-section');
+    const certificatesSection = document.getElementById('certificates-section');
+    const certificatesFilters = document.getElementById('certificates-filters');
+
+    function setActiveFilter(activeBtn) {
+      [filterAll, filterProjects, filterCertificates].forEach(btn => {
+        btn.classList.remove('bg-primary-600', 'text-white');
+        btn.classList.add('bg-neutral-100', 'dark:bg-neutral-800', 'text-neutral-600', 'dark:text-neutral-300', 'hover:bg-neutral-200', 'dark:hover:bg-neutral-700');
+      });
+      activeBtn.classList.remove('bg-neutral-100', 'dark:bg-neutral-800', 'text-neutral-600', 'dark:text-neutral-300', 'hover:bg-neutral-200', 'dark:hover:bg-neutral-700');
+      activeBtn.classList.add('bg-primary-600', 'text-white');
+    }
+
+    function showFilter(filter) {
+      if (filter === 'all') {
+        projectsSection.classList.remove('hidden');
+        certificatesSection.classList.remove('hidden');
+        certificatesFilters.classList.remove('hidden');
+      } else if (filter === 'projects') {
+        projectsSection.classList.remove('hidden');
+        certificatesSection.classList.add('hidden');
+        certificatesFilters.classList.add('hidden');
+      } else {
+        projectsSection.classList.add('hidden');
+        certificatesSection.classList.remove('hidden');
+        certificatesFilters.classList.remove('hidden');
+      }
+    }
+
+    filterAll.addEventListener('click', () => { setActiveFilter(filterAll); showFilter('all'); });
+    filterProjects.addEventListener('click', () => { setActiveFilter(filterProjects); showFilter('projects'); });
+    filterCertificates.addEventListener('click', () => { setActiveFilter(filterCertificates); showFilter('certificates'); });
+
+    // Default: show all
+    showFilter('all');
+  </script>
+</body>
+</html>
