@@ -1,0 +1,19 @@
+<!--
+  Small tag / badge component.
+  Usage in Blade:
+    @include('components.tag-badge', ['label' => 'Laravel'])
+    @include('components.tag-badge', ['label' => 'Vue.js', 'variant' => 'outline'])
+
+  Variants: solid (default), outline, primary
+-->
+@php
+  $variant = $variant ?? 'solid';
+  $classes = match($variant) {
+    'outline' => 'bg-transparent border border-neutral-200 dark:border-neutral-700 text-neutral-600 dark:text-neutral-300',
+    'primary' => 'bg-primary-600/10 text-primary-600 border border-primary-600/20',
+    default => 'bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700',
+  };
+@endphp
+<span class="px-2.5 py-0.5 rounded-full text-xs font-medium {{ $classes }}">
+  {{ $label }}
+</span>

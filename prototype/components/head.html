@@ -1,0 +1,162 @@
+<!--
+  Usage in Blade: @include('components.head', ['title' => 'Page Title', 'description' => 'Meta description'])
+  Or extend a layout that includes this.
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ $title ?? 'amrizal.me' }} — System Analyst & Builder</title>
+<meta name="description" content="{{ $description ?? 'Personal website of Amrizal — System Analyst & Builder. Analyzing systems, designing architecture, and building with code.' }}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          primary: {
+            950: '#280905',
+            900: '#740A03',
+            600: '#C3110C',
+            400: '#E6501B',
+          },
+        },
+        fontFamily: {
+          sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+        },
+      },
+    },
+  }
+</script>
+
+<style>
+  .text-balance { text-wrap: balance; }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .card-animate {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-animate.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .card-animate[data-delay="1"] { transition-delay: 0.1s; }
+  .card-animate[data-delay="2"] { transition-delay: 0.2s; }
+  .card-animate[data-delay="3"] { transition-delay: 0.3s; }
+  .card-animate[data-delay="4"] { transition-delay: 0.4s; }
+  html, body, div, nav, footer, section, article, aside, header {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+  /* Noise texture overlay */
+  .noise-overlay {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-repeat: repeat; background-size: 128px 128px;
+  }
+  /* Scroll progress bar */
+  .scroll-progress {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: linear-gradient(90deg, #C3110C, #E6501B);
+    z-index: 9999; width: 0%; transition: width 0.1s linear;
+  }
+  /* Page transition overlay */
+  .page-transition {
+    position: fixed; inset: 0; background: #fff; z-index: 10000;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .page-transition.active { opacity: 1; pointer-events: auto; }
+  .dark .page-transition { background: #0a0a0a; }
+  /* Fallback: auto-hide overlay if JS fails */
+  @keyframes forceHideOverlay {
+    0%, 90% { opacity: 1; }
+    100% { opacity: 0; pointer-events: none; }
+  }
+  .page-transition.active {
+    animation: forceHideOverlay 1.5s forwards;
+  }
+  /* Text selection color */
+  ::selection {
+    background: rgba(230, 80, 27, 0.3);
+    color: inherit;
+  }
+  ::-moz-selection {
+    background: rgba(230, 80, 27, 0.3);
+    color: inherit;
+  }
+  /* Custom cursor */
+  .custom-cursor {
+    position: fixed; pointer-events: none; z-index: 10001;
+    top: 0; left: 0; display: none;
+  }
+  @media (pointer: fine) {
+    body, a, button, [role="button"], input, textarea, select, label, .back-to-top {
+      cursor: none;
+    }
+    .custom-cursor { display: block; }
+  }
+  .cursor-dot {
+    width: 6px; height: 6px; background: #C3110C; border-radius: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+  }
+  .cursor-ring {
+    width: 32px; height: 32px;
+    border: 1.5px solid rgba(195, 17, 12, 0.7); border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s cubic-bezier(0.4,0,0.2,1),
+                height 0.25s cubic-bezier(0.4,0,0.2,1),
+                border-color 0.25s;
+  }
+  .cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(195, 17, 12, 0.95); }
+  /* Hero text stagger */
+  .hero-word {
+    display: inline-block; opacity: 0; transform: translateY(24px);
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .stagger-active .hero-word { opacity: 1; transform: translateY(0); }
+  /* Back to top */
+  .back-to-top {
+    position: fixed; bottom: 1.5rem; right: 1.5rem;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: #fff; border: 1px solid #e5e5e5; color: #171717;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateY(10px);
+    transition: opacity 0.3s, transform 0.3s; z-index: 9990;
+  }
+  .dark .back-to-top { background: #171717; border-color: #404040; color: #fff; }
+  .back-to-top.visible { opacity: 1; transform: translateY(0); }
+  .back-to-top-ring { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .back-to-top-progress { transition: stroke-dashoffset 0.1s linear; }
+</style>
+
+<script>
+  (function() {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (stored === 'dark' || (!stored && prefersDark)) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+</script>

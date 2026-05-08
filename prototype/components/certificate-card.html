@@ -1,0 +1,27 @@
+<!--
+  Certificate / license card.
+  Usage in Blade:
+    @include('components.certificate-card', [
+      'iconSvg' => '...',
+      'title' => 'Professional Scrum Master I',
+      'issuer' => 'Scrum.org',
+      'date' => 'Agustus 2024',
+      'verifyUrl' => '#',
+      'delay' => 1
+    ])
+-->
+<div class="card-animate flex items-start gap-4 bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-5 hover:shadow-md transition-all duration-300" data-delay="{{ $delay ?? 1 }}">
+  <div class="shrink-0 w-12 h-12 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center border border-neutral-200 dark:border-neutral-700">
+    {!! $iconSvg !!}
+  </div>
+  <div class="flex-1 min-w-0">
+    <h4 class="text-sm font-semibold text-neutral-900 dark:text-white">{{ $title }}</h4>
+    <p class="text-sm text-primary-600">{{ $issuer }}</p>
+    <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1">Diterbitkan: {{ $date }}</p>
+    @if(isset($verifyUrl) && $verifyUrl)
+    <a href="{{ $verifyUrl }}" class="inline-flex items-center gap-1 mt-3 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>Verifikasi
+    </a>
+    @endif
+  </div>
+</div>

@@ -61,6 +61,147 @@
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       transition-duration: 200ms;
     }
+    /* Noise texture overlay */
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 128px 128px;
+    }
+    /* Scroll progress bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #C3110C, #E6501B);
+      z-index: 9999;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+    /* Page transition overlay */
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .page-transition.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .dark .page-transition {
+      background: #0a0a0a;
+    }
+    /* Fallback: auto-hide overlay if JS fails */
+    @keyframes forceHideOverlay {
+      0%, 90% { opacity: 1; }
+      100% { opacity: 0; pointer-events: none; }
+    }
+    .page-transition.active {
+      animation: forceHideOverlay 1.5s forwards;
+    }
+    /* Text selection color */
+    ::selection {
+      background: rgba(230, 80, 27, 0.3);
+      color: inherit;
+    }
+    ::-moz-selection {
+      background: rgba(230, 80, 27, 0.3);
+      color: inherit;
+    }
+    /* Custom cursor */
+    .custom-cursor {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10001;
+      top: 0; left: 0;
+      display: none;
+    }
+    @media (pointer: fine) {
+      body, a, button, [role="button"], input, textarea, select, label, .back-to-top {
+        cursor: none;
+      }
+      .custom-cursor {
+        display: block;
+      }
+    }
+    .cursor-dot {
+      width: 6px; height: 6px;
+      background: #C3110C;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+    }
+    .cursor-ring {
+      width: 32px; height: 32px;
+      border: 1.5px solid rgba(195, 17, 12, 0.7);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s cubic-bezier(0.4,0,0.2,1),
+                  height 0.25s cubic-bezier(0.4,0,0.2,1),
+                  border-color 0.25s;
+    }
+    .cursor-ring.hover {
+      width: 48px; height: 48px;
+      border-color: rgba(195, 17, 12, 0.95);
+    }
+    /* Hero text stagger */
+    .hero-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .stagger-active .hero-word {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Back to top */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      color: #171717;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 9990;
+    }
+    .dark .back-to-top {
+      background: #171717;
+      border-color: #404040;
+      color: #fff;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .back-to-top-ring {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .back-to-top-progress {
+      transition: stroke-dashoffset 0.1s linear;
+    }
   </style>
   <script>
     (function() {
@@ -73,6 +214,19 @@
   </script>
 </head>
 <body class="font-sans bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 antialiased">
+
+  <!-- Noise Texture -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Page Transition -->
+  <div class="page-transition active" id="page-transition" aria-hidden="true"></div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="custom-cursor cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
   <!-- Navbar -->
   <nav class="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800">
@@ -160,11 +314,31 @@
         <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="1">
           <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
             <div class="absolute inset-0 flex items-center justify-center"><svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
-            <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-400/10 text-primary-400 border border-primary-400/20 backdrop-blur-sm">PT. Digital Nusantara</span></div>
+            <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-400/10 text-primary-400 border border-primary-400/20 backdrop-blur-sm">Retail / e-Commerce</span></div>
           </div>
           <div class="p-6">
-            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors"><a href="portfolio-detail.html" class="hover:underline">Sistem ERP — Manajemen Inventori & Pengadaan</a></h3>
-            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">Menganalisis alur bisnis inventory yang masih manual, merancang modul ERP dengan approval workflow 3-level, dan membangunnya langsung hingga production menggunakan Laravel dan Vue.js.</p>
+            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors"><a href="portfolio-detail.html" class="hover:underline">Platform Omnichannel E-Commerce</a></h3>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">Memimpin analisis kebutuhan dan perancangan arsitektur platform e-commerce terintegrasi yang menyatukan kanal online, POS toko fisik, dan manajemen gudang dalam satu ekosistem data real-time untuk 40+ toko.</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Microservices</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">PostgreSQL</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">RabbitMQ</span>
+            </div>
+            <div class="mt-5 flex items-center gap-3">
+              <a href="portfolio-detail.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Detail</a>
+              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="2">
+          <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+            <div class="absolute inset-0 flex items-center justify-center"><svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+            <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20 backdrop-blur-sm">Logistik Internal</span></div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors"><a href="portfolio-detail.html" class="hover:underline">Sistem Manajemen Gudang (WMS)</a></h3>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">Memetakan alur kerja gudang manual ke sistem terotomasi, merancang WMS dengan proses inbound, putaway, picking, packing, dan outbound berbasis barcode scanning untuk 3 gudang regional.</p>
             <div class="mt-4 flex flex-wrap gap-2">
               <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Laravel</span>
               <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Vue.js</span>
@@ -173,28 +347,6 @@
             <div class="mt-5 flex items-center gap-3">
               <a href="portfolio-detail.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Detail</a>
               <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
-              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>Repository</a>
-            </div>
-          </div>
-        </article>
-
-        <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="2">
-          <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
-            <div class="absolute inset-0 flex items-center justify-center"><svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
-            <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20 backdrop-blur-sm">Pribadi</span></div>
-          </div>
-          <div class="p-6">
-            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors"><a href="portfolio-detail.html" class="hover:underline">Dashboard Internal — Sentralisasi Laporan</a></h3>
-            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">Mengidentifikasi pain point tim operasional yang menghabiskan 2 hari/minggu menggabungkan laporan Excel, lalu merancang dan membangun dashboard terpusat dengan automated data aggregation.</p>
-            <div class="mt-4 flex flex-wrap gap-2">
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Laravel</span>
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Livewire</span>
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">PostgreSQL</span>
-            </div>
-            <div class="mt-5 flex items-center gap-3">
-              <a href="portfolio-detail.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Detail</a>
-              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
-              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>Repository</a>
             </div>
           </div>
         </article>
@@ -202,19 +354,19 @@
         <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="3">
           <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
             <div class="absolute inset-0 flex items-center justify-center"><svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
-            <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20 backdrop-blur-sm">Open Source</span></div>
+            <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20 backdrop-blur-sm">Logistik / Supply Chain</span></div>
           </div>
           <div class="p-6">
-            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors"><a href="portfolio-detail.html" class="hover:underline">API Gateway Scaffold — Microservices Starter Kit</a></h3>
-            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">Merancang dan membangun starter kit API Gateway reusable dengan JWT auth, rate limiting, dan OpenAPI docs untuk mempercepat setup proyek microservices.</p>
+            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors"><a href="portfolio-detail.html" class="hover:underline">Sistem Pengiriman Last-Mile & Tracking</a></h3>
+            <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">Merancang ekosistem pengiriman last-mile terintegrasi meliputi dispatch console, driver mobile app, dan customer tracking portal dengan live tracking dan otomasi assign order berbasis zona.</p>
             <div class="mt-4 flex flex-wrap gap-2">
               <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Node.js</span>
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Express</span>
-              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Redis</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">WebSocket</span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Flutter</span>
             </div>
             <div class="mt-5 flex items-center gap-3">
               <a href="portfolio-detail.html" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Detail</a>
-              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>Repository</a>
+              <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
             </div>
           </div>
         </article>
@@ -353,15 +505,15 @@
       if (filter === 'all') {
         projectsSection.classList.remove('hidden');
         certificatesSection.classList.remove('hidden');
-        certificatesFilters.classList.remove('hidden');
+        if (certificatesFilters) certificatesFilters.classList.remove('hidden');
       } else if (filter === 'projects') {
         projectsSection.classList.remove('hidden');
         certificatesSection.classList.add('hidden');
-        certificatesFilters.classList.add('hidden');
+        if (certificatesFilters) certificatesFilters.classList.add('hidden');
       } else {
         projectsSection.classList.add('hidden');
         certificatesSection.classList.remove('hidden');
-        certificatesFilters.classList.remove('hidden');
+        if (certificatesFilters) certificatesFilters.classList.remove('hidden');
       }
     }
 
@@ -371,6 +523,143 @@
 
     // Default: show all
     showFilter('all');
+
+    // Scroll progress bar
+    const scrollProgress = document.getElementById('scroll-progress');
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollProgress.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    updateScrollProgress();
+
+    // Page transitions
+    const pageTransition = document.getElementById('page-transition');
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          pageTransition.classList.add('active');
+          setTimeout(() => {
+            window.location.href = href;
+          }, 350);
+        });
+      }
+    });
+    // Custom cursor
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+    });
+    function animateCursorRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+      requestAnimationFrame(animateCursorRing);
+    }
+    animateCursorRing();
+    const hoverSelectors = 'a, button, [role="button"], input, textarea, select, label, .cursor-hover';
+    function updateCursorHover() {
+      document.querySelectorAll(hoverSelectors).forEach(el => {
+        el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+      });
+    }
+    updateCursorHover();
+
+    // Hero text stagger
+    function initTextStagger(selector, delay = 0.05) {
+      document.querySelectorAll(selector).forEach(el => {
+        if (el.dataset.staggered) return;
+        el.dataset.staggered = 'true';
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.textContent.trim()) textNodes.push(node);
+        }
+        textNodes.forEach(textNode => {
+          const text = textNode.textContent;
+          const parts = text.split(/(\s+)/);
+          const fragment = document.createDocumentFragment();
+          parts.forEach(part => {
+            if (/^\s+$/.test(part)) {
+              fragment.appendChild(document.createTextNode(part));
+            } else {
+              const span = document.createElement('span');
+              span.className = 'hero-word';
+              span.textContent = part;
+              fragment.appendChild(span);
+            }
+          });
+          textNode.parentNode.replaceChild(fragment, textNode);
+        });
+        el.querySelectorAll('.hero-word').forEach((word, i) => {
+          word.style.transitionDelay = `${i * delay}s`;
+        });
+        requestAnimationFrame(() => el.classList.add('stagger-active'));
+      });
+    }
+    const firstH1 = document.querySelector('h1');
+    if (firstH1) {
+      firstH1.classList.add('hero-stagger');
+      initTextStagger('.hero-stagger');
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    const progressCircle = document.querySelector('.back-to-top-progress');
+    const circumference = 2 * Math.PI * 16;
+    function updateBackToTop() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      if (progressCircle) {
+        progressCircle.style.strokeDashoffset = circumference * (1 - progress);
+      }
+      if (backToTop) {
+        if (scrollTop > 400) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      }
+    }
+    window.addEventListener('scroll', updateBackToTop, { passive: true });
+    updateBackToTop();
+    if (backToTop) {
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Fade out on page load
+    function hidePageTransition() {
+      setTimeout(() => {
+        pageTransition.classList.remove('active');
+      }, 50);
+    }
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', hidePageTransition);
+    } else {
+      hidePageTransition();
+    }
   </script>
+  <!-- Back to Top -->
+  <button id="back-to-top" class="back-to-top" aria-label="Kembali ke atas">
+    <svg class="back-to-top-ring" viewBox="0 0 36 36">
+      <circle class="back-to-top-track" cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+      <circle class="back-to-top-progress" cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="100.53" stroke-dashoffset="100.53" stroke-linecap="round" transform="rotate(-90 18 18)"/>
+    </svg>
+    <svg class="w-4 h-4 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+  </button>
+
 </body>
 </html>
