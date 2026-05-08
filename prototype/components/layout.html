@@ -1,0 +1,35 @@
+<!--
+  Master layout shell.
+  In Laravel Blade this becomes: resources/views/layouts/app.blade.php
+
+  Usage:
+  @extends('layouts.app')
+  @section('title', 'Page Title')
+  @section('description', 'Meta description')
+  @section('content')
+    <!-- page content here -->
+  @endsection
+-->
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  {{-- Blade: @include('components.head', ['title' => $__env->yieldContent('title'), 'description' => $__env->yieldContent('description')]) --}}
+  @include('components.head')
+  {{-- Blade: @stack('styles') --}}
+</head>
+<body class="font-sans bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 antialiased">
+
+  @include('components.global-ui')
+  @include('components.navbar', ['active' => $activeNav ?? 'home'])
+  @include('components.mobile-drawer', ['active' => $activeNav ?? 'home'])
+
+  <main>
+    {{-- Blade: @yield('content') --}}
+  </main>
+
+  @include('components.footer')
+  @include('components.scripts')
+  {{-- Blade: @stack('scripts') --}}
+
+</body>
+</html>

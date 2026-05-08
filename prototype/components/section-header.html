@@ -1,0 +1,24 @@
+<!--
+  Reusable section header with title, subtitle, and optional link.
+  Usage in Blade:
+    @include('components.section-header', [
+      'title' => 'Proyek Unggulan',
+      'subtitle' => 'Beberapa karya terbaru',
+      'linkUrl' => route('portfolio'),
+      'linkText' => 'Lihat Semua'
+    ])
+-->
+<div class="flex items-end justify-between mb-10">
+  <div>
+    <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white">{{ $title }}</h2>
+    @if(isset($subtitle))
+    <p class="mt-2 text-neutral-600 dark:text-neutral-300">{{ $subtitle }}</p>
+    @endif
+  </div>
+  @if(isset($linkUrl))
+  <a href="{{ $linkUrl }}" class="hidden md:inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors">
+    {{ $linkText }}
+    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  </a>
+  @endif
+</div>

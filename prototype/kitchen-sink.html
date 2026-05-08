@@ -56,6 +56,53 @@
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       transition-duration: 200ms;
     }
+    /* Noise texture overlay */
+    .noise-overlay {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 128px 128px;
+    }
+    /* Scroll progress bar */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #C3110C, #E6501B);
+      z-index: 9999;
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+    /* Page transition overlay */
+    .page-transition {
+      position: fixed;
+      inset: 0;
+      background: #fff;
+      z-index: 10000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .page-transition.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .dark .page-transition {
+      background: #0a0a0a;
+    }
+    /* Fallback: auto-hide overlay if JS fails */
+    @keyframes forceHideOverlay {
+      0%, 90% { opacity: 1; }
+      100% { opacity: 0; pointer-events: none; }
+    }
+    .page-transition.active {
+      animation: forceHideOverlay 1.5s forwards;
+    }
 
     /* Cards scroll animation */
     .card-animate {
@@ -74,6 +121,100 @@
     .card-animate[data-delay="2"] { transition-delay: 0.2s; }
     .card-animate[data-delay="3"] { transition-delay: 0.3s; }
     .card-animate[data-delay="4"] { transition-delay: 0.4s; }
+    /* Text selection color */
+    ::selection {
+      background: rgba(230, 80, 27, 0.3);
+      color: inherit;
+    }
+    ::-moz-selection {
+      background: rgba(230, 80, 27, 0.3);
+      color: inherit;
+    }
+    /* Custom cursor */
+    .custom-cursor {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10001;
+      top: 0; left: 0;
+      display: none;
+    }
+    @media (pointer: fine) {
+      body, a, button, [role="button"], input, textarea, select, label, .back-to-top {
+        cursor: none;
+      }
+      .custom-cursor {
+        display: block;
+      }
+    }
+    .cursor-dot {
+      width: 6px; height: 6px;
+      background: #C3110C;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.4);
+    }
+    .cursor-ring {
+      width: 32px; height: 32px;
+      border: 1.5px solid rgba(195, 17, 12, 0.7);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.25s cubic-bezier(0.4,0,0.2,1),
+                  height 0.25s cubic-bezier(0.4,0,0.2,1),
+                  border-color 0.25s;
+    }
+    .cursor-ring.hover {
+      width: 48px; height: 48px;
+      border-color: rgba(195, 17, 12, 0.95);
+    }
+    /* Hero text stagger */
+    .hero-word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .stagger-active .hero-word {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    /* Back to top */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      color: #171717;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 9990;
+    }
+    .dark .back-to-top {
+      background: #171717;
+      border-color: #404040;
+      color: #fff;
+    }
+    .back-to-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .back-to-top-ring {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .back-to-top-progress {
+      transition: stroke-dashoffset 0.1s linear;
+    }
   </style>
 
   <!-- Theme init script -->
@@ -88,6 +229,19 @@
   </script>
 </head>
 <body class="font-sans bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 antialiased">
+
+  <!-- Noise Texture -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Page Transition -->
+  <div class="page-transition active" id="page-transition" aria-hidden="true"></div>
+
+  <!-- Custom Cursor -->
+  <div class="custom-cursor cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="custom-cursor cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
   <!-- ==================== NAVBAR ==================== -->
   <nav class="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800">
@@ -814,7 +968,144 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     document.querySelectorAll('.card-animate').forEach(card => observer.observe(card));
+
+    // Scroll progress bar
+    const scrollProgress = document.getElementById('scroll-progress');
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+      scrollProgress.style.width = progress + '%';
+    }
+    window.addEventListener('scroll', updateScrollProgress, { passive: true });
+    updateScrollProgress();
+
+    // Page transitions
+    const pageTransition = document.getElementById('page-transition');
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          pageTransition.classList.add('active');
+          setTimeout(() => {
+            window.location.href = href;
+          }, 350);
+        });
+      }
+    });
+    // Custom cursor
+    const cursorDot = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+    });
+    function animateCursorRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+      requestAnimationFrame(animateCursorRing);
+    }
+    animateCursorRing();
+    const hoverSelectors = 'a, button, [role="button"], input, textarea, select, label, .cursor-hover';
+    function updateCursorHover() {
+      document.querySelectorAll(hoverSelectors).forEach(el => {
+        el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+      });
+    }
+    updateCursorHover();
+
+    // Hero text stagger
+    function initTextStagger(selector, delay = 0.05) {
+      document.querySelectorAll(selector).forEach(el => {
+        if (el.dataset.staggered) return;
+        el.dataset.staggered = 'true';
+        const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          if (node.textContent.trim()) textNodes.push(node);
+        }
+        textNodes.forEach(textNode => {
+          const text = textNode.textContent;
+          const parts = text.split(/(\s+)/);
+          const fragment = document.createDocumentFragment();
+          parts.forEach(part => {
+            if (/^\s+$/.test(part)) {
+              fragment.appendChild(document.createTextNode(part));
+            } else {
+              const span = document.createElement('span');
+              span.className = 'hero-word';
+              span.textContent = part;
+              fragment.appendChild(span);
+            }
+          });
+          textNode.parentNode.replaceChild(fragment, textNode);
+        });
+        el.querySelectorAll('.hero-word').forEach((word, i) => {
+          word.style.transitionDelay = `${i * delay}s`;
+        });
+        requestAnimationFrame(() => el.classList.add('stagger-active'));
+      });
+    }
+    const firstH1 = document.querySelector('h1');
+    if (firstH1) {
+      firstH1.classList.add('hero-stagger');
+      initTextStagger('.hero-stagger');
+    }
+
+    // Back to top
+    const backToTop = document.getElementById('back-to-top');
+    const progressCircle = document.querySelector('.back-to-top-progress');
+    const circumference = 2 * Math.PI * 16;
+    function updateBackToTop() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      if (progressCircle) {
+        progressCircle.style.strokeDashoffset = circumference * (1 - progress);
+      }
+      if (backToTop) {
+        if (scrollTop > 400) {
+          backToTop.classList.add('visible');
+        } else {
+          backToTop.classList.remove('visible');
+        }
+      }
+    }
+    window.addEventListener('scroll', updateBackToTop, { passive: true });
+    updateBackToTop();
+    if (backToTop) {
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    // Fade out on page load
+    function hidePageTransition() {
+      setTimeout(() => {
+        pageTransition.classList.remove('active');
+      }, 50);
+    }
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', hidePageTransition);
+    } else {
+      hidePageTransition();
+    }
   </script>
+
+  <!-- Back to Top -->
+  <button id="back-to-top" class="back-to-top" aria-label="Kembali ke atas">
+    <svg class="back-to-top-ring" viewBox="0 0 36 36">
+      <circle class="back-to-top-track" cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+      <circle class="back-to-top-progress" cx="18" cy="18" r="16" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="100.53" stroke-dashoffset="100.53" stroke-linecap="round" transform="rotate(-90 18 18)"/>
+    </svg>
+    <svg class="w-4 h-4 absolute" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+  </button>
 
 </body>
 </html>
