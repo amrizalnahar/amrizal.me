@@ -1,0 +1,186 @@
+<script>
+  // Theme toggle
+  const toggleBtn = document.getElementById('theme-toggle');
+  const html = document.documentElement;
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      html.classList.toggle('dark');
+      localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+    });
+  }
+
+  // Year in footer
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Mobile drawer
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileCloseBtn = document.getElementById('mobile-close-btn');
+  const mobileBackdrop = document.getElementById('mobile-backdrop');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+
+  function openMobileMenu() {
+    if (!mobileBackdrop || !mobileDrawer) return;
+    mobileBackdrop.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      mobileBackdrop.classList.remove('opacity-0');
+      mobileDrawer.classList.remove('translate-x-full');
+    });
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileMenu() {
+    if (!mobileBackdrop || !mobileDrawer) return;
+    mobileBackdrop.classList.add('opacity-0');
+    mobileDrawer.classList.add('translate-x-full');
+    setTimeout(() => {
+      mobileBackdrop.classList.add('hidden');
+    }, 300);
+    document.body.style.overflow = '';
+  }
+  if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
+  if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
+  if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileMenu);
+
+  // Card scroll animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.card-animate').forEach(card => observer.observe(card));
+
+  // Scroll progress bar
+  const scrollProgress = document.getElementById('scroll-progress');
+  function updateScrollProgress() {
+    if (!scrollProgress) return;
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    scrollProgress.style.width = progress + '%';
+  }
+  window.addEventListener('scroll', updateScrollProgress, { passive: true });
+  updateScrollProgress();
+
+  // Page transitions
+  const pageTransition = document.getElementById('page-transition');
+  if (pageTransition) {
+    document.querySelectorAll('a[href]').forEach(link => {
+      const href = link.getAttribute('href');
+      if (href && !href.startsWith('#') && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          pageTransition.classList.add('active');
+          setTimeout(() => {
+            window.location.href = href;
+          }, 350);
+        });
+      }
+    });
+  }
+
+  // Custom cursor
+  const cursorDot = document.getElementById('cursor-dot');
+  const cursorRing = document.getElementById('cursor-ring');
+  if (cursorDot && cursorRing) {
+    let mouseX = 0, mouseY = 0, ringX = 0, ringY = 0;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX; mouseY = e.clientY;
+      cursorDot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+    });
+    function animateCursorRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      cursorRing.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+      requestAnimationFrame(animateCursorRing);
+    }
+    animateCursorRing();
+    const hoverSelectors = 'a, button, [role="button"], input, textarea, select, label, .cursor-hover';
+    function updateCursorHover() {
+      document.querySelectorAll(hoverSelectors).forEach(el => {
+        el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+      });
+    }
+    updateCursorHover();
+  }
+
+  // Hero text stagger
+  function initTextStagger(selector, delay = 0.05) {
+    document.querySelectorAll(selector).forEach(el => {
+      if (el.dataset.staggered) return;
+      el.dataset.staggered = 'true';
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      let node;
+      while (node = walker.nextNode()) {
+        if (node.textContent.trim()) textNodes.push(node);
+      }
+      textNodes.forEach(textNode => {
+        const text = textNode.textContent;
+        const parts = text.split(/(\s+)/);
+        const fragment = document.createDocumentFragment();
+        parts.forEach(part => {
+          if (/^\s+$/.test(part)) {
+            fragment.appendChild(document.createTextNode(part));
+          } else {
+            const span = document.createElement('span');
+            span.className = 'hero-word';
+            span.textContent = part;
+            fragment.appendChild(span);
+          }
+        });
+        textNode.parentNode.replaceChild(fragment, textNode);
+      });
+      el.querySelectorAll('.hero-word').forEach((word, i) => {
+        word.style.transitionDelay = `${i * delay}s`;
+      });
+      requestAnimationFrame(() => el.classList.add('stagger-active'));
+    });
+  }
+  const firstH1 = document.querySelector('h1');
+  if (firstH1) {
+    firstH1.classList.add('hero-stagger');
+    initTextStagger('.hero-stagger');
+  }
+
+  // Back to top
+  const backToTop = document.getElementById('back-to-top');
+  const progressCircle = document.querySelector('.back-to-top-progress');
+  const circumference = 2 * Math.PI * 16;
+  function updateBackToTop() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+    if (progressCircle) {
+      progressCircle.style.strokeDashoffset = circumference * (1 - progress);
+    }
+    if (backToTop) {
+      if (scrollTop > 400) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    }
+  }
+  window.addEventListener('scroll', updateBackToTop, { passive: true });
+  updateBackToTop();
+  if (backToTop) {
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // Fade out on page load
+  function hidePageTransition() {
+    setTimeout(() => {
+      if (pageTransition) pageTransition.classList.remove('active');
+    }, 50);
+  }
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', hidePageTransition);
+  } else {
+    hidePageTransition();
+  }
+</script>
