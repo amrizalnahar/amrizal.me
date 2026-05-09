@@ -34,6 +34,8 @@ use App\Http\Controllers\Public\ContactController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Public\PortfolioController;
 use App\Http\Controllers\Public\ProjectController;
+use App\Http\Controllers\Public\SitemapController;
+use App\Http\Controllers\Public\RssController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -50,6 +52,9 @@ Route::get('/portfolio/{slug}', [ProjectController::class, 'show'])->name('portf
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+
+Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
+Route::get('/feed.xml', RssController::class)->name('rss');
 
 Route::get('/auth/public-key', PublicKeyController::class)
     ->middleware('throttle:10,1')
