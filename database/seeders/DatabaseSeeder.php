@@ -17,6 +17,14 @@ class DatabaseSeeder extends Seeder
             SiteSettingSeeder::class,
             MasterDataSeeder::class,
 
+            // Portfolio
+            ProfileSeeder::class,
+            ExperienceSeeder::class,
+            EducationSeeder::class,
+            SkillSeeder::class,
+            ProjectSeeder::class,
+            CertificateSeeder::class,
+
             // Dummy
             ContentSeeder::class,
         ]);
