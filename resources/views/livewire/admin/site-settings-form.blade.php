@@ -122,6 +122,49 @@
                 </div>
             </div>
 
+            <!-- Portfolio -->
+            <div>
+                <h2 class="text-sm font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-100">Portfolio</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">GitHub URL</label>
+                        <input wire:model="githubUrl" type="text" placeholder="https://github.com/..." class="w-full border-gray-300 focus:border-[#1A6FAA] focus:ring-[#1A6FAA] rounded-lg text-sm">
+                        @error('githubUrl') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">LinkedIn URL</label>
+                        <input wire:model="linkedinUrl" type="text" placeholder="https://linkedin.com/in/..." class="w-full border-gray-300 focus:border-[#1A6FAA] focus:ring-[#1A6FAA] rounded-lg text-sm">
+                        @error('linkedinUrl') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Lokasi</label>
+                        <input wire:model="location" type="text" placeholder="Kota, Negara" class="w-full border-gray-300 focus:border-[#1A6FAA] focus:ring-[#1A6FAA] rounded-lg text-sm">
+                        @error('location') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">WhatsApp (Nomor)</label>
+                        <input wire:model="contactWhatsapp" type="text" placeholder="+62..." class="w-full border-gray-300 focus:border-[#1A6FAA] focus:ring-[#1A6FAA] rounded-lg text-sm">
+                        @error('contactWhatsapp') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Bahasa Default</label>
+                        <select wire:model="defaultLanguage" class="w-full border-gray-300 focus:border-[#1A6FAA] focus:ring-[#1A6FAA] rounded-lg text-sm">
+                            <option value="id">Indonesia</option>
+                            <option value="en">English</option>
+                        </select>
+                        @error('defaultLanguage') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Tema Default</label>
+                        <select wire:model="defaultTheme" class="w-full border-gray-300 focus:border-[#1A6FAA] focus:ring-[#1A6FAA] rounded-lg text-sm">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                        @error('defaultTheme') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
+                    </div>
+                </div>
+            </div>
+
             <!-- Setting SEO -->
             <div>
                 <h2 class="text-sm font-semibold text-gray-700 mb-4 pb-2 border-b border-gray-100">Setting SEO</h2>
