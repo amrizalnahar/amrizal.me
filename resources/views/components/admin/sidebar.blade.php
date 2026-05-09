@@ -29,8 +29,8 @@ $addSection('portfolio', 'Portfolio', false, [
     ['label' => 'Kontak', 'url' => route('admin.contacts'), 'icon' => 'envelope', 'active' => request()->routeIs('admin.contacts*')],
 ]);
 
-$addSection('konten-publikasi', 'Konten Publikasi', false, [
-    $user->can('posts-list') ? ['label' => 'Berita', 'url' => route('admin.berita'), 'icon' => 'newspaper', 'active' => request()->routeIs('admin.berita*')] : null,
+$addSection('blog', 'Blog', false, [
+    $user->can('posts-list') ? ['label' => 'Artikel', 'url' => route('admin.berita'), 'icon' => 'newspaper', 'active' => request()->routeIs('admin.berita*')] : null,
 ]);
 
 $addSection('master-data', 'Master Data', false, [
