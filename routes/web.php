@@ -2,12 +2,16 @@
 
 use App\Livewire\Admin\BeritaForm;
 use App\Livewire\Admin\BeritaTable;
+use App\Livewire\Admin\CertificateForm;
+use App\Livewire\Admin\CertificateTable;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\EducationForm;
 use App\Livewire\Admin\EducationTable;
 use App\Livewire\Admin\ExperienceForm;
 use App\Livewire\Admin\ExperienceTable;
 use App\Livewire\Admin\ProfileForm;
+use App\Livewire\Admin\ProjectForm;
+use App\Livewire\Admin\ProjectTable;
 use App\Livewire\Admin\SkillCategoryManager;
 use App\Livewire\Admin\UserProfile;
 use App\Livewire\Admin\KategoriManager;
@@ -126,6 +130,20 @@ Route::middleware(['auth'])
 
         Route::get('/skills', SkillCategoryManager::class)
             ->name('skills');
+
+        Route::get('/projects', ProjectTable::class)
+            ->name('projects');
+        Route::get('/projects/create', ProjectForm::class)
+            ->name('projects.create');
+        Route::get('/projects/{project}/edit', ProjectForm::class)
+            ->name('projects.edit');
+
+        Route::get('/certificates', CertificateTable::class)
+            ->name('certificates');
+        Route::get('/certificates/create', CertificateForm::class)
+            ->name('certificates.create');
+        Route::get('/certificates/{certificate}/edit', CertificateForm::class)
+            ->name('certificates.edit');
 
     });
 
