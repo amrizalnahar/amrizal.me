@@ -40,6 +40,9 @@
   if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', openMobileMenu);
   if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
   if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileMenu);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMobileMenu();
+  });
 
   // Card scroll animation
   const observer = new IntersectionObserver((entries) => {
@@ -70,6 +73,9 @@
       const href = link.getAttribute('href');
       if (href && !href.startsWith('#') && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
         link.addEventListener('click', (e) => {
+          if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0 || link.target === '_blank' || href.startsWith('javascript:')) {
+            return;
+          }
           e.preventDefault();
           pageTransition.classList.add('active');
           setTimeout(() => {

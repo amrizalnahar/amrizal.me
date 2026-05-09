@@ -78,7 +78,7 @@
             position: fixed; pointer-events: none; z-index: 10001;
             top: 0; left: 0; display: none;
         }
-        @media (pointer: fine) {
+        @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
             body, a, button, [role="button"], input, textarea, select, label, .back-to-top {
                 cursor: none;
             }
@@ -116,7 +116,7 @@
         .back-to-top.visible { opacity: 1; transform: translateY(0); }
         .back-to-top-ring { position: absolute; inset: 0; width: 100%; height: 100%; }
         .back-to-top-progress { transition: stroke-dashoffset 0.1s linear; }
-        html, body, div, nav, footer, section, article, aside, header {
+        body, nav, footer, section, article, aside, header, main, a, button {
             transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
             transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
             transition-duration: 200ms;
