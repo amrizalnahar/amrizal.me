@@ -3,6 +3,12 @@
 use App\Livewire\Admin\BeritaForm;
 use App\Livewire\Admin\BeritaTable;
 use App\Livewire\Admin\Dashboard;
+use App\Livewire\Admin\EducationForm;
+use App\Livewire\Admin\EducationTable;
+use App\Livewire\Admin\ExperienceForm;
+use App\Livewire\Admin\ExperienceTable;
+use App\Livewire\Admin\ProfileForm;
+use App\Livewire\Admin\SkillCategoryManager;
 use App\Livewire\Admin\UserProfile;
 use App\Livewire\Admin\KategoriManager;
 use App\Livewire\Admin\TagManager;
@@ -100,6 +106,26 @@ Route::middleware(['auth'])
         Route::get('/berita/{post}/edit', BeritaForm::class)
             ->middleware('permission:posts-edit')
             ->name('berita.edit');
+
+        Route::get('/profile', ProfileForm::class)
+            ->name('profile');
+
+        Route::get('/experiences', ExperienceTable::class)
+            ->name('experiences');
+        Route::get('/experiences/create', ExperienceForm::class)
+            ->name('experiences.create');
+        Route::get('/experiences/{experience}/edit', ExperienceForm::class)
+            ->name('experiences.edit');
+
+        Route::get('/educations', EducationTable::class)
+            ->name('educations');
+        Route::get('/educations/create', EducationForm::class)
+            ->name('educations.create');
+        Route::get('/educations/{education}/edit', EducationForm::class)
+            ->name('educations.edit');
+
+        Route::get('/skills', SkillCategoryManager::class)
+            ->name('skills');
 
     });
 
