@@ -9,6 +9,8 @@ class Education extends Model
 {
     use HasLocalizable;
 
+    protected $table = 'educations';
+
     protected $fillable = [
         'institution_name', 'logo', 'degree',
         'major_id', 'major_en',
