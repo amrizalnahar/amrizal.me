@@ -116,6 +116,11 @@
         .back-to-top.visible { opacity: 1; transform: translateY(0); }
         .back-to-top-ring { position: absolute; inset: 0; width: 100%; height: 100%; }
         .back-to-top-progress { transition: stroke-dashoffset 0.1s linear; }
+        html, body, div, nav, footer, section, article, aside, header {
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 200ms;
+        }
     </style>
 
     <script>
