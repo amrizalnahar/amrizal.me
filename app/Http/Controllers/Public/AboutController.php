@@ -7,7 +7,6 @@ use App\Models\Profile;
 use App\Models\Experience;
 use App\Models\Education;
 use App\Models\SkillCategory;
-use Illuminate\Support\Facades\Storage;
 
 class AboutController extends Controller
 {
