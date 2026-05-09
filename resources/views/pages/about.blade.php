@@ -162,7 +162,7 @@
                     <div class="flex-1">
                         <h3 class="text-lg font-semibold text-neutral-900 dark:text-white">{{ $education->institution_name }}</h3>
                         <p class="text-base font-medium text-neutral-700 dark:text-neutral-200">{{ $education->localize('major') }} — {{ $education->degree }}</p>
-                        <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">{{ $education->started_at }} — {{ $education->ended_at }}</p>
+                        <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">{{ $education->started_at->format('Y') }} — {{ $education->ended_at->format('Y') }}</p>
                     </div>
                 </div>
             @empty
