@@ -19,6 +19,8 @@ use App\Http\Controllers\Auth\PublicKeyController;
 use App\Http\Controllers\Public\AboutController;
 use App\Http\Controllers\Public\BeritaController;
 use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\PortfolioController;
+use App\Http\Controllers\Public\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -26,6 +28,9 @@ Route::get('/', HomeController::class)->name('home');
 Route::get('/about', AboutController::class)->name('about');
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+
+Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
+Route::get('/portfolio/{slug}', [ProjectController::class, 'show'])->name('portfolio.show');
 
 Route::get('/auth/public-key', PublicKeyController::class)
     ->middleware('throttle:10,1')
