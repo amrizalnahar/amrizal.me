@@ -4,6 +4,8 @@ use App\Livewire\Admin\BeritaForm;
 use App\Livewire\Admin\BeritaTable;
 use App\Livewire\Admin\CertificateForm;
 use App\Livewire\Admin\CertificateTable;
+use App\Livewire\Admin\ContactDetail;
+use App\Livewire\Admin\ContactTable;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\EducationForm;
 use App\Livewire\Admin\EducationTable;
@@ -144,6 +146,11 @@ Route::middleware(['auth'])
             ->name('certificates.create');
         Route::get('/certificates/{certificate}/edit', CertificateForm::class)
             ->name('certificates.edit');
+
+        Route::get('/contacts', ContactTable::class)
+            ->name('contacts');
+        Route::get('/contacts/{contact}', ContactDetail::class)
+            ->name('contacts.show');
 
     });
 
