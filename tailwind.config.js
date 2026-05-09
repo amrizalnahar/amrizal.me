@@ -16,16 +16,17 @@ export default {
         extend: {
             colors: {
                 primary: {
+                    DEFAULT: '#c3110c',
                     950: '#280905',
-                    900: '#740A03',
-                    700: '#9A0B08',
-                    600: '#C3110C',
-                    500: '#D9391B',
-                    400: '#E6501B',
-                    300: '#F07A4A',
-                    200: '#F8B89A',
-                    100: '#FDE8DE',
-                    50: '#FEF5F0',
+                    900: '#740a03',
+                    700: '#9a0b08',
+                    600: '#c3110c',
+                    500: '#d9391b',
+                    400: '#e6501b',
+                    300: '#f07a4a',
+                    200: '#f8b89a',
+                    100: '#fde8de',
+                    50: '#fef5f0',
                 },
                 neutral: {
                     950: '#0a0a0a',
@@ -41,11 +42,11 @@ export default {
                     50: '#fafafa',
                 },
                 secondary: {
-                    DEFAULT: '#2E7D52',
-                    light: '#E8F5EE',
+                    DEFAULT: '#2e7d52',
+                    light: '#e8f5ee',
                 },
-                accent: '#F5A623',
-                dark: '#1C2B39',
+                accent: '#f5a623',
+                dark: '#1c2b39',
             },
             fontFamily: {
                 sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
