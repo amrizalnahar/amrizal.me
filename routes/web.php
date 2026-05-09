@@ -16,12 +16,14 @@ use App\Livewire\Admin\EmailTester;
 use App\Livewire\Admin\QueueMonitor;
 use App\Livewire\Admin\ScheduleTaskManager;
 use App\Http\Controllers\Auth\PublicKeyController;
+use App\Http\Controllers\Public\AboutController;
 use App\Http\Controllers\Public\BeritaController;
 use App\Http\Controllers\Public\HomeController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
 Route::get('/', HomeController::class)->name('home');
+Route::get('/about', AboutController::class)->name('about');
 Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
 Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
 
