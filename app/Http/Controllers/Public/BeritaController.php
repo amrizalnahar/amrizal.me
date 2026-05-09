@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Public;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Http\Request;
 
 class BeritaController extends Controller
 {
@@ -15,7 +16,7 @@ class BeritaController extends Controller
         $posts = Post::published()
             ->with(['category', 'tags', 'author'])
             ->orderBy('published_at', 'desc')
-            ->paginate(9);
+            ->get();
 
         $categories = Category::byModule('post')->get();
 
@@ -39,7 +40,7 @@ class BeritaController extends Controller
         $post->increment('views');
 
         $seo = [
-            'title' => ($post->seo_title ?? $post->title) . ' — Blog',
+            'title' => ($post->seo_title ?? $post->localize('title')) . ' — Blog',
             'description' => $post->seo_description,
             'keywords' => $post->seo_keywords,
             'og_type' => 'article',
@@ -57,12 +58,24 @@ class BeritaController extends Controller
                   });
             })
             ->latest('published_at')
-            ->limit(4)
+            ->limit(3)
             ->get();
+
+        $previousPost = Post::published()
+            ->where('published_at', '<', $post->published_at)
+            ->orderBy('published_at', 'desc')
+            ->first();
+
+        $nextPost = Post::published()
+            ->where('published_at', '>', $post->published_at)
+            ->orderBy('published_at', 'asc')
+            ->first();
 
         return view('pages.blog.show', [
             'post' => $post,
             'relatedPosts' => $relatedPosts,
+            'previousPost' => $previousPost,
+            'nextPost' => $nextPost,
             'activeNav' => 'blog',
             'seo' => $seo,
         ]);

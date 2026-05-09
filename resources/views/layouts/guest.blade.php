@@ -23,14 +23,14 @@
             body { font-family: 'Nunito', system-ui, -apple-system, sans-serif; }
         </style>
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0" style="background-color: #E8F4FB;">
+    <body class="font-sans text-neutral-900 antialiased">
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0" style="background-color: #fef5f0;">
             <div>
                 <a href="/" wire:navigate>
                     @if($logo = \App\Models\SiteSetting::getValue('site_logo'))
                         <img src="{{ \Illuminate\Support\Facades\Storage::url($logo) }}" alt="Logo" class="w-20 h-20 object-contain rounded-full">
                     @else
-                        <div class="w-20 h-20 flex items-center justify-center rounded-full text-white text-2xl font-bold" style="background-color: #1A6FAA;">
+                        <div class="w-20 h-20 flex items-center justify-center rounded-full text-white text-2xl font-bold" style="background-color: #C3110C;">
                             {{ strtoupper(substr(\App\Models\SiteSetting::getValue('site_name', config('app.name')), 0, 2)) }}
                         </div>
                     @endif

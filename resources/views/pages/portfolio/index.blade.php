@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Portofolio — ' . config('app.name'))
+@section('title', __('public.portfolio.page_title') . ' — ' . config('app.name'))
 @section('description', 'Portofolio proyek dan sertifikat Amrizal — System Analyst & Builder.')
 
 @section('content')
@@ -9,9 +9,9 @@
 <section class="pt-32 pb-12 md:pt-40 md:pb-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl">
-            <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase">Portofolio</p>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">Portofolio</h1>
-            <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 text-balance">Kumpulan proyek yang pernah dikerjakan, baik secara pribadi maupun profesional di perusahaan.</p>
+            <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase">{{ __('public.portfolio.page_title') }}</p>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">{{ __('public.portfolio.hero_title') }}</h1>
+            <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 text-balance">{{ __('public.portfolio.hero_desc') }}</p>
         </div>
     </div>
 </section>
@@ -21,13 +21,13 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div class="flex flex-wrap gap-2">
-                <button id="filter-all" class="px-4 py-1.5 rounded-full text-sm font-medium bg-primary-600 text-white">Semua</button>
-                <button id="filter-projects" class="px-4 py-1.5 rounded-full text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Proyek</button>
-                <button id="filter-certificates" class="px-4 py-1.5 rounded-full text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">Sertifikat & Lisensi</button>
+                <button id="filter-all" class="px-4 py-1.5 rounded-full text-sm font-medium bg-primary-600 text-white">{{ __('public.common.all') }}</button>
+                <button id="filter-projects" class="px-4 py-1.5 rounded-full text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">{{ __('public.common.projects') }}</button>
+                <button id="filter-certificates" class="px-4 py-1.5 rounded-full text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">{{ __('public.common.certificates') }}</button>
             </div>
             <div class="relative w-full sm:w-auto">
                 <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                <input type="text" id="portfolio-search-input" placeholder="Cari proyek atau sertifikat..." class="w-full sm:w-64 pl-9 pr-4 py-2 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border border-transparent focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all text-neutral-900 dark:text-white placeholder:text-neutral-500">
+                <input type="text" id="portfolio-search-input" placeholder="{{ __('public.portfolio.search_placeholder') }}" class="w-full sm:w-64 pl-9 pr-4 py-2 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border border-transparent focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all text-neutral-900 dark:text-white placeholder:text-neutral-500">
             </div>
         </div>
     </div>
@@ -48,8 +48,8 @@
                             </div>
                         @endif
                         <div class="absolute top-3 left-3">
-                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium {{ $project->type === 'pribadi' ? 'bg-primary-600/10 text-primary-600 border border-primary-600/20' : 'bg-primary-400/10 text-primary-400 border border-primary-400/20' }} backdrop-blur-sm">
-                                {{ $project->type === 'pribadi' ? 'Pribadi' : $project->company_name }}
+                            <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-400/10 text-primary-400 border border-primary-400/20 backdrop-blur-sm">
+                                {{ $project->company_name ?: $project->type }}
                             </span>
                         </div>
                     </div>
@@ -66,12 +66,12 @@
                         <div class="mt-5 flex items-center gap-3">
                             <a href="{{ route('portfolio.show', $project->slug) }}" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                Detail
+                                {{ __('public.common.detail') }}
                             </a>
                             @if ($project->demo_url)
-                                <a href="{{ $project->demo_url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors">
+                                <a href="{{ $project->demo_url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-2.5 py-1 -mx-1 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                                    Live Demo
+                                    {{ __('public.common.live_demo') }}
                                 </a>
                             @endif
                         </div>
@@ -94,7 +94,7 @@
                         </div>
                         <div class="mt-5 flex items-center gap-3">
                             <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Detail</a>
-                            <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
+                            <a href="#" class="inline-flex items-center gap-1.5 px-2.5 py-1 -mx-1 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
                         </div>
                     </div>
                 </article>
@@ -114,7 +114,7 @@
                         </div>
                         <div class="mt-5 flex items-center gap-3">
                             <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Detail</a>
-                            <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
+                            <a href="#" class="inline-flex items-center gap-1.5 px-2.5 py-1 -mx-1 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
                         </div>
                     </div>
                 </article>
@@ -134,7 +134,7 @@
                         </div>
                         <div class="mt-5 flex items-center gap-3">
                             <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Detail</a>
-                            <a href="#" class="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
+                            <a href="#" class="inline-flex items-center gap-1.5 px-2.5 py-1 -mx-1 rounded-md text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/10 transition-all"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>Live Demo</a>
                         </div>
                     </div>
                 </article>
@@ -146,7 +146,7 @@
 <!-- Certificates Section -->
 <section id="certificates-section" class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900 border-y border-neutral-200 dark:border-neutral-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">Sertifikat & Lisensi</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">{{ __('public.common.certificates') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="certificates-grid">
             @forelse ($certificates as $index => $certificate)
                 <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6 shadow-sm hover:shadow-md transition-all" data-delay="{{ ($index % 3) + 1 }}">
@@ -162,15 +162,15 @@
                             <h3 class="text-base font-semibold text-neutral-900 dark:text-white">{{ $certificate->localize('title') }}</h3>
                             <p class="text-sm text-primary-600">{{ $certificate->issuer_name }}</p>
                             <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1">
-                                Diterbitkan: {{ $certificate->issued_at->format('M Y') }}
+                                {{ __('public.portfolio.issued') }}: {{ $certificate->issued_at->format('M Y') }}
                                 @if ($certificate->expired_at)
-                                    &middot; Berlaku s/d {{ $certificate->expired_at->format('M Y') }}
+                                    &middot; {{ __('public.portfolio.valid_until') }} {{ $certificate->expired_at->format('M Y') }}
                                 @endif
                             </p>
                             @if ($certificate->verify_url)
                                 <a href="{{ $certificate->verify_url }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1 mt-3 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                                    Verifikasi
+                                    {{ __('public.common.verify') }}
                                 </a>
                             @endif
                         </div>

@@ -26,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->appendToGroup('web', [
+            \App\Http\Middleware\SetLocale::class,
             \App\Http\Middleware\DecryptPasswordMiddleware::class,
             \App\Http\Middleware\TrackVisitor::class,
         ]);

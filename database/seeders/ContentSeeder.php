@@ -132,9 +132,9 @@ class ContentSeeder extends Seeder
         foreach ($posts as $postData) {
             $category = $postCategories->firstWhere('name', $postData['category']);
             $post = Post::create([
-                'title' => $postData['title'],
+                'title_id' => $postData['title'],
                 'slug' => Str::slug($postData['title']),
-                'content' => $postData['content'],
+                'content_id' => $postData['content'],
                 'category_id' => $category?->id,
                 'status' => 'published',
                 'published_at' => $postData['published_at'],
