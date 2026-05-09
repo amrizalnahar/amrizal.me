@@ -18,6 +18,7 @@ use App\Livewire\Admin\ScheduleTaskManager;
 use App\Http\Controllers\Auth\PublicKeyController;
 use App\Http\Controllers\Public\AboutController;
 use App\Http\Controllers\Public\BeritaController;
+use App\Http\Controllers\Public\ContactController;
 use App\Http\Controllers\Public\HomeController;
 use App\Http\Controllers\Public\PortfolioController;
 use App\Http\Controllers\Public\ProjectController;
@@ -34,6 +35,9 @@ Route::get('/berita/{slug}', fn ($slug) => redirect()->route('blog.show', $slug)
 
 Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
 Route::get('/portfolio/{slug}', [ProjectController::class, 'show'])->name('portfolio.show');
+
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
 Route::get('/auth/public-key', PublicKeyController::class)
     ->middleware('throttle:10,1')
