@@ -26,8 +26,11 @@ use Illuminate\Support\Facades\Route;
 // Public Routes
 Route::get('/', HomeController::class)->name('home');
 Route::get('/about', AboutController::class)->name('about');
-Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
-Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.show');
+Route::get('/blog', [BeritaController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [BeritaController::class, 'show'])->name('blog.show');
+
+Route::get('/berita', fn () => redirect()->route('blog.index'));
+Route::get('/berita/{slug}', fn ($slug) => redirect()->route('blog.show', $slug));
 
 Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
 Route::get('/portfolio/{slug}', [ProjectController::class, 'show'])->name('portfolio.show');
