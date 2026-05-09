@@ -24,7 +24,12 @@ class LocalizeHelper
         $value = $model->$localizedKey ?? null;
 
         if ($value === null || $value === '') {
-            $value = $model->$fallbackKey ?? '';
+            $value = $model->$fallbackKey ?? null;
+        }
+
+        // Final fallback: raw field name (for single-language models like Post)
+        if ($value === null || $value === '') {
+            $value = $model->$field ?? '';
         }
 
         return (string) $value;
