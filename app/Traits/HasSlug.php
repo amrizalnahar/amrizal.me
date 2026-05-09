@@ -6,17 +6,33 @@ use Illuminate\Support\Str;
 
 trait HasSlug
 {
+    protected function getSlugSource(): ?string
+    {
+        if (method_exists($this, 'getSlugSourceAttribute')) {
+            return $this->getSlugSourceAttribute();
+        }
+
+        return $this->title ?? null;
+    }
+
+    protected function getSlugSourceField(): string
+    {
+        return method_exists($this, 'getSlugSourceAttribute') ? 'title_id' : 'title';
+    }
+
     public static function bootHasSlug(): void
     {
         static::creating(function ($model) {
-            if (empty($model->slug) && ! empty($model->title)) {
-                $model->slug = $model->generateUniqueSlug($model->title);
+            $source = $model->getSlugSource();
+            if (empty($model->slug) && ! empty($source)) {
+                $model->slug = $model->generateUniqueSlug($source);
             }
         });
 
         static::updating(function ($model) {
-            if ($model->isDirty('title') && empty($model->slug)) {
-                $model->slug = $model->generateUniqueSlug($model->title);
+            $source = $model->getSlugSource();
+            if ($model->isDirty($model->getSlugSourceField()) && empty($model->slug)) {
+                $model->slug = $model->generateUniqueSlug($source);
             }
         });
     }
