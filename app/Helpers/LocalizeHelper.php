@@ -10,17 +10,7 @@ class LocalizeHelper
      */
     public static function field(object $model, string $field): string
     {
-        $locale = app()->getLocale(); // 'id' or 'en'
-        $localizedKey = "{$field}_{$locale}";
-        $fallbackKey = "{$field}_id";
-
-        $value = $model->$localizedKey ?? null;
-
-        if ($value === null || $value === '') {
-            $value = $model->$fallbackKey ?? '';
-        }
-
-        return (string) $value;
+        return self::fieldLocale($model, $field, app()->getLocale());
     }
 
     /**

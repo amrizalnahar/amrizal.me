@@ -19,8 +19,8 @@ trait HasLocalizable
      */
     public function getAttribute($key)
     {
-        if (str_ends_with($key, '_localized')) {
-            $field = str_replace('_localized', '', $key);
+        if (is_string($key) && str_ends_with($key, '_localized')) {
+            $field = preg_replace('/_localized$/', '', $key);
             return $this->localize($field);
         }
 
