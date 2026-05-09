@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasAuditTrail;
 use App\Traits\HasCategory;
+use App\Traits\HasLocalizable;
 use App\Traits\HasSlug;
 use App\Traits\HasTags;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    use HasAuditTrail, HasCategory, HasFactory, HasSlug, HasTags, SoftDeletes;
+    use HasAuditTrail, HasCategory, HasFactory, HasLocalizable, HasSlug, HasTags, SoftDeletes;
 
     protected $fillable = [
         'title',
