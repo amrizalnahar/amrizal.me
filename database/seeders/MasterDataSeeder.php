@@ -10,38 +10,37 @@ class MasterDataSeeder extends Seeder
 {
     public function run(): void
     {
-        // Categories
+        // Categories (tech / portfolio themed)
         $categories = [
-            // Posts (Berita)
-            ['module_type' => 'post', 'name' => 'Pembangunan', 'slug' => 'pembangunan', 'description' => 'Berita seputar pembangunan infrastruktur dan fasilitas desa'],
-            ['module_type' => 'post', 'name' => 'Pendidikan', 'slug' => 'pendidikan', 'description' => 'Program dan kegiatan pendidikan di desa'],
-            ['module_type' => 'post', 'name' => 'Kesehatan', 'slug' => 'kesehatan', 'description' => 'Kegiatan kesehatan masyarakat dan posyandu'],
-            ['module_type' => 'post', 'name' => 'Pertanian', 'slug' => 'pertanian', 'description' => 'Informasi sektor pertanian dan perkebunan'],
-            ['module_type' => 'post', 'name' => 'Ekonomi', 'slug' => 'ekonomi', 'description' => 'Pemberdayaan ekonomi masyarakat dan UMKM'],
-            ['module_type' => 'post', 'name' => 'Sosial', 'slug' => 'sosial', 'description' => 'Kegiatan sosial dan kemasyarakatan'],
+            ['module_type' => 'post', 'name' => 'Teknologi', 'slug' => 'teknologi', 'description' => 'Artikel seputar perkembangan teknologi dan inovasi digital'],
+            ['module_type' => 'post', 'name' => 'Pemrograman', 'slug' => 'pemrograman', 'description' => 'Tutorial, tips, dan best practice dalam dunia coding'],
+            ['module_type' => 'post', 'name' => 'Sistem Informasi', 'slug' => 'sistem-informasi', 'description' => 'Analisis, arsitektur, dan implementasi sistem informasi'],
+            ['module_type' => 'post', 'name' => 'Database', 'slug' => 'database', 'description' => 'Perancangan, optimasi, dan manajemen basis data'],
+            ['module_type' => 'post', 'name' => 'Karir', 'slug' => 'karir', 'description' => 'Pengembangan karir, sertifikasi, dan tips profesional di bidang IT'],
+            ['module_type' => 'post', 'name' => 'Tinjauan Proyek', 'slug' => 'tinjauan-proyek', 'description' => 'Ulasan studi kasus dan pengalaman mengerjakan proyek nyata'],
         ];
 
         foreach ($categories as $category) {
             Category::create($category);
         }
 
-        // Tags
+        // Tags (tech / portfolio themed)
         $tags = [
-            'Pembangunan',
-            'Infrastruktur',
-            'Pendidikan',
-            'Kesehatan',
-            'Pertanian',
-            'Ekonomi',
-            'Dana Desa',
-            'BUMDes',
-            'Gotong Royong',
-            'Transparansi',
-            'Pemberdayaan',
-            'Beasiswa',
-            'Jalan Desa',
-            'Irigasi',
-            'Posyandu',
+            'Laravel',
+            'PHP',
+            'MySQL',
+            'PostgreSQL',
+            'API',
+            'REST',
+            'Docker',
+            'System Analyst',
+            'UI/UX',
+            'DevOps',
+            'Cloud',
+            'AWS',
+            'Microservices',
+            'ERP',
+            'Agile',
         ];
 
         foreach ($tags as $tagName) {

@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Project;
+use App\Models\ProjectMember;
 use App\Models\ProjectTechnology;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ProjectSeeder extends Seeder
 {
@@ -14,7 +16,7 @@ class ProjectSeeder extends Seeder
             [
                 'title_id' => 'Sistem ERP BUMN Energi',
                 'title_en' => 'State-Owned Energy Enterprise ERP System',
-                'type' => 'office',
+                'type' => 'Sistem Informasi',
                 'company_name' => 'PT Energi Nusantara',
                 'short_description_id' => 'Implementasi sistem ERP terintegrasi untuk mengelola operasional, keuangan, dan sumber daya manusia perusahaan energi nasional.',
                 'short_description_en' => 'Integrated ERP system implementation for managing operations, finance, and human resources of a national energy company.',
@@ -29,11 +31,16 @@ class ProjectSeeder extends Seeder
                 'status' => 'publish',
                 'sort_order' => 1,
                 'technologies' => ['Laravel', 'PostgreSQL', 'Redis', 'Docker', 'Kubernetes'],
+                'members' => [
+                    ['name' => 'Amrizal', 'role' => 'Lead System Analyst'],
+                    ['name' => 'Budi Santoso', 'role' => 'Backend Developer'],
+                    ['name' => 'Citra Lestari', 'role' => 'UI/UX Designer'],
+                ],
             ],
             [
                 'title_id' => 'Platform Digital Banking',
                 'title_en' => 'Digital Banking Platform',
-                'type' => 'personal',
+                'type' => 'Platform Digital',
                 'company_name' => 'Bank Nasional Sejahtera',
                 'short_description_id' => 'Perancangan dan pengembangan platform perbankan digital dengan fitur mobile banking, internet banking, dan API gateway untuk third-party integration.',
                 'short_description_en' => 'Design and development of a digital banking platform with mobile banking, internet banking, and API gateway features for third-party integration.',
@@ -48,11 +55,16 @@ class ProjectSeeder extends Seeder
                 'status' => 'publish',
                 'sort_order' => 2,
                 'technologies' => ['Spring Boot', 'MySQL', 'RabbitMQ', 'AWS', 'OAuth2'],
+                'members' => [
+                    ['name' => 'Amrizal', 'role' => 'Senior System Analyst'],
+                    ['name' => 'Dedi Pratama', 'role' => 'DevOps Engineer'],
+                    ['name' => 'Eka Wulandari', 'role' => 'Quality Assurance'],
+                ],
             ],
             [
                 'title_id' => 'Sistem Manajemen Rantai Pasok',
                 'title_en' => 'Supply Chain Management System',
-                'type' => 'office',
+                'type' => 'Logistik & SCM',
                 'company_name' => 'Distribusi Prima Logistik',
                 'short_description_id' => 'Sistem SCM end-to-end untuk mengelola pengadaan, pergudangan, distribusi, dan tracking pengiriman barang di seluruh wilayah Indonesia.',
                 'short_description_en' => 'End-to-end SCM system for managing procurement, warehousing, distribution, and shipment tracking across Indonesia.',
@@ -67,12 +79,19 @@ class ProjectSeeder extends Seeder
                 'status' => 'publish',
                 'sort_order' => 3,
                 'technologies' => ['Laravel', 'Vue.js', 'PostgreSQL', 'Google Maps API'],
+                'members' => [
+                    ['name' => 'Amrizal', 'role' => 'System Analyst'],
+                    ['name' => 'Fajar Hidayat', 'role' => 'Frontend Developer'],
+                ],
             ],
         ];
 
         foreach ($projects as $data) {
             $technologies = $data['technologies'] ?? [];
-            unset($data['technologies']);
+            $members = $data['members'] ?? [];
+            unset($data['technologies'], $data['members']);
+
+            $data['slug'] = Str::slug($data['title_id']);
 
             $project = Project::create($data);
 
@@ -80,6 +99,15 @@ class ProjectSeeder extends Seeder
                 ProjectTechnology::create([
                     'project_id' => $project->id,
                     'technology_name' => $tech,
+                ]);
+            }
+
+            foreach ($members as $index => $member) {
+                ProjectMember::create([
+                    'project_id' => $project->id,
+                    'name' => $member['name'],
+                    'role' => $member['role'] ?? null,
+                    'sort_order' => $index,
                 ]);
             }
         }

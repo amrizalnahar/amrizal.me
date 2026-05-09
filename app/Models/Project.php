@@ -33,6 +33,11 @@ class Project extends Model
         return $this->hasMany(ProjectTechnology::class);
     }
 
+    public function members(): HasMany
+    {
+        return $this->hasMany(ProjectMember::class)->orderBy('sort_order', 'asc');
+    }
+
     public function scopePublished($query)
     {
         return $query->where('status', 'publish');

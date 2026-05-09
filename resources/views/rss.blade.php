@@ -10,11 +10,11 @@
         <atom:link href="{{ route('rss') }}" rel="self" type="application/rss+xml" />
         @foreach($posts as $post)
         <item>
-            <title><![CDATA[{{ $post->title }}]]></title>
+            <title><![CDATA[{{ $post->localize('title') }}]]></title>
             <link>{{ route('blog.show', $post->slug) }}</link>
             <guid isPermaLink="true">{{ route('blog.show', $post->slug) }}</guid>
             <pubDate>{{ $post->published_at->toRfc2822String() }}</pubDate>
-            <description><![CDATA[{{ strip_tags($post->content) }}]]></description>
+            <description><![CDATA[{{ strip_tags($post->localize('content')) }}]]></description>
         </item>
         @endforeach
     </channel>

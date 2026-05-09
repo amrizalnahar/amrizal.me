@@ -9,7 +9,7 @@ class ProjectController extends Controller
 {
     public function show(string $slug)
     {
-        $project = Project::published()->with('technologies')->where('slug', $slug)->firstOrFail();
+        $project = Project::published()->with(['technologies', 'members'])->where('slug', $slug)->firstOrFail();
 
         $relatedProjects = Project::published()
             ->where('id', '!=', $project->id)

@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Tentang Saya — ' . config('app.name'))
+@section('title', __('public.about.page_title') . ' — ' . config('app.name'))
 @section('description', 'Profil, pengalaman, dan keahlian Amrizal sebagai System Analyst & Builder.')
 
 @section('content')
@@ -21,19 +21,19 @@
                 </div>
             </div>
             <div class="flex-1 text-center md:text-left">
-                <h1 class="text-3xl md:text-5xl font-bold text-neutral-900 dark:text-white text-balance">Tentang Saya</h1>
+                <h1 class="text-3xl md:text-5xl font-bold text-neutral-900 dark:text-white text-balance">{{ __('public.about.page_title') }}</h1>
                 <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed text-balance">
                     @if ($profile)
                         {{ $profile->localize('summary') }}
                     @else
-                        Saya adalah System Analyst yang tidak berhenti di dokumen. Setelah bertahun-tahun menganalisis kebutuhan bisnis dan merancang arsitektur sistem, saya mulai "turun ke kode" — langsung mengeksekusi solusi yang saya rancang. Dengan bantuan AI tools, saya bisa bergerak lebih cepat dari analisis ke production tanpa mengorbankan kualitas.
+                        {{ __('public.about.default_summary') }}
                     @endif
                 </p>
                 @if ($profile && $profile->cv_id)
                     <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
                         <a href="{{ Storage::url($profile->cv_id) }}" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-white bg-primary-600 hover:bg-primary-900 shadow-sm hover:shadow-md transition-all">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            Download CV
+                            {{ __('public.about.download_cv') }}
                         </a>
                     </div>
                 @endif
@@ -45,7 +45,7 @@
 <!-- Experience -->
 <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900 border-y border-neutral-200 dark:border-neutral-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">Pengalaman Kerja</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">{{ __('public.about.experience_title') }}</h2>
         <div class="max-w-3xl space-y-6">
             @forelse ($experiences as $experience)
                 <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6 flex flex-col sm:flex-row gap-4" data-delay="{{ $loop->iteration }}">
@@ -62,7 +62,7 @@
                         <h3 class="text-lg font-semibold text-neutral-900 dark:text-white">{{ $experience->position }}</h3>
                         <p class="text-base font-medium text-primary-600">{{ $experience->company_name }}</p>
                         <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">
-                            {{ $experience->started_at->format('M Y') }} — {{ $experience->is_current ? 'Sekarang' : $experience->ended_at->format('M Y') }}
+                            {{ $experience->started_at->format('M Y') }} — {{ $experience->is_current ? __('public.about.current') : $experience->ended_at->format('M Y') }}
                         </p>
                         <p class="text-sm text-neutral-600 dark:text-neutral-300 mt-3 leading-relaxed">{{ $experience->localize('description') }}</p>
                     </div>
@@ -94,14 +94,14 @@
 <!-- Workflow Saya -->
 <section class="py-16 md:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">Workflow Saya</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">{{ __('public.about.workflow_title') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6" data-delay="1">
                 <div class="w-12 h-12 rounded-lg bg-primary-600/10 flex items-center justify-center mb-4">
                     <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
                 <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Discover</h3>
-                <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">Wawancara stakeholder, dokumentasi requirement, dan user story mapping.</p>
+                <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">{{ __('public.about.discover_desc') }}</p>
                 <div class="mt-4 flex flex-wrap gap-2">
                     <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Claude</span>
                 </div>
@@ -111,7 +111,7 @@
                     <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0121 18.382V7.618a1 1 0 01-.447-.894L15 7m0 13V7"></path></svg>
                 </div>
                 <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Design</h3>
-                <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">ERD, flow diagram, arsitektur sistem, dan API contract design.</p>
+                <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">{{ __('public.about.design_desc') }}</p>
                 <div class="mt-4 flex flex-wrap gap-2">
                     <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Cursor</span>
                     <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Claude</span>
@@ -122,7 +122,7 @@
                     <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                 </div>
                 <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Build</h3>
-                <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">Development, testing, dan code review dengan bantuan AI-assisted coding.</p>
+                <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">{{ __('public.about.build_desc') }}</p>
                 <div class="mt-4 flex flex-wrap gap-2">
                     <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Cursor</span>
                     <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Claude Code</span>
@@ -134,7 +134,7 @@
                     <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 </div>
                 <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Deploy</h3>
-                <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">CI/CD setup, dokumentasi, dan monitoring dengan AI-assisted configuration.</p>
+                <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed">{{ __('public.about.deploy_desc') }}</p>
                 <div class="mt-4 flex flex-wrap gap-2">
                     <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Cursor</span>
                 </div>
@@ -146,7 +146,7 @@
 <!-- Education -->
 <section class="py-16 md:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">Riwayat Pendidikan</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">{{ __('public.about.education_title') }}</h2>
         <div class="max-w-3xl space-y-6">
             @forelse ($educations as $education)
                 <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6 flex flex-col sm:flex-row gap-4" data-delay="{{ $loop->iteration }}">
@@ -162,7 +162,7 @@
                     <div class="flex-1">
                         <h3 class="text-lg font-semibold text-neutral-900 dark:text-white">{{ $education->institution_name }}</h3>
                         <p class="text-base font-medium text-neutral-700 dark:text-neutral-200">{{ $education->localize('major') }} — {{ $education->degree }}</p>
-                        <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">{{ $education->started_at->format('Y') }} — {{ $education->ended_at->format('Y') }}</p>
+                        <p class="text-sm text-neutral-500 dark:text-neutral-400 mt-1">{{ $education->started_at }} — {{ $education->ended_at }}</p>
                     </div>
                 </div>
             @empty
@@ -182,7 +182,7 @@
 <!-- Skills -->
 <section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-900 border-y border-neutral-200 dark:border-neutral-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">Keahlian</h2>
+        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10">{{ __('public.about.skills_title') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($skillCategories as $category)
                 <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6" data-delay="{{ $loop->iteration }}">

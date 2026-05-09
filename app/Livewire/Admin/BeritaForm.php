@@ -19,13 +19,15 @@ class BeritaForm extends Component
 
     public ?Post $post = null;
 
-    public string $title = '';
+    public string $title_id = '';
+    public ?string $title_en = '';
     public string $slug = '';
     public ?int $category_id = null;
     public array $selectedTags = [];
     public $thumbnail = null;
     public ?string $existingThumbnail = null;
-    public string $content = '';
+    public string $content_id = '';
+    public ?string $content_en = '';
     public ?string $meta_title = '';
     public ?string $meta_description = '';
     public ?string $meta_keywords = '';
@@ -37,12 +39,14 @@ class BeritaForm extends Component
         $this->post = $post;
 
         if ($post) {
-            $this->title = $post->title;
+            $this->title_id = $post->title_id;
+            $this->title_en = $post->title_en ?? '';
             $this->slug = $post->slug;
             $this->category_id = $post->category_id;
             $this->selectedTags = $post->tags->pluck('id')->toArray();
             $this->existingThumbnail = $post->thumbnail;
-            $this->content = $post->content;
+            $this->content_id = $post->content_id;
+            $this->content_en = $post->content_en ?? '';
             $this->meta_title = $post->meta_title ?? '';
             $this->meta_description = $post->meta_description ?? '';
             $this->meta_keywords = $post->meta_keywords ?? '';
@@ -53,7 +57,8 @@ class BeritaForm extends Component
     protected function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
+            'title_id' => ['required', 'string', 'max:255'],
+            'title_en' => ['nullable', 'string', 'max:255'],
             'slug' => [
                 'required',
                 'string',
@@ -71,7 +76,8 @@ class BeritaForm extends Component
                 'max:2048',
                 'mimes:jpg,jpeg,png,webp',
             ],
-            'content' => ['required', 'string'],
+            'content_id' => ['required', 'string'],
+            'content_en' => ['nullable', 'string'],
             'meta_title' => ['nullable', 'string', 'max:255'],
             'meta_description' => ['nullable', 'string', 'max:500'],
             'meta_keywords' => ['nullable', 'string', 'max:255'],
@@ -82,10 +88,10 @@ class BeritaForm extends Component
     protected function messages(): array
     {
         return [
-            'title.required' => 'Judul wajib diisi.',
+            'title_id.required' => 'Judul wajib diisi.',
             'slug.required' => 'Slug wajib diisi.',
             'slug.unique' => 'Slug sudah digunakan.',
-            'content.required' => 'Konten wajib diisi.',
+            'content_id.required' => 'Konten wajib diisi.',
             'thumbnail.image' => 'File harus berupa gambar.',
             'thumbnail.max' => 'Ukuran gambar maksimal 2MB.',
             'thumbnail.mimes' => 'Gambar harus berformat jpg, png, atau webp.',
@@ -94,8 +100,8 @@ class BeritaForm extends Component
 
     public function generateSlug(): void
     {
-        if (! empty($this->title)) {
-            $base = Str::slug($this->title);
+        if (! empty($this->title_id)) {
+            $base = Str::slug($this->title_id);
             $slug = $base;
             $count = 1;
 
@@ -112,7 +118,7 @@ class BeritaForm extends Component
         }
     }
 
-    public function updatedTitle(): void
+    public function updatedTitleId(): void
     {
         if (empty($this->slug) || $this->post === null) {
             $this->generateSlug();
@@ -174,11 +180,13 @@ class BeritaForm extends Component
         $post = Post::updateOrCreate(
             ['id' => $this->post?->id],
             [
-                'title' => $this->title,
+                'title_id' => $this->title_id,
+                'title_en' => $this->title_en ?: null,
                 'slug' => $this->slug,
                 'category_id' => $this->category_id,
                 'thumbnail' => $thumbnailPath,
-                'content' => $this->content,
+                'content_id' => $this->content_id,
+                'content_en' => $this->content_en ?: null,
                 'meta_title' => $this->meta_title ?: null,
                 'meta_description' => $this->meta_description ?: null,
                 'meta_keywords' => $this->meta_keywords ?: null,
@@ -190,8 +198,8 @@ class BeritaForm extends Component
 
         $post->tags()->sync($this->selectedTags);
 
-        $this->dispatch('notify', type: 'success', message: $this->post ? 'Berita berhasil diperbarui.' : 'Berita berhasil ditambahkan.');
-        $this->redirectRoute('admin.berita');
+        $this->dispatch('notify', type: 'success', message: $this->post ? 'Artikel berhasil diperbarui.' : 'Artikel berhasil ditambahkan.');
+        $this->redirectRoute('admin.blog');
     }
 
     public function render()

@@ -138,7 +138,7 @@ class BeritaTable extends Component
         $post = Post::find($id);
         if ($post) {
             $this->deleteId = $id;
-            $this->deleteTitle = $post->title;
+            $this->deleteTitle = $post->localize('title');
         }
     }
 

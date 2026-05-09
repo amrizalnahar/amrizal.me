@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Public;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
+use App\Jobs\SendContactNotificationJob;
 use App\Models\Contact;
 use App\Models\SiteSetting;
 
@@ -30,7 +31,7 @@ class ContactController extends Controller
             abort(422);
         }
 
-        Contact::create([
+        $contact = Contact::create([
             'name' => $request->name,
             'email' => $request->email,
             'subject' => $request->subject,
@@ -38,6 +39,8 @@ class ContactController extends Controller
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
         ]);
+
+        SendContactNotificationJob::dispatch($contact);
 
         return back()->with('success', 'Pesan berhasil dikirim. Terima kasih!');
     }

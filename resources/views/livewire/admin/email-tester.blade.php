@@ -10,19 +10,19 @@
     </div>
 
     <div class="max-w-xl">
-        <h1 class="text-xl font-bold text-gray-800 mb-6">Email SMTP Tester</h1>
+        <h1 class="text-xl font-bold text-neutral-800 mb-6">Email SMTP Tester</h1>
 
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 space-y-6">
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6 space-y-6">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Email Penerima</label>
+                <label class="block text-sm font-medium text-neutral-700 mb-1">Email Penerima</label>
                 <input wire:model="email" type="text" placeholder="email@example.com"
-                       class="w-full border-gray-300 focus:border-[#1A6FAA] focus:ring-[#1A6FAA] rounded-lg text-sm">
+                       class="w-full border-neutral-300 focus:border-primary-600 focus:ring-primary-600 rounded-lg text-sm">
                 @error('email') <p class="mt-1 text-xs text-red-600">{{ $message }}</p> @enderror
             </div>
 
             <div class="flex gap-3">
                 @can('system-email-tester')
-                <button wire:click="sendSuccess" wire:loading.attr="disabled" wire:target="sendSuccess" class="flex-1 inline-flex items-center justify-center gap-2 px-4 h-10 bg-[#1A6FAA] text-white text-sm font-medium rounded-md hover:bg-[#155a8a] transition-colors disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap">
+                <button wire:click="sendSuccess" wire:loading.attr="disabled" wire:target="sendSuccess" class="flex-1 inline-flex items-center justify-center gap-2 px-4 h-10 bg-primary-600 text-white text-sm font-medium rounded-md hover:bg-primary-900 transition-colors disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap">
                     <span wire:loading wire:target="sendSuccess" class="whitespace-nowrap">Memproses...</span>
                     <span wire:loading.remove wire:target="sendSuccess" class="whitespace-nowrap">Kirim Sukses</span>
                 </button>

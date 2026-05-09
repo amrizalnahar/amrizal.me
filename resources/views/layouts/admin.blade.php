@@ -36,67 +36,51 @@
     <script>
         /* Scroll-to-error: otomatis scroll ke input pertama yang gagal validasi */
         (function () {
-            let lastScrollTime = 0;
+            let hasScrolled = false;
 
             function scrollToFirstError() {
-                const firstError = document.querySelector('.text-red-600, .text-red-500, .border-red-500');
-                if (!firstError) return;
+                const firstError = document.querySelector('.text-red-600, .text-red-500, .border-red-500, [aria-invalid="true"]');
 
-                const now = Date.now();
-                if (now - lastScrollTime < 1200) return;
-                lastScrollTime = now;
+                // Kalau tidak ada error, reset flag dan return
+                if (!firstError) {
+                    hasScrolled = false;
+                    return;
+                }
 
-                // Hitung posisi scroll agar error berada di tengah layar
-                const rect = firstError.getBoundingClientRect();
-                const offset = 120; // ruang untuk sticky header
-                const scrollTop = window.pageYOffset + rect.top - offset;
+                // Kalau sudah pernah scroll ke error yang sekarang, jangan scroll lagi
+                if (hasScrolled) return;
+                hasScrolled = true;
 
-                window.scrollTo({ top: scrollTop, behavior: 'smooth' });
+                // Cari input terdekat di wrapper yang sama
+                const wrapper = firstError.closest('div, section, form, label') || firstError.parentElement;
+                let target = firstError;
 
-                // Fokus ke input terdekat
-                const wrapper = firstError.closest('div, section, form');
                 if (wrapper) {
-                    const input = wrapper.querySelector('input:not([type="hidden"]), textarea, select, trix-editor');
-                    if (input && typeof input.focus === 'function') {
-                        setTimeout(() => input.focus({ preventScroll: true }), 400);
-                    }
+                    const input = wrapper.querySelector('input:not([type="hidden"]), textarea, select, trix-editor, [contenteditable="true"]');
+                    if (input) target = input;
+                }
+
+                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                if (target !== firstError && typeof target.focus === 'function') {
+                    setTimeout(() => target.focus({ preventScroll: true }), 300);
                 }
             }
 
-            // 1. Deteksi via MutationObserver saat DOM berubah
-            const observer = new MutationObserver(() => {
-                setTimeout(scrollToFirstError, 400);
-            });
-
-            function startObserver() {
-                if (document.body) {
-                    observer.observe(document.body, { childList: true, subtree: true });
-                }
-            }
-
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', startObserver);
-            } else {
-                startObserver();
-            }
-
-            // 2. Fallback saat Livewire selesai render
-            document.addEventListener('livewire:updated', () => {
-                setTimeout(scrollToFirstError, 500);
-            });
-
-            // 3. Fallback saat tombol submit diklik (polling berkala)
+            // Reset flag saat tombol submit diklik, supaya bisa scroll lagi kalau validasi masih gagal
             document.addEventListener('click', function (e) {
                 const btn = e.target.closest('button[type="submit"], input[type="submit"]');
-                if (!btn) return;
-                [300, 700, 1200, 1800].forEach(d => setTimeout(scrollToFirstError, d));
+                if (btn) hasScrolled = false;
             });
 
-            // 4. Scroll saat halaman pertama kali load
+            // Polling ringan setiap 300ms — cuma 1 querySelector, tidak pakai event Livewire
+            setInterval(scrollToFirstError, 300);
+
+            // Cek sekali saat halaman load (untuk error server-side)
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', () => setTimeout(scrollToFirstError, 800));
+                document.addEventListener('DOMContentLoaded', () => setTimeout(scrollToFirstError, 400));
             } else {
-                setTimeout(scrollToFirstError, 800);
+                setTimeout(scrollToFirstError, 400);
             }
         })();
     </script>
@@ -105,13 +89,13 @@
         .sidebar-bg { background-color: #280905; }
         .sidebar-hover:hover { background-color: #3D0F0A; }
         .sidebar-active { background-color: #C3110C; }
-        .content-bg { background-color: #F8FAFC; }
+        .content-bg { background-color: #fafafa; }
 
         /* Sortable drag styles */
         .sortable-ghost {
             opacity: 0.35;
-            background-color: #E0F2FE !important;
-            border: 2px dashed #1A6FAA !important;
+            background-color: #fef5f0 !important;
+            border: 2px dashed #C3110C !important;
             box-shadow: none !important;
         }
         .sortable-drag {
@@ -150,25 +134,25 @@
         <!-- Main Content -->
         <div class="flex-1 lg:ml-[var(--sidebar-width)] transition-[margin] duration-300">
             <!-- Topbar -->
-            <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-10">
+            <header class="h-16 bg-white border-b border-neutral-200 flex items-center justify-between px-6 sticky top-0 z-10">
                 <div class="flex items-center">
-                    <button class="lg:hidden mr-4 text-gray-600" onclick="document.getElementById('sidebar').classList.remove('hidden');document.getElementById('sidebar').classList.add('flex');document.getElementById('sidebar-overlay').classList.remove('hidden');">
+                    <button class="lg:hidden mr-4 text-neutral-600" onclick="document.getElementById('sidebar').classList.remove('hidden');document.getElementById('sidebar').classList.add('flex');document.getElementById('sidebar-overlay').classList.remove('hidden');">
                         &#9776;
                     </button>
-                    <h1 class="text-lg font-semibold text-gray-800">@yield('page-title', 'Dashboard')</h1>
+                    <h1 class="text-lg font-semibold text-neutral-800">@yield('page-title', 'Dashboard')</h1>
                 </div>
                 <div class="flex items-center space-x-4" x-data="{ open: false }">
                     <div class="relative" @click.outside="open = false">
-                        <button @click="open = !open" class="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 focus:outline-none">
+                        <button @click="open = !open" class="flex items-center gap-2 text-sm text-neutral-700 hover:text-neutral-900 focus:outline-none">
                             @if(auth()->user()->avatar)
-                                <img src="{{ Storage::url(auth()->user()->avatar) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover border border-gray-200">
+                                <img src="{{ Storage::url(auth()->user()->avatar) }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover border border-neutral-200">
                             @else
-                                <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-semibold" style="background-color: #1A6FAA;">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-semibold" style="background-color: #C3110C;">
                                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                                 </div>
                             @endif
                             <span class="hidden sm:inline">{{ auth()->user()->name }}</span>
-                            <svg class="w-4 h-4 text-gray-400 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            <svg class="w-4 h-4 text-neutral-400 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
 
                         <div x-show="open"
@@ -178,16 +162,16 @@
                              x-transition:leave="transition ease-in duration-75"
                              x-transition:leave-start="opacity-100 scale-100"
                              x-transition:leave-end="opacity-0 scale-95"
-                             class="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden z-50"
+                             class="absolute right-0 mt-2 w-52 bg-white rounded-lg shadow-lg border border-neutral-200 overflow-hidden z-50"
                              style="display: none;"
                              @click="open = false">
-                            <div class="px-4 py-3 border-b border-gray-100">
-                                <p class="text-sm font-semibold text-gray-800">{{ auth()->user()->name }}</p>
-                                <p class="text-xs text-gray-500">{{ auth()->user()->email }}</p>
+                            <div class="px-4 py-3 border-b border-neutral-100">
+                                <p class="text-sm font-semibold text-neutral-800">{{ auth()->user()->name }}</p>
+                                <p class="text-xs text-neutral-500">{{ auth()->user()->email }}</p>
                             </div>
                             <div class="py-1">
-                                <a href="{{ route('admin.profil-pengguna') }}" wire:navigate class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                                <a href="{{ route('admin.profil-pengguna') }}" wire:navigate class="flex items-center gap-2.5 px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 transition-colors">
+                                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
                                     Profil
                                 </a>
                                 <form method="POST" action="{{ route('logout') }}" class="block">

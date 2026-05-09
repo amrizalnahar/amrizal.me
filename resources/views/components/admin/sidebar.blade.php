@@ -30,7 +30,7 @@ $addSection('portfolio', 'Portfolio', false, [
 ]);
 
 $addSection('blog', 'Blog', false, [
-    $user->can('posts-list') ? ['label' => 'Artikel', 'url' => route('admin.berita'), 'icon' => 'newspaper', 'active' => request()->routeIs('admin.berita*')] : null,
+    $user->can('posts-list') ? ['label' => 'Artikel', 'url' => route('admin.blog'), 'icon' => 'newspaper', 'active' => request()->routeIs('admin.blog*')] : null,
 ]);
 
 $addSection('master-data', 'Master Data', false, [

@@ -16,9 +16,11 @@ class Post extends Model
     use HasAuditTrail, HasCategory, HasFactory, HasLocalizable, HasSlug, HasTags, SoftDeletes;
 
     protected $fillable = [
-        'title',
+        'title_id',
+        'title_en',
         'slug',
-        'content',
+        'content_id',
+        'content_en',
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -54,8 +56,10 @@ class Post extends Model
     public function scopeSearch($query, string $term)
     {
         return $query->where(function ($q) use ($term) {
-            $q->where('title', 'like', "%{$term}%")
-              ->orWhere('content', 'like', "%{$term}%");
+            $q->where('title_id', 'like', "%{$term}%")
+              ->orWhere('title_en', 'like', "%{$term}%")
+              ->orWhere('content_id', 'like', "%{$term}%")
+              ->orWhere('content_en', 'like', "%{$term}%");
         });
     }
 
@@ -64,7 +68,7 @@ class Post extends Model
      */
     public function getSeoTitleAttribute(): string
     {
-        return $this->meta_title ?? $this->title;
+        return $this->meta_title ?? $this->localize('title');
     }
 
     /**
@@ -76,7 +80,7 @@ class Post extends Model
             return $this->meta_description;
         }
 
-        return \App\Helpers\SeoHelper::metaDescription($this->content);
+        return \App\Helpers\SeoHelper::metaDescription($this->localize('content'));
     }
 
     /**

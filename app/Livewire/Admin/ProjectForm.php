@@ -24,7 +24,6 @@ class ProjectForm extends Component
     public string $short_description_en = '';
     public string $full_description_id = '';
     public string $full_description_en = '';
-    public string $role = '';
     public string $period = '';
     public string $demo_url = '';
     public string $repo_url = '';
@@ -32,6 +31,9 @@ class ProjectForm extends Component
     public ?string $existingThumbnail = null;
     public array $technologies = [];
     public string $newTechnology = '';
+    public array $members = [];
+    public string $newMemberName = '';
+    public string $newMemberRole = '';
     public string $status = 'draft';
     public int $sort_order = 0;
 
@@ -48,12 +50,12 @@ class ProjectForm extends Component
             $this->short_description_en = $project->short_description_en ?? '';
             $this->full_description_id = $project->full_description_id ?? '';
             $this->full_description_en = $project->full_description_en ?? '';
-            $this->role = $project->role ?? '';
             $this->period = $project->period ?? '';
             $this->demo_url = $project->demo_url ?? '';
             $this->repo_url = $project->repo_url ?? '';
             $this->existingThumbnail = $project->thumbnail;
             $this->technologies = $project->technologies->pluck('technology_name')->toArray();
+            $this->members = $project->members->map(fn ($m) => ['name' => $m->name, 'role' => $m->role, 'sort_order' => $m->sort_order])->toArray();
             $this->status = $project->status;
             $this->sort_order = $project->sort_order ?? 0;
         }
@@ -70,7 +72,6 @@ class ProjectForm extends Component
             'short_description_en' => ['nullable', 'string'],
             'full_description_id' => ['nullable', 'string'],
             'full_description_en' => ['nullable', 'string'],
-            'role' => ['nullable', 'string', 'max:255'],
             'period' => ['nullable', 'string', 'max:255'],
             'demo_url' => ['nullable', 'url', 'max:255'],
             'repo_url' => ['nullable', 'url', 'max:255'],
@@ -81,6 +82,9 @@ class ProjectForm extends Component
             ],
             'technologies' => ['nullable', 'array'],
             'technologies.*' => ['string', 'max:255'],
+            'members' => ['nullable', 'array'],
+            'members.*.name' => ['required', 'string', 'max:255'],
+            'members.*.role' => ['nullable', 'string', 'max:255'],
             'status' => ['required', 'in:draft,publish'],
             'sort_order' => ['required', 'integer', 'min:0'],
         ];
@@ -125,6 +129,31 @@ class ProjectForm extends Component
         $this->technologies = array_values($this->technologies);
     }
 
+    public function addMember(): void
+    {
+        $this->validate([
+            'newMemberName' => ['required', 'string', 'max:255'],
+            'newMemberRole' => ['nullable', 'string', 'max:255'],
+        ], [
+            'newMemberName.required' => 'Nama anggota wajib diisi.',
+        ]);
+
+        $this->members[] = [
+            'name' => trim($this->newMemberName),
+            'role' => trim($this->newMemberRole) ?: null,
+            'sort_order' => count($this->members),
+        ];
+
+        $this->newMemberName = '';
+        $this->newMemberRole = '';
+    }
+
+    public function removeMember(int $index): void
+    {
+        unset($this->members[$index]);
+        $this->members = array_values($this->members);
+    }
+
     public function save(): void
     {
         $this->validate();
@@ -149,7 +178,6 @@ class ProjectForm extends Component
                 'short_description_en' => $this->short_description_en ?: null,
                 'full_description_id' => $this->full_description_id ?: null,
                 'full_description_en' => $this->full_description_en ?: null,
-                'role' => $this->role ?: null,
                 'period' => $this->period ?: null,
                 'demo_url' => $this->demo_url ?: null,
                 'repo_url' => $this->repo_url ?: null,
@@ -162,6 +190,15 @@ class ProjectForm extends Component
         $project->technologies()->delete();
         foreach ($this->technologies as $tech) {
             $project->technologies()->create(['technology_name' => $tech]);
+        }
+
+        $project->members()->delete();
+        foreach ($this->members as $index => $member) {
+            $project->members()->create([
+                'name' => $member['name'],
+                'role' => $member['role'] ?? null,
+                'sort_order' => $member['sort_order'] ?? $index,
+            ]);
         }
 
         $this->dispatch('notify', type: 'success', message: $this->project ? 'Proyek berhasil diperbarui.' : 'Proyek berhasil ditambahkan.');

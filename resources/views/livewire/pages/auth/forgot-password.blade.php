@@ -47,8 +47,8 @@ new #[Layout('layouts.guest')] class extends Component
 
 <div>
     <div class="text-center mb-6">
-        <h2 class="text-2xl font-bold text-gray-800">Lupa Password?</h2>
-        <p class="mt-2 text-sm text-gray-600">
+        <h2 class="text-2xl font-bold text-neutral-800">Lupa Password?</h2>
+        <p class="mt-2 text-sm text-neutral-600">
             Tidak masalah. Masukkan alamat email Anda dan kami akan mengirimkan link reset password agar Anda dapat membuat password baru.
         </p>
     </div>
@@ -87,7 +87,7 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
 
         <div class="flex items-center justify-between mt-6">
-            <a href="{{ route('login') }}" wire:navigate class="text-sm text-gray-600 hover:text-gray-900 underline">
+            <a href="{{ route('login') }}" wire:navigate class="text-sm text-neutral-600 hover:text-neutral-900 underline">
                 Kembali ke login
             </a>
 

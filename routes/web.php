@@ -56,6 +56,17 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/feed.xml', RssController::class)->name('rss');
 
+Route::get('/locale/{locale}', function (string $locale) {
+    if (! in_array($locale, ['id', 'en'])) {
+        abort(400);
+    }
+
+    session(['locale' => $locale]);
+    app()->setLocale($locale);
+
+    return back();
+})->name('locale.switch');
+
 Route::get('/auth/public-key', PublicKeyController::class)
     ->middleware('throttle:10,1')
     ->name('auth.public-key');
@@ -108,15 +119,15 @@ Route::middleware(['auth'])
             ->middleware('permission:tags-list')
             ->name('tags');
 
-        Route::get('/berita', BeritaTable::class)
+        Route::get('/blog', BeritaTable::class)
             ->middleware('permission:posts-list')
-            ->name('berita');
-        Route::get('/berita/create', BeritaForm::class)
+            ->name('blog');
+        Route::get('/blog/create', BeritaForm::class)
             ->middleware('permission:posts-create')
-            ->name('berita.create');
-        Route::get('/berita/{post}/edit', BeritaForm::class)
+            ->name('blog.create');
+        Route::get('/blog/{post}/edit', BeritaForm::class)
             ->middleware('permission:posts-edit')
-            ->name('berita.edit');
+            ->name('blog.edit');
 
         Route::get('/profile', ProfileForm::class)
             ->name('profile');
