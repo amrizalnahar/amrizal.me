@@ -7,6 +7,7 @@ use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,11 @@ class AppServiceProvider extends ServiceProvider
         // agar perubahan di database langsung terlihat tanpa restart worker
         Queue::before(function (JobProcessing $event) {
             $this->applySiteSettings();
+        });
+
+        Blade::directive('localized', function ($expression) {
+            // Usage: @localized($post, 'title')
+            return "<?php echo \\App\\Helpers\\LocalizeHelper::field({$expression}); ?>";
         });
     }
 
