@@ -10,7 +10,7 @@ class PortfolioController extends Controller
 {
     public function index()
     {
-        $projects = Project::published()->ordered()->get();
+        $projects = Project::published()->with('technologies')->ordered()->get();
         $certificates = Certificate::published()->ordered()->get();
 
         return view('pages.portfolio.index', [
