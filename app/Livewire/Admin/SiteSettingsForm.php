@@ -31,6 +31,13 @@ class SiteSettingsForm extends Component
     public string $socialWhatsapp = '';
     public string $socialTiktok = '';
 
+    public string $githubUrl = '';
+    public string $linkedinUrl = '';
+    public string $location = '';
+    public string $contactWhatsapp = '';
+    public string $defaultLanguage = 'id';
+    public string $defaultTheme = 'light';
+
     public string $seoSiteName = '';
     public string $seoDescription = '';
     public string $seoAuthor = '';
@@ -54,6 +61,13 @@ class SiteSettingsForm extends Component
         $this->socialWhatsapp = SiteSetting::getValue('social_whatsapp', '');
         $this->socialTiktok = SiteSetting::getValue('social_tiktok', '');
 
+        $this->githubUrl = SiteSetting::getValue('github_url', '');
+        $this->linkedinUrl = SiteSetting::getValue('linkedin_url', '');
+        $this->location = SiteSetting::getValue('location', '');
+        $this->contactWhatsapp = SiteSetting::getValue('contact_whatsapp', '');
+        $this->defaultLanguage = SiteSetting::getValue('default_language', 'id');
+        $this->defaultTheme = SiteSetting::getValue('default_theme', 'light');
+
         $this->seoSiteName = SiteSetting::getValue('seo_site_name', config('seo.site_name', config('app.name')));
         $this->seoDescription = SiteSetting::getValue('seo_description', config('seo.description', ''));
         $this->seoAuthor = SiteSetting::getValue('seo_author', config('seo.author', ''));
@@ -75,6 +89,12 @@ class SiteSettingsForm extends Component
             'socialInstagram' => ['nullable', 'string', 'max:255'],
             'socialWhatsapp' => ['nullable', 'string', 'max:255'],
             'socialTiktok' => ['nullable', 'string', 'max:255'],
+            'githubUrl' => ['nullable', 'string', 'max:255'],
+            'linkedinUrl' => ['nullable', 'string', 'max:255'],
+            'location' => ['nullable', 'string', 'max:255'],
+            'contactWhatsapp' => ['nullable', 'string', 'max:50'],
+            'defaultLanguage' => ['nullable', 'string', 'in:id,en'],
+            'defaultTheme' => ['nullable', 'string', 'in:light,dark'],
             'seoSiteName' => ['nullable', 'string', 'max:255'],
             'seoDescription' => ['nullable', 'string', 'max:1000'],
             'seoAuthor' => ['nullable', 'string', 'max:255'],
@@ -111,6 +131,13 @@ class SiteSettingsForm extends Component
         SiteSetting::setValue('social_instagram', $this->socialInstagram ?: null);
         SiteSetting::setValue('social_whatsapp', $this->socialWhatsapp ?: null);
         SiteSetting::setValue('social_tiktok', $this->socialTiktok ?: null);
+
+        SiteSetting::setValue('github_url', $this->githubUrl ?: null);
+        SiteSetting::setValue('linkedin_url', $this->linkedinUrl ?: null);
+        SiteSetting::setValue('location', $this->location ?: null);
+        SiteSetting::setValue('contact_whatsapp', $this->contactWhatsapp ?: null);
+        SiteSetting::setValue('default_language', $this->defaultLanguage ?: 'id');
+        SiteSetting::setValue('default_theme', $this->defaultTheme ?: 'light');
 
         SiteSetting::setValue('seo_site_name', $this->seoSiteName ?: null);
         SiteSetting::setValue('seo_description', $this->seoDescription ?: null);
