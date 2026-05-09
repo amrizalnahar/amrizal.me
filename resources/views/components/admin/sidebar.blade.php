@@ -19,6 +19,16 @@ $addSection('utama', 'Utama', true, [
     ['label' => 'Dashboard', 'url' => route('admin.dashboard'), 'icon' => 'squares-2x2', 'active' => request()->routeIs('admin.dashboard')],
 ]);
 
+$addSection('portfolio', 'Portfolio', false, [
+    ['label' => 'Profil', 'url' => route('admin.profile'), 'icon' => 'identification', 'active' => request()->routeIs('admin.profile')],
+    ['label' => 'Pengalaman', 'url' => route('admin.experiences'), 'icon' => 'briefcase', 'active' => request()->routeIs('admin.experiences*')],
+    ['label' => 'Pendidikan', 'url' => route('admin.educations'), 'icon' => 'academic-cap', 'active' => request()->routeIs('admin.educations*')],
+    ['label' => 'Keahlian', 'url' => route('admin.skills'), 'icon' => 'wrench-screwdriver', 'active' => request()->routeIs('admin.skills')],
+    ['label' => 'Proyek', 'url' => route('admin.projects'), 'icon' => 'folder-open', 'active' => request()->routeIs('admin.projects*')],
+    ['label' => 'Sertifikat', 'url' => route('admin.certificates'), 'icon' => 'document-check', 'active' => request()->routeIs('admin.certificates*')],
+    ['label' => 'Kontak', 'url' => route('admin.contacts'), 'icon' => 'envelope', 'active' => request()->routeIs('admin.contacts*')],
+]);
+
 $addSection('konten-publikasi', 'Konten Publikasi', false, [
     $user->can('posts-list') ? ['label' => 'Berita', 'url' => route('admin.berita'), 'icon' => 'newspaper', 'active' => request()->routeIs('admin.berita*')] : null,
 ]);
@@ -103,7 +113,7 @@ $addSection('monitoring', 'Monitoring', false, [
     id="sidebar"
 >
     <!-- Brand -->
-    <div class="h-16 flex items-center px-4 border-b border-gray-700 shrink-0 overflow-hidden">
+    <div class="h-16 flex items-center px-4 border-b border-[#3D0F0A] shrink-0 overflow-hidden">
         <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 min-w-0">
             <span class="text-white font-bold text-lg whitespace-nowrap" x-show="!collapsed" x-cloak>{{ $siteName }}</span>
             <span class="text-white font-bold text-lg" x-show="collapsed" x-cloak>{{ strtoupper(substr($siteName, 0, 1)) }}</span>
@@ -113,15 +123,15 @@ $addSection('monitoring', 'Monitoring', false, [
     <!-- Search -->
     <div x-show="!collapsed" x-cloak class="px-4 pt-3 pb-1 shrink-0">
         <div class="relative">
-            <x-icon name="magnifying-glass" class="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-500" />
+            <x-icon name="magnifying-glass" class="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-[#A37D7A]" />
             <input
                 x-ref="searchInput"
                 x-model="search"
                 @focus="searchFocused = true"
                 @blur="searchFocused = false"
                 type="text"
-                placeholder="Cari menu... (/)"
-                class="w-full bg-[#243647] border border-gray-700 rounded-lg pl-8 pr-3 py-1.5 text-sm text-gray-300 placeholder-gray-500 focus:outline-none focus:border-[#1A6FAA] focus:ring-1 focus:ring-[#1A6FAA]"
+                placeholder="Cari menu... (/))"
+                class="w-full bg-[#3D0F0A] border border-[#5C2420] rounded-lg pl-8 pr-3 py-1.5 text-sm text-[#E8D5D3] placeholder-[#A37D7A] focus:outline-none focus:border-[#C3110C] focus:ring-1 focus:ring-[#C3110C]"
             >
         </div>
     </div>
@@ -134,7 +144,7 @@ $addSection('monitoring', 'Monitoring', false, [
                     <div
                         x-show="!collapsed"
                         x-cloak
-                        class="px-4 py-2 text-xs font-semibold text-gray-400 uppercase"
+                        class="px-4 py-2 text-xs font-semibold text-[#A37D7A] uppercase tracking-wider"
                     >{{ $section['label'] }}</div>
                 @else
                     @php
@@ -142,7 +152,7 @@ $addSection('monitoring', 'Monitoring', false, [
                     @endphp
                     <button
                         @click="toggleSection('{{ $section['id'] }}')"
-                        class="w-full flex items-center justify-between px-4 py-2 text-xs font-semibold uppercase transition-colors duration-150 {{ $sectionActive ? 'text-[#1A6FAA]' : 'text-gray-400' }}"
+                        class="w-full flex items-center justify-between px-4 py-2 text-xs font-semibold uppercase tracking-wider transition-colors duration-150 {{ $sectionActive ? 'text-[#E6501B]' : 'text-[#A37D7A]' }}"
                         x-show="!collapsed"
                         x-cloak
                     >
@@ -170,18 +180,21 @@ $addSection('monitoring', 'Monitoring', false, [
                             >
                                 <a
                                     href="{{ $item['url'] }}"
-                                    class="menu-link flex items-center py-2.5 text-sm transition-colors duration-150 px-6 {{ $item['active'] ? 'bg-[#1A6FAA] text-white relative before:absolute before:left-0 before:top-0 before:bottom-0 before:w-[3px] before:bg-[#1A6FAA]' : 'text-gray-300 hover:bg-[#243647]' }}"
+                                    class="menu-link flex items-center py-2 text-sm transition-all duration-150 px-6 mx-2 rounded-lg {{ $item['active'] ? 'bg-gradient-to-r from-[#740A03] to-[#C3110C] text-white shadow-lg shadow-[#C3110C]/20 font-medium' : 'text-[#E8D5D3] hover:bg-[#3D0F0A] hover:text-white' }}"
                                 >
-                                    <div class="menu-icon-wrap mr-3">
+                                    <div class="menu-icon-wrap mr-3 {{ $item['active'] ? 'text-white' : 'text-[#A37D7A] group-hover:text-white' }} transition-colors">
                                         <x-icon name="{{ $item['icon'] }}" class="w-5 h-5" />
                                     </div>
                                     <span class="menu-label">{{ $item['label'] }}</span>
+                                    @if($item['active'])
+                                        <div class="ml-auto w-1.5 h-1.5 rounded-full bg-[#E6501B]"></div>
+                                    @endif
                                 </a>
                                 <!-- Tooltip (collapsed only) -->
                                 <div
                                     x-show="collapsed"
                                     x-cloak
-                                    class="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 bg-gray-800 text-white text-xs rounded-md whitespace-nowrap z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-lg border border-gray-700"
+                                    class="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2.5 py-1.5 bg-[#280905] text-[#E8D5D3] text-xs rounded-md whitespace-nowrap z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none shadow-lg border border-[#5C2420]"
                                 >
                                     {{ $item['label'] }}
                                 </div>
@@ -193,21 +206,21 @@ $addSection('monitoring', 'Monitoring', false, [
         @endforeach
 
         <!-- No Results -->
-        <div x-show="search && !hasResults" x-cloak class="px-4 py-6 text-center text-sm text-gray-500">
+        <div x-show="search && !hasResults" x-cloak class="px-4 py-6 text-center text-sm text-[#A37D7A]">
             Tidak ada menu yang cocok
         </div>
     </nav>
 
     <!-- Bottom -->
-    <div class="p-4 border-t border-gray-700 shrink-0">
+    <div class="p-4 border-t border-[#3D0F0A] shrink-0">
         <div class="flex items-center" :class="collapsed ? 'justify-center' : 'justify-between'">
             <div x-show="!collapsed" x-cloak class="min-w-0">
-                <div class="text-sm text-gray-300 truncate">{{ $user->name }}</div>
-                <div class="text-xs text-gray-500 truncate">{{ $user->roles->pluck('name')->implode(', ') }}</div>
+                <div class="text-sm text-[#E8D5D3] truncate">{{ $user->name }}</div>
+                <div class="text-xs text-[#A37D7A] truncate">{{ $user->roles->pluck('name')->implode(', ') }}</div>
             </div>
             <button
                 @click="toggleCollapse()"
-                class="p-1.5 rounded-lg text-gray-400 hover:text-white hover:bg-[#243647] transition-colors"
+                class="p-1.5 rounded-lg text-[#A37D7A] hover:text-white hover:bg-[#3D0F0A] transition-colors"
                 title="Toggle sidebar"
             >
                 <x-icon name="chevron-left" x-show="!collapsed" x-cloak class="w-4 h-4" />

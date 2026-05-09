@@ -102,9 +102,9 @@
     </script>
     <style>
         body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
-        .sidebar-bg { background-color: #1C2B39; }
-        .sidebar-hover:hover { background-color: #243647; }
-        .sidebar-active { background-color: #1A6FAA; }
+        .sidebar-bg { background-color: #280905; }
+        .sidebar-hover:hover { background-color: #3D0F0A; }
+        .sidebar-active { background-color: #C3110C; }
         .content-bg { background-color: #F8FAFC; }
 
         /* Sortable drag styles */
