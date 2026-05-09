@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::directive('localized', function ($expression) {
             // Usage: @localized($post, 'title')
-            return "<?php echo \\App\\Helpers\\LocalizeHelper::field({$expression}); ?>";
+            return "<?php echo e(\\App\\Helpers\\LocalizeHelper::field({$expression})); ?>";
         });
     }
 
