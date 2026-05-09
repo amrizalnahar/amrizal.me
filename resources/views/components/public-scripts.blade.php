@@ -41,7 +41,9 @@
   if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
   if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileMenu);
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeMobileMenu();
+    if (e.key === 'Escape' && mobileBackdrop && !mobileBackdrop.classList.contains('hidden')) {
+      closeMobileMenu();
+    }
   });
 
   // Card scroll animation
