@@ -52,7 +52,7 @@ new #[Layout('layouts.guest')] class extends Component
         plainPassword: '',
         loading: false,
         error: '',
-        async doLogin() {
+        async doLogin($wire) {
             this.error = '';
             this.loading = true;
             try {
@@ -68,7 +68,7 @@ new #[Layout('layouts.guest')] class extends Component
                 this.loading = false;
             }
         }
-    }" x-on:submit.prevent="doLogin">
+    }" x-on:submit.prevent="doLogin($wire)">
         <!-- Hidden encrypted fields -->
         <input type="hidden" wire:model="form.password" name="password" id="encrypted-password">
         <input type="hidden" wire:model="encryptionKeyId" name="encryption_key_id" id="encryption-key-id">

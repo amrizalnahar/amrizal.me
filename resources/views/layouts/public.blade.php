@@ -1,6 +1,6 @@
 {{-- resources/views/layouts/public.blade.php --}}
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}" class="scroll-smooth">
+<html x-data x-bind:lang="$store.i18n.locale" lang="{{ app()->getLocale() }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,16 @@
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('structured_data')
+
+    <script>
+        window.initialLocale = '{{ app()->getLocale() }}';
+        window.translations = {
+            id: @json(__('public', [], 'id')),
+            en: @json(__('public', [], 'en'))
+        };
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

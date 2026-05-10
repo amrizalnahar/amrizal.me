@@ -129,7 +129,7 @@
                                class="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary-600 file:text-white hover:file:bg-primary-900">
                         <p class="mt-1 text-xs text-neutral-400">Format: JPG, PNG, WEBP. Maksimal 2MB.</p>
                         <x-input-error :messages="$errors->get('thumbnail')" class="mt-1" />
-                        <div wire:loading wire:target="thumbnail" class="mt-2 text-sm text-primary-600">Mengunggah...</div>
+                        <div wire:loading.class.remove="hidden" wire:target="thumbnail" class="hidden mt-2 text-sm text-primary-600">Mengunggah...</div>
                     </div>
                 </div>
             </div>

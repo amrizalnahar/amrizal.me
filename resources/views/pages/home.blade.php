@@ -10,18 +10,18 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
             <div class="flex-1 text-center md:text-left">
-                <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase">{{ __('public.home.hero_subtitle') }}</p>
-                <h1 class="text-4xl md:text-6xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">
+                <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase" data-i18n="home.hero_subtitle">{{ __('public.home.hero_subtitle') }}</p>
+                <h1 class="text-4xl md:text-6xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance" data-i18n-html="home.hero_title">
                     {!! __('public.home.hero_title') !!}
                 </h1>
-                <p class="mt-4 text-lg md:text-xl text-neutral-600 dark:text-neutral-300 max-w-xl mx-auto md:mx-0 text-balance">
+                <p class="mt-4 text-lg md:text-xl text-neutral-600 dark:text-neutral-300 max-w-xl mx-auto md:mx-0 text-balance" data-i18n="home.hero_description">
                     {{ __('public.home.hero_description') }}
                 </p>
                 <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
-                    <a href="/portfolio" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-white bg-primary-600 hover:bg-primary-900 shadow-sm hover:shadow-md transition-all">
+                    <a href="/portfolio" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-white bg-primary-600 hover:bg-primary-900 shadow-sm hover:shadow-md transition-all" data-i18n="home.cta_portfolio">
                         {{ __('public.home.cta_portfolio') }}
                     </a>
-                    <a href="/about" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-neutral-700 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:bg-primary-600/5 transition-all">
+                    <a href="/about" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-neutral-700 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:bg-primary-600/5 transition-all" data-i18n="home.cta_about">
                         {{ __('public.home.cta_about') }}
                     </a>
                 </div>
@@ -42,11 +42,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between mb-10">
             <div>
-                <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white">{{ __('public.home.featured_projects_title') }}</h2>
-                <p class="mt-2 text-neutral-600 dark:text-neutral-300">{{ __('public.home.featured_projects_desc') }}</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white" data-i18n="home.featured_projects_title">{{ __('public.home.featured_projects_title') }}</h2>
+                <p class="mt-2 text-neutral-600 dark:text-neutral-300" data-i18n="home.featured_projects_desc">{{ __('public.home.featured_projects_desc') }}</p>
             </div>
             <a href="/portfolio" class="hidden md:inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors">
-                {{ __('public.common.see_all') }}
+                <span data-i18n="common.see_all">{{ __('public.common.see_all') }}</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
         </div>
@@ -142,11 +142,11 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between mb-10">
             <div>
-                <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white">{{ __('public.home.latest_articles_title') }}</h2>
-                <p class="mt-2 text-neutral-600 dark:text-neutral-300">{{ __('public.home.latest_articles_desc') }}</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white" data-i18n="home.latest_articles_title">{{ __('public.home.latest_articles_title') }}</h2>
+                <p class="mt-2 text-neutral-600 dark:text-neutral-300" data-i18n="home.latest_articles_desc">{{ __('public.home.latest_articles_desc') }}</p>
             </div>
             <a href="/blog" class="hidden md:inline-flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-900 transition-colors">
-                {{ __('public.common.see_all') }}
+                <span data-i18n="common.see_all">{{ __('public.common.see_all') }}</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </a>
         </div>
@@ -161,7 +161,7 @@
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-3">
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">Workflow</span>
-                        <span class="text-xs text-neutral-500 dark:text-neutral-400">5 {{ __('public.common.min_read') }}</span>
+                        <span class="text-xs text-neutral-500 dark:text-neutral-400">5 <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
                     </div>
                     <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2">Setup Cursor IDE untuk Laravel Development</h3>
                     <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2">Konfigurasi Cursor dengan rules dan custom commands untuk scaffolding Laravel lebih cepat.</p>
@@ -177,7 +177,7 @@
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-3">
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">Case Study</span>
-                        <span class="text-xs text-neutral-500 dark:text-neutral-400">8 {{ __('public.common.min_read') }}</span>
+                        <span class="text-xs text-neutral-500 dark:text-neutral-400">8 <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
                     </div>
                     <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2">Dari Spreadsheet ke Dashboard: Redesign Laporan Operasional</h3>
                     <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2">Breakdown proses analisis, perancangan data flow, dan development dashboard internal dengan Laravel.</p>
@@ -193,7 +193,7 @@
                 <div class="p-6">
                     <div class="flex items-center gap-2 mb-3">
                         <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">Insight</span>
-                        <span class="text-xs text-neutral-500 dark:text-neutral-400">6 {{ __('public.common.min_read') }}</span>
+                        <span class="text-xs text-neutral-500 dark:text-neutral-400">6 <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
                     </div>
                     <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2">Kenapa System Analyst Perlu Bisa Coding di 2026</h3>
                     <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2">Refleksi tentang perubahan peran System Analyst di era AI dan mengapa kemampuan eksekusi kode jadi krusial.</p>
@@ -207,11 +207,11 @@
 <!-- CTA Section -->
 <section class="py-16 md:py-24 bg-gradient-to-br from-primary-950 via-primary-900 to-primary-600">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-white">{{ __('public.home.cta_section_title') }}</h2>
-        <p class="mt-4 text-lg text-white/80 text-balance">{{ __('public.home.cta_section_desc') }}</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-white" data-i18n="home.cta_section_title">{{ __('public.home.cta_section_title') }}</h2>
+        <p class="mt-4 text-lg text-white/80 text-balance" data-i18n="home.cta_section_desc">{{ __('public.home.cta_section_desc') }}</p>
         <div class="mt-8 flex flex-wrap justify-center gap-3">
-            <a href="/contact" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-primary-900 bg-white hover:bg-neutral-100 shadow-sm transition-all">{{ __('public.home.cta_contact') }}</a>
-            <a href="/about" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-white border border-white/30 hover:bg-white/10 transition-all">{{ __('public.home.cta_learn_more') }}</a>
+            <a href="/contact" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-primary-900 bg-white hover:bg-neutral-100 shadow-sm transition-all" data-i18n="home.cta_contact">{{ __('public.home.cta_contact') }}</a>
+            <a href="/about" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-white border border-white/30 hover:bg-white/10 transition-all" data-i18n="home.cta_learn_more">{{ __('public.home.cta_learn_more') }}</a>
         </div>
     </div>
 </section>

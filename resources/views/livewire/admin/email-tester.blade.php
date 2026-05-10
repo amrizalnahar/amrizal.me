@@ -23,12 +23,12 @@
             <div class="flex gap-3">
                 @can('system-email-tester')
                 <button wire:click="sendSuccess" wire:loading.attr="disabled" wire:target="sendSuccess" class="flex-1 inline-flex items-center justify-center gap-2 px-4 h-10 bg-primary-600 text-white text-sm font-medium rounded-md hover:bg-primary-900 transition-colors disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap">
-                    <span wire:loading wire:target="sendSuccess" class="whitespace-nowrap">Memproses...</span>
-                    <span wire:loading.remove wire:target="sendSuccess" class="whitespace-nowrap">Kirim Sukses</span>
+                    <span wire:loading.class="hidden" wire:target="sendSuccess" class="whitespace-nowrap">Kirim Sukses</span>
+                    <span wire:loading.class.remove="hidden" wire:target="sendSuccess" class="hidden whitespace-nowrap">Memproses...</span>
                 </button>
                 <button wire:click="simulateFail" wire:loading.attr="disabled" wire:target="simulateFail" class="flex-1 inline-flex items-center justify-center gap-2 px-4 h-10 bg-red-50 text-red-600 text-sm font-medium rounded-md hover:bg-red-100 transition-colors disabled:opacity-70 disabled:cursor-not-allowed whitespace-nowrap">
-                    <span wire:loading wire:target="simulateFail" class="whitespace-nowrap">Memproses...</span>
-                    <span wire:loading.remove wire:target="simulateFail" class="whitespace-nowrap">Simulasi Gagal</span>
+                    <span wire:loading.class="hidden" wire:target="simulateFail" class="whitespace-nowrap">Simulasi Gagal</span>
+                    <span wire:loading.class.remove="hidden" wire:target="simulateFail" class="hidden whitespace-nowrap">Memproses...</span>
                 </button>
                 @endcan
             </div>

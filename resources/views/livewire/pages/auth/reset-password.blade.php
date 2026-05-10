@@ -151,7 +151,7 @@ new #[Layout('layouts.guest')] class extends Component
             plainPasswordConfirmation: '',
             loading: false,
             error: '',
-            async doReset() {
+            async doReset($wire) {
                 this.error = '';
                 this.loading = true;
                 try {
@@ -173,7 +173,7 @@ new #[Layout('layouts.guest')] class extends Component
                     this.loading = false;
                 }
             }
-        }" x-on:submit.prevent="doReset">
+        }" x-on:submit.prevent="doReset($wire)">
             <!-- Hidden encrypted fields -->
             <input type="hidden" wire:model="password" name="password" id="encrypted-password">
             <input type="hidden" wire:model="password_confirmation" name="password_confirmation" id="encrypted-password-confirmation">

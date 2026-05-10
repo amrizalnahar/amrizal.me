@@ -56,15 +56,16 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('/feed.xml', RssController::class)->name('rss');
 
-Route::get('/locale/{locale}', function (string $locale) {
+Route::post('/locale', function () {
+    $locale = request('locale');
     if (! in_array($locale, ['id', 'en'])) {
-        abort(400);
+        return response()->json(['success' => false], 400);
     }
 
     session(['locale' => $locale]);
     app()->setLocale($locale);
 
-    return back();
+    return response()->json(['success' => true, 'locale' => $locale]);
 })->name('locale.switch');
 
 Route::get('/auth/public-key', PublicKeyController::class)

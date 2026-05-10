@@ -48,8 +48,8 @@ new #[Layout('layouts.guest')] class extends Component
 
     <div class="mt-4 flex items-center justify-between">
         <x-primary-button wire:click="sendVerification" wire:loading.attr="disabled" class="whitespace-nowrap h-10">
-            <span wire:loading class="whitespace-nowrap">Mengirim...</span>
-            <span wire:loading.remove class="whitespace-nowrap">{{ __('Resend Verification Email') }}</span>
+            <span wire:loading.class="hidden" class="whitespace-nowrap">{{ __('Resend Verification Email') }}</span>
+            <span wire:loading.class.remove="hidden" class="hidden whitespace-nowrap">Mengirim...</span>
         </x-primary-button>
 
         <button wire:click="logout" type="submit" class="underline text-sm text-neutral-600 hover:text-neutral-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-600">

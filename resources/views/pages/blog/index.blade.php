@@ -9,11 +9,11 @@
 <section class="pt-32 pb-12 md:pt-40 md:pb-16">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl">
-            <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase">{{ __('public.blog.page_title') }}</p>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">
+            <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase" data-i18n="blog.page_title">{{ __('public.blog.page_title') }}</p>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance" data-i18n="blog.hero_title">
                 {{ __('public.blog.hero_title') }}
             </h1>
-            <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 text-balance">
+            <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 text-balance" data-i18n="blog.hero_desc">
                 {{ __('public.blog.hero_desc') }}
             </p>
         </div>
@@ -25,7 +25,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div class="flex flex-wrap gap-2" id="blog-filters">
-                <button data-filter="all" class="px-4 py-1.5 rounded-full text-sm font-medium bg-primary-600 text-white transition-colors">{{ __('public.common.all') }}</button>
+                <button data-filter="all" class="px-4 py-1.5 rounded-full text-sm font-medium bg-primary-600 text-white transition-colors" data-i18n="common.all">{{ __('public.common.all') }}</button>
                 @foreach ($categories as $category)
                     <button data-filter="{{ $category->slug }}" class="px-4 py-1.5 rounded-full text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">{{ $category->name }}</button>
                 @endforeach
@@ -58,7 +58,7 @@
                             @if ($post->category)
                                 <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->name }}</span>
                             @endif
-                            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} {{ __('public.common.min_read') }}</span>
+                            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
                         </div>
                         <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 group-hover:underline transition-colors line-clamp-2">{{ $post->localize('title') }}</h3>
                         <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2">{{ \Illuminate\Support\Str::limit(strip_tags($post->localize('content')), 150) }}</p>
@@ -66,11 +66,11 @@
                     </div>
                 </a>
             @empty
-                <div id="blog-empty" class="col-span-full text-center py-12 text-neutral-500">{{ __('public.blog.no_articles') }}</div>
+                <div id="blog-empty" class="col-span-full text-center py-12 text-neutral-500" data-i18n="blog.no_articles">{{ __('public.blog.no_articles') }}</div>
             @endforelse
         </div>
 
-        <div id="blog-no-results" class="hidden col-span-full text-center py-12 text-neutral-500">
+        <div id="blog-no-results" class="hidden col-span-full text-center py-12 text-neutral-500" data-i18n="blog.no_results">
             {{ __('public.blog.no_results') }}
         </div>
 
