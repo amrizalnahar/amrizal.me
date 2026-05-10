@@ -5,7 +5,7 @@
     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="text-center md:text-left">
         <a href="/" class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">amrizal<span class="text-primary-600">.</span>me</a>
-        <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400">{{ __('public.footer.tagline') }}</p>
+        <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400" data-i18n="footer.tagline">{{ __('public.footer.tagline') }}</p>
       </div>
       <div class="flex items-center gap-6">
         <a href="{{ $github }}" class="text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors" aria-label="GitHub">
@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="mt-8 pt-8 border-t border-neutral-200 dark:border-neutral-800 text-center">
-      <p class="text-sm text-neutral-500 dark:text-neutral-400">&copy; <span id="year"></span> Amrizal. All rights reserved.</p>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400">&copy; <span id="year"></span> Amrizal. <span data-i18n="footer.copyright">{{ __('public.footer.copyright') }}</span></p>
     </div>
   </div>
 </footer>

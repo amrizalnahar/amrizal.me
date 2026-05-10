@@ -92,8 +92,8 @@ new #[Layout('layouts.guest')] class extends Component
             </a>
 
             <x-primary-button wire:loading.attr="disabled" class="whitespace-nowrap h-10">
-                <span wire:loading class="whitespace-nowrap">Memproses...</span>
-                <span wire:loading.remove class="whitespace-nowrap">Kirim Link Reset</span>
+                <span wire:loading.class="hidden" class="whitespace-nowrap">Kirim Link Reset</span>
+                <span wire:loading.class.remove="hidden" class="hidden whitespace-nowrap">Memproses...</span>
             </x-primary-button>
         </div>
     </form>
