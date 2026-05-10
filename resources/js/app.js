@@ -29,7 +29,17 @@ document.addEventListener('alpine:init', () => {
         setLocale(locale) {
             if (!['id', 'en'].includes(locale) || this.locale === locale) return;
 
-            // Persist to session via POST
+            this.locale = locale;
+            document.documentElement.lang = locale;
+            localStorage.setItem('locale', locale);
+
+            // Update all i18n-marked elements for instant feedback
+            this.updateElements();
+
+            // Notify other scripts
+            window.dispatchEvent(new CustomEvent('locale-changed', { detail: locale }));
+
+            // Persist to session then reload to re-render server-side bilingual content
             fetch('/locale', {
                 method: 'POST',
                 headers: {
@@ -37,17 +47,9 @@ document.addEventListener('alpine:init', () => {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
                 },
                 body: JSON.stringify({ locale })
-            }).catch(() => {});
-
-            this.locale = locale;
-            document.documentElement.lang = locale;
-            localStorage.setItem('locale', locale);
-
-            // Update all i18n-marked elements
-            this.updateElements();
-
-            // Notify other scripts
-            window.dispatchEvent(new CustomEvent('locale-changed', { detail: locale }));
+            }).catch(() => {}).finally(() => {
+                window.location.reload();
+            });
         },
 
         updateElements() {
