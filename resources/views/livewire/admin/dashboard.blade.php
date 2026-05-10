@@ -60,6 +60,141 @@
         </div>
     </div>
 
+    <!-- Visitor Chart -->
+    @if(Schema::hasTable('visitors'))
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 mb-6" x-data="{ chart: null }" x-init="
+            const ctx = $refs.chartCanvas.getContext('2d');
+            const stats = @js($this->visitorStats);
+
+            if (stats.length === 0) return;
+
+            if (chart) chart.destroy();
+
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: stats.map(s => s.date_label),
+                    datasets: [
+                        {
+                            label: 'Total Kunjungan',
+                            data: stats.map(s => s.total),
+                            borderColor: '#1A6FAA',
+                            backgroundColor: 'rgba(26, 111, 170, 0.08)',
+                            borderWidth: 2,
+                            pointRadius: 3,
+                            pointHoverRadius: 5,
+                            fill: true,
+                            tension: 0.4,
+                        },
+                        {
+                            label: 'Unique Visitor',
+                            data: stats.map(s => s.unique),
+                            borderColor: '#2E7D52',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [6, 4],
+                            pointRadius: 3,
+                            pointHoverRadius: 5,
+                            fill: false,
+                            tension: 0.4,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 16,
+                                font: { size: 12 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(40, 9, 5, 0.9)',
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 12 },
+                            padding: 10,
+                            cornerRadius: 8,
+                            displayColors: true,
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 11 }, color: '#737373' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: { precision: 0, font: { size: 11 }, color: '#737373' },
+                            grid: { color: '#f5f5f5' },
+                            border: { display: false }
+                        }
+                    }
+                }
+            });
+        ">
+            <div class="px-5 py-4 border-b border-neutral-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <h3 class="font-semibold text-neutral-800">Statistik Pengunjung</h3>
+                <div class="inline-flex rounded-lg border border-neutral-200 overflow-hidden">
+                    <button
+                        wire:click="$set('visitorRange', '7')"
+                        @class([
+                            'px-3 py-1.5 text-xs font-medium transition-colors',
+                            $visitorRange === '7' ? 'bg-primary-600 text-white' : 'bg-white text-neutral-600 hover:bg-neutral-50'
+                        ])
+                    >7 Hari</button>
+                    <button
+                        wire:click="$set('visitorRange', '30')"
+                        @class([
+                            'px-3 py-1.5 text-xs font-medium transition-colors border-l border-neutral-200',
+                            $visitorRange === '30' ? 'bg-primary-600 text-white' : 'bg-white text-neutral-600 hover:bg-neutral-50'
+                        ])
+                    >30 Hari</button>
+                </div>
+            </div>
+            <div class="p-5">
+                @php
+                    $visitorStats = $this->visitorStats;
+                    $hasData = count($visitorStats) > 0 && collect($visitorStats)->sum('total') > 0;
+                @endphp
+
+                @if($hasData)
+                    <div style="height: 300px;">
+                        <canvas x-ref="chartCanvas"></canvas>
+                    </div>
+                    <div class="mt-4 flex items-center gap-6 text-sm">
+                        @php
+                            $totalVisits = collect($visitorStats)->sum('total');
+                            $avgVisits = round($totalVisits / count($visitorStats), 1);
+                        @endphp
+                        <div>
+                            <span class="text-neutral-500">Total:</span>
+                            <span class="font-semibold text-neutral-800 ml-1">{{ number_format($totalVisits) }}</span>
+                        </div>
+                        <div>
+                            <span class="text-neutral-500">Rata-rata/hari:</span>
+                            <span class="font-semibold text-neutral-800 ml-1">{{ $avgVisits }}</span>
+                        </div>
+                    </div>
+                @else
+                    <div class="py-12 text-center">
+                        <div class="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mx-auto mb-3">
+                            <svg class="w-6 h-6 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <p class="text-sm text-neutral-500">Belum ada data pengunjung untuk periode ini.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    @endif
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Aktivitas Terakhir -->
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200">
