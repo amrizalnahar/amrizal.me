@@ -63,7 +63,7 @@
                                class="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary-600 file:text-white hover:file:bg-primary-900">
                         <p class="mt-1 text-xs text-neutral-400">Format: JPG, PNG, WEBP. Maksimal 5MB.</p>
                         <x-input-error :messages="$errors->get('photo')" class="mt-1" />
-                        <div wire:loading wire:target="photo" class="mt-2 text-sm text-primary-600">Mengunggah...</div>
+                        <div wire:loading.class.remove="hidden" wire:target="photo" class="hidden mt-2 text-sm text-primary-600">Mengunggah...</div>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                                class="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary-600 file:text-white hover:file:bg-primary-900">
                         <p class="mt-1 text-xs text-neutral-400">Format: PDF. Maksimal 10MB.</p>
                         <x-input-error :messages="$errors->get('cv_id')" class="mt-1" />
-                        <div wire:loading wire:target="cv_id" class="mt-2 text-sm text-primary-600">Mengunggah...</div>
+                        <div wire:loading.class.remove="hidden" wire:target="cv_id" class="hidden mt-2 text-sm text-primary-600">Mengunggah...</div>
                     </div>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                                class="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-primary-600 file:text-white hover:file:bg-primary-900">
                         <p class="mt-1 text-xs text-neutral-400">Format: PDF. Maksimal 10MB.</p>
                         <x-input-error :messages="$errors->get('cv_en')" class="mt-1" />
-                        <div wire:loading wire:target="cv_en" class="mt-2 text-sm text-primary-600">Mengunggah...</div>
+                        <div wire:loading.class.remove="hidden" wire:target="cv_en" class="hidden mt-2 text-sm text-primary-600">Mengunggah...</div>
                     </div>
                 </div>
             </div>
