@@ -23,6 +23,8 @@ class UserForm extends Component
     public string $role = '';
     public bool $is_active = true;
 
+    public bool $invitationSent = false;
+
     public function mount(?User $user = null): void
     {
         if ($user && $user->exists) {
@@ -97,11 +99,24 @@ class UserForm extends Component
     public function sendInvitation(): void
     {
         if (! $this->user) {
+            $this->dispatch('notify', type: 'error', message: 'User tidak ditemukan.');
+
             return;
         }
 
-        Mail::to($this->user->email)->queue(new UserInvitation($this->user));
-        $this->dispatch('notify', type: 'success', message: "Undangan telah dikirim ke {$this->user->email}.");
+        if (empty($this->user->email)) {
+            $this->dispatch('notify', type: 'error', message: 'User tidak memiliki alamat email.');
+
+            return;
+        }
+
+        try {
+            Mail::to($this->user->email)->queue(new UserInvitation($this->user));
+            $this->invitationSent = true;
+            $this->dispatch('notify', type: 'success', message: "Undangan telah dikirim ke {$this->user->email}.");
+        } catch (\Exception $e) {
+            $this->dispatch('notify', type: 'error', message: 'Gagal mengirim undangan. Silakan coba lagi.');
+        }
     }
 
     public function render()
