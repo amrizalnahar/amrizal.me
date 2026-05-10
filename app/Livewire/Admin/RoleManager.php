@@ -111,6 +111,12 @@ class RoleManager extends Component
             return;
         }
 
+        if ($role->users()->count() > 0) {
+            $this->deleteError = 'Role ini tidak bisa dihapus karena masih digunakan oleh user.';
+
+            return;
+        }
+
         $role->delete();
         $this->confirmingDelete = null;
         $this->deleteError = null;
