@@ -164,5 +164,7 @@
     <x-public-scripts />
 
     @stack('scripts')
+
+    @livewireScripts
 </body>
 </html>

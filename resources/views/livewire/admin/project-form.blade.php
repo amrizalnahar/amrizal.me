@@ -48,6 +48,11 @@
                         <x-text-input id="period" wire:model="period" type="text" class="mt-1 block w-full" placeholder="Jan 2023 — Des 2023" />
                         <x-input-error :messages="$errors->get('period')" class="mt-1" />
                     </div>
+                    <div>
+                        <x-input-label for="role" value="Peran / Role" />
+                        <x-text-input id="role" wire:model="role" type="text" class="mt-1 block w-full" placeholder="Contoh: Lead System Analyst" />
+                        <x-input-error :messages="$errors->get('role')" class="mt-1" />
+                    </div>
                 </div>
             </div>
 

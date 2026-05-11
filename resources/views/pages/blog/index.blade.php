@@ -70,8 +70,9 @@
             @endforelse
         </div>
 
-        <div id="blog-no-results" class="hidden col-span-full text-center py-12 text-neutral-500" data-i18n="blog.no_results">
-            {{ __('public.blog.no_results') }}
+        <div id="blog-no-results" class="hidden col-span-full text-center py-16">
+            <svg class="w-12 h-12 mx-auto text-neutral-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            <p class="text-neutral-500 dark:text-neutral-400" data-i18n="blog.no_results">{{ __('public.blog.no_results') }}</p>
         </div>
 
         <!-- Pagination -->
