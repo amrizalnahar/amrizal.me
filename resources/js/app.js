@@ -47,9 +47,9 @@ document.addEventListener('alpine:init', () => {
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
                 },
                 body: JSON.stringify({ locale })
-            }).catch(() => {}).finally(() => {
-                window.location.reload();
-            });
+            }).then(res => {
+                if (res.ok) window.location.reload();
+            }).catch(() => {});
         },
 
         updateElements() {
@@ -72,8 +72,9 @@ document.addEventListener('alpine:init', () => {
     });
 
     // Restore locale from localStorage if different from server-rendered locale
+    // Skip on admin pages — no bilingual content there, reload is unnecessary
     const stored = localStorage.getItem('locale');
-    if (stored && stored !== window.initialLocale) {
+    if (stored && stored !== window.initialLocale && !window.location.pathname.startsWith('/admin')) {
         window.Alpine.store('i18n').setLocale(stored);
     }
 });

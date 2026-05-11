@@ -22,7 +22,7 @@
     <div class="mt-6 pt-4 border-t border-neutral-200 dark:border-neutral-800">
       <div class="flex items-center gap-2">
         <span class="text-xs text-neutral-500 dark:text-neutral-400" data-i18n="language">{{ __('public.language') }}:</span>
-        <div class="flex items-center bg-neutral-100 dark:bg-neutral-800 rounded-full p-0.5">
+        <div class="flex items-center bg-neutral-100 dark:bg-neutral-800 rounded-full p-0.5" x-data="{}">
           <button @click="$store.i18n.setLocale('id')" :class="$store.i18n.locale === 'id' ? 'bg-primary-600 text-white' : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors'" class="px-2.5 py-1 rounded-full text-xs font-medium">ID</button>
           <button @click="$store.i18n.setLocale('en')" :class="$store.i18n.locale === 'en' ? 'bg-primary-600 text-white' : 'text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors'" class="px-2.5 py-1 rounded-full text-xs font-medium">EN</button>
         </div>

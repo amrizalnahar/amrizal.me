@@ -26,7 +26,7 @@ $addSection('portfolio', 'Portfolio', false, [
     ['label' => 'Keahlian', 'url' => route('admin.skills'), 'icon' => 'wrench-screwdriver', 'active' => request()->routeIs('admin.skills')],
     ['label' => 'Proyek', 'url' => route('admin.projects'), 'icon' => 'folder-open', 'active' => request()->routeIs('admin.projects*')],
     ['label' => 'Sertifikat', 'url' => route('admin.certificates'), 'icon' => 'document-check', 'active' => request()->routeIs('admin.certificates*')],
-    ['label' => 'Kontak', 'url' => route('admin.contacts'), 'icon' => 'envelope', 'active' => request()->routeIs('admin.contacts*')],
+    ['label' => 'Pesan Kontak', 'url' => route('admin.contacts'), 'icon' => 'envelope', 'active' => request()->routeIs('admin.contacts*')],
 ]);
 
 $addSection('blog', 'Blog', false, [
@@ -130,7 +130,7 @@ $addSection('monitoring', 'Monitoring', false, [
                 @focus="searchFocused = true"
                 @blur="searchFocused = false"
                 type="text"
-                placeholder="Cari menu... (/))"
+                placeholder="Cari menu... (/)"
                 class="w-full bg-[#3D0F0A] border border-[#5C2420] rounded-lg pl-8 pr-3 py-1.5 text-sm text-[#E8D5D3] placeholder-[#A37D7A] focus:outline-none focus:border-[#C3110C] focus:ring-1 focus:ring-[#C3110C]"
             >
         </div>

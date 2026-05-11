@@ -139,6 +139,12 @@
                     </div>
                 </article>
             @endforelse
+
+            <!-- Empty State: Projects -->
+            <div id="projects-empty" class="hidden col-span-full py-16 text-center">
+                <svg class="w-12 h-12 mx-auto text-neutral-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <p class="text-neutral-500 dark:text-neutral-400" data-i18n="portfolio.no_results">{{ __('public.portfolio.no_results') }}</p>
+            </div>
         </div>
     </div>
 </section>
@@ -223,6 +229,12 @@
                     </div>
                 </div>
             @endforelse
+
+            <!-- Empty State: Certificates -->
+            <div id="certificates-empty" class="hidden col-span-full py-16 text-center">
+                <svg class="w-12 h-12 mx-auto text-neutral-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                <p class="text-neutral-500 dark:text-neutral-400" data-i18n="portfolio.no_results">{{ __('public.portfolio.no_results') }}</p>
+            </div>
         </div>
     </div>
 </section>
@@ -268,11 +280,25 @@
 
     // Search
     const searchInput = document.getElementById('portfolio-search-input');
+    const projectsEmpty = document.getElementById('projects-empty');
+    const certificatesEmpty = document.getElementById('certificates-empty');
+
+    function updateEmptyStates() {
+        const projectCards = document.querySelectorAll('#projects-grid > article, #projects-grid > a');
+        const certificateCards = document.querySelectorAll('#certificates-grid > div.card-animate');
+
+        const anyProjectVisible = Array.from(projectCards).some(c => c.style.display !== 'none');
+        const anyCertificateVisible = Array.from(certificateCards).some(c => c.style.display !== 'none');
+
+        if (projectsEmpty) projectsEmpty.classList.toggle('hidden', anyProjectVisible);
+        if (certificatesEmpty) certificatesEmpty.classList.toggle('hidden', anyCertificateVisible);
+    }
+
     if (searchInput) {
         searchInput.addEventListener('input', function() {
             const query = this.value.toLowerCase().trim();
             const projectCards = document.querySelectorAll('#projects-grid > article, #projects-grid > a');
-            const certificateCards = document.querySelectorAll('#certificates-grid > div');
+            const certificateCards = document.querySelectorAll('#certificates-grid > div.card-animate');
 
             projectCards.forEach(card => {
                 const text = card.textContent.toLowerCase();
@@ -283,6 +309,8 @@
                 const text = card.textContent.toLowerCase();
                 card.style.display = text.includes(query) ? '' : 'none';
             });
+
+            updateEmptyStates();
         });
     }
 })();

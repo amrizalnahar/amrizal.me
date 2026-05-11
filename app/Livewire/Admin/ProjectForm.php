@@ -25,6 +25,7 @@ class ProjectForm extends Component
     public string $full_description_id = '';
     public string $full_description_en = '';
     public string $period = '';
+    public string $role = '';
     public string $demo_url = '';
     public string $repo_url = '';
     public $thumbnail = null;
@@ -51,6 +52,7 @@ class ProjectForm extends Component
             $this->full_description_id = $project->full_description_id ?? '';
             $this->full_description_en = $project->full_description_en ?? '';
             $this->period = $project->period ?? '';
+            $this->role = $project->role ?? '';
             $this->demo_url = $project->demo_url ?? '';
             $this->repo_url = $project->repo_url ?? '';
             $this->existingThumbnail = $project->thumbnail;
@@ -73,6 +75,7 @@ class ProjectForm extends Component
             'full_description_id' => ['nullable', 'string'],
             'full_description_en' => ['nullable', 'string'],
             'period' => ['nullable', 'string', 'max:255'],
+            'role' => ['nullable', 'string', 'max:255'],
             'demo_url' => ['nullable', 'url', 'max:255'],
             'repo_url' => ['nullable', 'url', 'max:255'],
             'thumbnail' => [
@@ -178,7 +181,8 @@ class ProjectForm extends Component
                 'short_description_en' => $this->short_description_en ?: null,
                 'full_description_id' => $this->full_description_id ?: null,
                 'full_description_en' => $this->full_description_en ?: null,
-                'period' => $this->period ?: null,
+                'period' => $this->period,
+                'role' => $this->role,
                 'demo_url' => $this->demo_url ?: null,
                 'repo_url' => $this->repo_url ?: null,
                 'thumbnail' => $thumbnailPath,
