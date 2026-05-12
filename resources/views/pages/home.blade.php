@@ -29,7 +29,11 @@
             <div class="shrink-0">
                 <div class="w-48 h-48 md:w-64 md:h-64 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-400 p-1 shadow-lg">
                     <div class="w-full h-full rounded-xl bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center overflow-hidden">
-                        <svg class="w-20 h-20 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        @if ($profile && $profile->photo)
+                            <img src="{{ Storage::url($profile->photo) }}" alt="Profile photo" class="w-full h-full object-cover">
+                        @else
+                            <svg class="w-20 h-20 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -55,7 +59,11 @@
                 <a href="/portfolio/{{ $project->slug }}" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="{{ $index + 1 }}">
                     <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                            @if ($project->thumbnail)
+                                <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }} thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            @else
+                                <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                            @endif
                         </div>
                         <div class="absolute top-3 left-3">
                             <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium {{ $project->type === 'pribadi' ? 'bg-primary-600/10 text-primary-600 border border-primary-600/20' : 'bg-primary-400/10 text-primary-400 border border-primary-400/20' }} backdrop-blur-sm">
@@ -151,55 +159,32 @@
             </a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {{-- Hardcoded placeholder article cards from prototype --}}
-            <a href="/blog" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="1">
-                <div class="aspect-[16/10] bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
-                    <div class="w-full h-full flex items-center justify-center">
-                        <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            @forelse ($latestPosts as $index => $post)
+                <a href="{{ route('blog.show', $post->slug) }}" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="{{ $index + 1 }}">
+                    <div class="aspect-[16/10] bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
+                        @if ($post->thumbnail)
+                            <img src="{{ Storage::url($post->thumbnail) }}" alt="{{ $post->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center">
+                                <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                            </div>
+                        @endif
                     </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">Workflow</span>
-                        <span class="text-xs text-neutral-500 dark:text-neutral-400">5 <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            @if ($post->category)
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->name }}</span>
+                            @endif
+                            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
+                        </div>
+                        <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2">{{ $post->localize('title') }}</h3>
+                        <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2">{{ \Illuminate\Support\Str::limit(strip_tags($post->localize('content')), 150) }}</p>
+                        <p class="mt-4 text-xs text-neutral-500 dark:text-neutral-400">{{ $post->published_at?->format('d M Y') }}</p>
                     </div>
-                    <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2">Setup Cursor IDE untuk Laravel Development</h3>
-                    <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2">Konfigurasi Cursor dengan rules dan custom commands untuk scaffolding Laravel lebih cepat.</p>
-                    <p class="mt-4 text-xs text-neutral-500 dark:text-neutral-400">7 Mei 2026</p>
-                </div>
-            </a>
-            <a href="/blog" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="2">
-                <div class="aspect-[16/10] bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
-                    <div class="w-full h-full flex items-center justify-center">
-                        <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">Case Study</span>
-                        <span class="text-xs text-neutral-500 dark:text-neutral-400">8 <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2">Dari Spreadsheet ke Dashboard: Redesign Laporan Operasional</h3>
-                    <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2">Breakdown proses analisis, perancangan data flow, dan development dashboard internal dengan Laravel.</p>
-                    <p class="mt-4 text-xs text-neutral-500 dark:text-neutral-400">1 Mei 2026</p>
-                </div>
-            </a>
-            <a href="/blog" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="3">
-                <div class="aspect-[16/10] bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
-                    <div class="w-full h-full flex items-center justify-center">
-                        <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">Insight</span>
-                        <span class="text-xs text-neutral-500 dark:text-neutral-400">6 <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
-                    </div>
-                    <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-2">Kenapa System Analyst Perlu Bisa Coding di 2026</h3>
-                    <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2">Refleksi tentang perubahan peran System Analyst di era AI dan mengapa kemampuan eksekusi kode jadi krusial.</p>
-                    <p class="mt-4 text-xs text-neutral-500 dark:text-neutral-400">20 April 2026</p>
-                </div>
-            </a>
+                </a>
+            @empty
+                <div class="col-span-full text-center py-12 text-neutral-500" data-i18n="blog.no_articles">{{ __('public.blog.no_articles') }}</div>
+            @endforelse
         </div>
     </div>
 </section>

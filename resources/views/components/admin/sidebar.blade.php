@@ -187,7 +187,7 @@ $addSection('monitoring', 'Monitoring', false, [
                                     </div>
                                     <span class="menu-label">{{ $item['label'] }}</span>
                                     @if($item['active'])
-                                        <div class="ml-auto w-1.5 h-1.5 rounded-full bg-[#E6501B]"></div>
+                                        <div x-bind:class="collapsed ? 'ml-2' : 'ml-auto'" class="w-1.5 h-1.5 rounded-full bg-[#E6501B]"></div>
                                     @endif
                                 </a>
                                 <!-- Tooltip (collapsed only) -->

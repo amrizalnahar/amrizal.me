@@ -4,7 +4,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="flex flex-col md:flex-row items-center justify-between gap-6">
       <div class="text-center md:text-left">
-        <a href="/" class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">amrizal<span class="text-primary-600">.</span>me</a>
+        <a href="/" class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">amrizal<span class="text-primary-600">.</span>site</a>
         <p class="mt-2 text-sm text-neutral-500 dark:text-neutral-400" data-i18n="footer.tagline">{{ __('public.footer.tagline') }}</p>
       </div>
       <div class="flex items-center gap-6">
