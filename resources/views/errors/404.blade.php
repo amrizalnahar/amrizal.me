@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('title', 'Halaman Tidak Ditemukan — ' . config('app.name'))
-@section('description', 'Halaman yang Anda cari tidak ditemukan. Kembali ke beranda amrizal.me.')
+@section('description', 'Halaman yang Anda cari tidak ditemukan. Kembali ke beranda amrizal.site.')
 
 @section('content')
 <div class="min-h-screen flex items-center justify-center pt-16 my-16">

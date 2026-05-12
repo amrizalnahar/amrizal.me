@@ -26,7 +26,7 @@
             @if ($post->category)
                 <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->name }}</span>
             @endif
-            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ $post->published_at?->format('d M Y') }} · {{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span> · <span class="inline-flex items-center gap-0.5"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg> {{ number_format($post->views) }} <span data-i18n="common.views">{{ __('public.common.views') }}</span></span></span>
+            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ $post->published_at?->format('d M Y') }} · {{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span> · <span class="inline-flex items-center gap-0.5">{{ number_format($post->views) }} <span data-i18n="common.views">{{ __('public.common.views') }}</span></span></span>
         </div>
         <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">{{ $post->localize('title') }}</h1>
         @if ($post->author?->name)

@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'amrizal.me — ' . __('public.home.hero_subtitle'))
+@section('title', 'amrizal.site — ' . __('public.home.hero_subtitle'))
 @section('description', 'Personal website of Amrizal — System Analyst & Builder. Analyzing systems, designing architecture, and building with code.')
 
 @section('content')
