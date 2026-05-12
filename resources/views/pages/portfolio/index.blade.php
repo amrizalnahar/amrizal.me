@@ -41,7 +41,7 @@
                 <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="{{ ($index % 3) + 1 }}">
                     <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
                         @if ($project->thumbnail)
-                            <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }}" class="w-full h-full object-cover">
+                            <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         @else
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>

@@ -51,8 +51,8 @@
 @if ($post->thumbnail)
 <section class="pb-10 md:pb-14">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="aspect-[16/9] bg-neutral-200 dark:bg-neutral-800 rounded-xl overflow-hidden flex items-center justify-center">
-            <img src="{{ Storage::url($post->thumbnail) }}" alt="{{ $post->localize('title') }}" class="w-full h-full object-cover">
+        <div class="aspect-[16/9] bg-neutral-200 dark:bg-neutral-800 rounded-xl overflow-hidden flex items-center justify-center group">
+            <img src="{{ Storage::url($post->thumbnail) }}" alt="{{ $post->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
     </div>
 </section>

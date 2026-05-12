@@ -108,14 +108,14 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>
                                 <label for="name" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1" data-i18n="contact.name">{{ __('public.contact.name') }}</label>
-                                <input type="text" id="name" name="name" value="{{ old('name') }}" required class="w-full px-4 py-2.5 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border @error('name') border-red-500 dark:border-red-500 @else border-neutral-200 dark:border-neutral-700 @enderror text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all" placeholder="{{ __('public.contact.name_placeholder') }}">
+                                <input type="text" id="name" name="name" value="{{ old('name') }}" class="w-full px-4 py-2.5 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border @error('name') border-red-500 dark:border-red-500 @else border-neutral-200 dark:border-neutral-700 @enderror text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all" placeholder="{{ __('public.contact.name_placeholder') }}">
                                 @error('name')
                                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1" data-i18n="contact.email_label">{{ __('public.contact.email_label') }}</label>
-                                <input type="email" id="email" name="email" value="{{ old('email') }}" required class="w-full px-4 py-2.5 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border @error('email') border-red-500 dark:border-red-500 @else border-neutral-200 dark:border-neutral-700 @enderror text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all" placeholder="{{ __('public.contact.email_placeholder') }}">
+                                <input type="text" id="email" name="email" value="{{ old('email') }}" class="w-full px-4 py-2.5 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border @error('email') border-red-500 dark:border-red-500 @else border-neutral-200 dark:border-neutral-700 @enderror text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all" placeholder="{{ __('public.contact.email_placeholder') }}">
                                 @error('email')
                                     <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                                 @enderror
@@ -123,14 +123,14 @@
                         </div>
                         <div>
                             <label for="subject" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1" data-i18n="contact.subject">{{ __('public.contact.subject') }}</label>
-                            <input type="text" id="subject" name="subject" value="{{ old('subject') }}" required class="w-full px-4 py-2.5 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border @error('subject') border-red-500 dark:border-red-500 @else border-neutral-200 dark:border-neutral-700 @enderror text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all" placeholder="{{ __('public.contact.subject_placeholder') }}">
+                            <input type="text" id="subject" name="subject" value="{{ old('subject') }}" class="w-full px-4 py-2.5 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border @error('subject') border-red-500 dark:border-red-500 @else border-neutral-200 dark:border-neutral-700 @enderror text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all" placeholder="{{ __('public.contact.subject_placeholder') }}">
                             @error('subject')
                                 <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                             @enderror
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1" data-i18n="contact.message">{{ __('public.contact.message') }}</label>
-                            <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2.5 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border @error('message') border-red-500 dark:border-red-500 @else border-neutral-200 dark:border-neutral-700 @enderror text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all resize-none" placeholder="{{ __('public.contact.message_placeholder') }}">{{ old('message') }}</textarea>
+                            <textarea id="message" name="message" rows="5" class="w-full px-4 py-2.5 rounded-md text-sm bg-neutral-100 dark:bg-neutral-800 border @error('message') border-red-500 dark:border-red-500 @else border-neutral-200 dark:border-neutral-700 @enderror text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:border-primary-600 focus:ring-2 focus:ring-primary-600/20 outline-none transition-all resize-none" placeholder="{{ __('public.contact.message_placeholder') }}">{{ old('message') }}</textarea>
                             @error('message')
                                 <p class="mt-1 text-xs text-red-600 dark:text-red-400">{{ $message }}</p>
                             @enderror
