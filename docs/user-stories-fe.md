@@ -1,4 +1,4 @@
-# User Story — Website Profil Pribadi amrizal.me
+# User Story — Website Profil Pribadi amrizal.site
 
 ---
 

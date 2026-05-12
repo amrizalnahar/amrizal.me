@@ -140,7 +140,7 @@ Ganti card proyek kedua dari:
             </div>
           </div>
           <div class="p-6">
-            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors">amrizal.me Personal Site</h3>
+            <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors">amrizal.site Personal Site</h3>
             <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-3">Website portofolio pribadi dengan fitur bilingual, dark mode, dan manajemen konten via panel admin.</p>
             <div class="mt-4 flex flex-wrap gap-2">
               <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700">Laravel</span>

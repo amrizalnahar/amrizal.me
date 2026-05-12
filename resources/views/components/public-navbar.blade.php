@@ -4,7 +4,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <a href="/" class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
-        amrizal<span class="text-primary-600">.</span>me
+        amrizal<span class="text-primary-600">.</span>site
       </a>
       <div class="hidden md:flex items-center gap-1">
         <a href="/" class="px-3 py-2 rounded-md text-sm font-medium {{ $active === 'home' ? 'text-primary-600 bg-primary-600/5' : 'text-neutral-600 dark:text-neutral-300 hover:text-primary-600 hover:bg-primary-600/5 transition-colors' }}" data-i18n="nav.home">{{ __('public.nav.home') }}</a>

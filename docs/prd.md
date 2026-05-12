@@ -1,4 +1,4 @@
-# Product Requirement Document — amrizal.me
+# Product Requirement Document — amrizal.site
 
 > **Version:** 1.0
 > **Date:** 2026-05-08
@@ -9,7 +9,7 @@
 
 ## 1. Ringkasan Produk
 
-**amrizal.me** adalah website profil pribadi bilingual (ID/EN) yang memposisikan Amrizal sebagai *System Analyst & AI-Native Developer*. Website ini terdiri dari:
+**amrizal.site** adalah website profil pribadi bilingual (ID/EN) yang memposisikan Amrizal sebagai *System Analyst & AI-Native Developer*. Website ini terdiri dari:
 
 - **Frontend Publik** — 6 halaman utama (Beranda, Tentang Saya, Portofolio, Blog, Kontak, 404)
 - **Panel Admin** — Dashboard + CRUD untuk semua konten dan konfigurasi

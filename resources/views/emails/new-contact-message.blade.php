@@ -41,7 +41,7 @@
             <a href="{{ url('/admin/contacts/' . $contact->id) }}" class="btn">Lihat di Admin</a>
         </div>
         <div class="footer">
-            &copy; {{ date('Y') }} amrizal.me — Dikirim otomatis oleh sistem.
+            &copy; {{ date('Y') }} amrizal.site — Dikirim otomatis oleh sistem.
         </div>
     </div>
 </body>
