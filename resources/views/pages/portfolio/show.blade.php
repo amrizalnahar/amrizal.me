@@ -50,7 +50,7 @@
 <!-- Thumbnail -->
 <section class="pb-10 md:pb-14">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="aspect-video bg-neutral-200 dark:bg-neutral-800 rounded-xl overflow-hidden flex items-center justify-center group">
+        <div class="card-animate aspect-video bg-neutral-200 dark:bg-neutral-800 rounded-xl overflow-hidden flex items-center justify-center group" data-delay="1">
             @if ($project->thumbnail)
                 <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             @else
