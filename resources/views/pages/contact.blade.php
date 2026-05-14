@@ -25,7 +25,7 @@
 
 <!-- Contact Content -->
 <section class="pb-16 md:pb-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto my-12 px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16">
             <!-- Contact Info -->
             <div class="lg:col-span-2 space-y-6">

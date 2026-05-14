@@ -1,9 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -12,10 +10,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('projects', function (Blueprint $table) {
-            $table->string('type')->change();
-        });
-
         if (DB::getDriverName() === 'pgsql') {
             DB::statement('ALTER TABLE projects DROP CONSTRAINT IF EXISTS projects_type_check');
         }
@@ -26,8 +20,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('projects', function (Blueprint $table) {
-            $table->enum('type', ['personal', 'office'])->change();
-        });
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement('ALTER TABLE projects ADD CONSTRAINT projects_type_check CHECK (type IN (\'personal\', \'office\'))');
+        }
     }
 };
