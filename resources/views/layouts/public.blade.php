@@ -56,6 +56,7 @@
         .card-animate[data-delay="2"] { transition-delay: 0.2s; }
         .card-animate[data-delay="3"] { transition-delay: 0.3s; }
         .card-animate[data-delay="4"] { transition-delay: 0.4s; }
+        .card-animate[data-delay="5"] { transition-delay: 0.5s; }
         .noise-overlay {
             position: fixed; inset: 0; pointer-events: none; z-index: 9998;
             opacity: 0.035;

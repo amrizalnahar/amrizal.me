@@ -21,7 +21,7 @@
 
 <!-- Filters -->
 <section id="portfolio-filters" class="pb-8">
-    <div class="max-w-7xl mx-auto my-6 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto my-12 px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div class="flex flex-wrap gap-2">
                 <button id="filter-all" class="px-4 py-1.5 rounded-full text-sm font-medium bg-primary-600 text-white" data-i18n="common.all">{{ __('public.common.all') }}</button>
