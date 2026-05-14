@@ -1,6 +1,6 @@
 @props(['active' => 'home'])
 
-<nav class="fixed top-0 left-0 right-0 z-40 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800">
+<nav class="fixed top-0 left-0 right-0 z-40 bg-white/75 dark:bg-white/[0.08] backdrop-blur-xl border-b border-white/20 dark:border-white/10">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <a href="/" class="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
