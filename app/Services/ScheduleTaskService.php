@@ -89,7 +89,7 @@ class ScheduleTaskService
         ]);
 
         try {
-            $output = new BufferedOutput();
+            $output = new BufferedOutput;
             $exitCode = Artisan::call($task->command, [], $output);
             $outputString = $output->fetch();
 

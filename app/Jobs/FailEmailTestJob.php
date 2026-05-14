@@ -16,14 +16,13 @@ class FailEmailTestJob implements ShouldQueue
 
     public function __construct(
         public string $recipient
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {
         throw new \Exception(
-            "[SMTP TESTER] Simulasi kegagalan pengiriman email ke {$this->recipient}. " .
-            "SMTP server merespons: 554 Transaction failed."
+            "[SMTP TESTER] Simulasi kegagalan pengiriman email ke {$this->recipient}. ".
+            'SMTP server merespons: 554 Transaction failed.'
         );
     }
 }

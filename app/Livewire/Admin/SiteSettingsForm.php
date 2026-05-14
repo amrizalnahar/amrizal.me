@@ -14,33 +14,51 @@ class SiteSettingsForm extends Component
     use WithFileUploads;
 
     public string $siteName = '';
+
     public string $siteDescription = '';
+
     public $siteLogo = null;
+
     public ?string $existingLogo = null;
+
     public $siteFavicon = null;
+
     public ?string $existingFavicon = null;
 
     public string $contactEmail = '';
+
     public string $contactPhone = '';
+
     public string $contactAddress = '';
 
     public string $mailFromAddress = '';
 
     public string $socialFacebook = '';
+
     public string $socialInstagram = '';
+
     public string $socialWhatsapp = '';
+
     public string $socialTiktok = '';
 
     public string $githubUrl = '';
+
     public string $linkedinUrl = '';
+
     public string $location = '';
+
     public string $contactWhatsapp = '';
+
     public string $defaultLanguage = 'id';
+
     public string $defaultTheme = 'light';
 
     public string $seoSiteName = '';
+
     public string $seoDescription = '';
+
     public string $seoAuthor = '';
+
     public string $ga4MeasurementId = '';
 
     public function mount(): void

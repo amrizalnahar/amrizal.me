@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Livewire\Admin;
 
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -24,10 +26,11 @@ class QueueMonitor extends Component
 
         if (! $job) {
             $this->dispatch('notify', type: 'error', message: 'Job tidak ditemukan.');
+
             return;
         }
 
-        \Illuminate\Support\Facades\Artisan::call('queue:retry', ['id' => $job->uuid]);
+        Artisan::call('queue:retry', ['id' => $job->uuid]);
 
         $this->dispatch('notify', type: 'success', message: 'Job failed berhasil di-retry.');
     }
@@ -38,10 +41,11 @@ class QueueMonitor extends Component
 
         if ($count === 0) {
             $this->dispatch('notify', type: 'warning', message: 'Tidak ada failed jobs untuk di-retry.');
+
             return;
         }
 
-        \Illuminate\Support\Facades\Artisan::call('queue:retry', ['id' => 'all']);
+        Artisan::call('queue:retry', ['id' => 'all']);
 
         $this->dispatch('notify', type: 'success', message: "{$count} failed jobs berhasil di-retry.");
     }
@@ -85,8 +89,8 @@ class QueueMonitor extends Component
                 'queue' => $job->queue,
                 'display_name' => $payload['displayName'] ?? 'Unknown',
                 'attempts' => $job->attempts,
-                'created_at' => $job->created_at ? \Carbon\Carbon::createFromTimestamp($job->created_at)->diffForHumans() : '-',
-                'created_at_exact' => $job->created_at ? \Carbon\Carbon::createFromTimestamp($job->created_at)->format('d M Y H:i:s') : '-',
+                'created_at' => $job->created_at ? Carbon::createFromTimestamp($job->created_at)->diffForHumans() : '-',
+                'created_at_exact' => $job->created_at ? Carbon::createFromTimestamp($job->created_at)->format('d M Y H:i:s') : '-',
             ];
         })->toArray();
     }
@@ -113,13 +117,13 @@ class QueueMonitor extends Component
                     ? round((($batch->total_jobs - $batch->pending_jobs) / $batch->total_jobs) * 100)
                     : 0,
                 'cancelled_at' => $batch->cancelled_at
-                    ? \Carbon\Carbon::createFromTimestamp($batch->cancelled_at)->format('d M Y H:i:s')
+                    ? Carbon::createFromTimestamp($batch->cancelled_at)->format('d M Y H:i:s')
                     : null,
                 'created_at' => $batch->created_at
-                    ? \Carbon\Carbon::createFromTimestamp($batch->created_at)->format('d M Y H:i:s')
+                    ? Carbon::createFromTimestamp($batch->created_at)->format('d M Y H:i:s')
                     : '-',
                 'finished_at' => $batch->finished_at
-                    ? \Carbon\Carbon::createFromTimestamp($batch->finished_at)->format('d M Y H:i:s')
+                    ? Carbon::createFromTimestamp($batch->finished_at)->format('d M Y H:i:s')
                     : null,
             ];
         })->toArray();
@@ -142,8 +146,8 @@ class QueueMonitor extends Component
                 'queue' => $job->queue,
                 'display_name' => $payload['displayName'] ?? 'Unknown',
                 'exception_preview' => $this->truncateException($job->exception, 150),
-                'failed_at' => \Carbon\Carbon::parse($job->failed_at)->diffForHumans(),
-                'failed_at_exact' => \Carbon\Carbon::parse($job->failed_at)->format('d M Y H:i:s'),
+                'failed_at' => Carbon::parse($job->failed_at)->diffForHumans(),
+                'failed_at_exact' => Carbon::parse($job->failed_at)->format('d M Y H:i:s'),
             ];
         })->toArray();
     }
@@ -157,7 +161,7 @@ class QueueMonitor extends Component
         $lines = explode("\n", $exception);
         $firstLine = $lines[0] ?? '';
 
-        return strlen($firstLine) > $length ? substr($firstLine, 0, $length) . '...' : $firstLine;
+        return strlen($firstLine) > $length ? substr($firstLine, 0, $length).'...' : $firstLine;
     }
 
     public function render()

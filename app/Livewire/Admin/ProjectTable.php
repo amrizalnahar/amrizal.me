@@ -15,12 +15,17 @@ class ProjectTable extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $statusFilter = '';
+
     public string $sortField = 'sort_order';
+
     public string $sortDirection = 'asc';
+
     public int $perPage = 10;
 
     public ?int $deleteId = null;
+
     public ?string $deleteTitle = null;
 
     public function updatingSearch(): void
@@ -55,9 +60,9 @@ class ProjectTable extends Component
             ->with('technologies')
             ->when($this->search, function ($q) {
                 $q->where(function ($sub) {
-                    $sub->where('title_id', 'like', '%' . $this->search . '%')
-                        ->orWhere('company_name', 'like', '%' . $this->search . '%')
-                        ->orWhere('type', 'like', '%' . $this->search . '%');
+                    $sub->where('title_id', 'like', '%'.$this->search.'%')
+                        ->orWhere('company_name', 'like', '%'.$this->search.'%')
+                        ->orWhere('type', 'like', '%'.$this->search.'%');
                 });
             })
             ->when($this->statusFilter, fn ($q) => $q->where('status', $this->statusFilter))

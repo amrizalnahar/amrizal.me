@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Computed;
@@ -15,14 +16,21 @@ class BeritaTable extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $statusFilter = '';
+
     public ?int $categoryFilter = null;
+
     public string $sortField = 'created_at';
+
     public string $sortDirection = 'desc';
+
     public int $perPage = 10;
 
     public array $selected = [];
+
     public ?int $deleteId = null;
+
     public ?string $deleteTitle = null;
 
     public function updatingSearch(): void
@@ -101,6 +109,7 @@ class BeritaTable extends Component
     {
         if (empty($this->selected)) {
             $this->dispatch('notify', type: 'error', message: 'Pilih minimal satu data.');
+
             return;
         }
 
@@ -114,13 +123,14 @@ class BeritaTable extends Component
         });
 
         $this->selected = [];
-        $this->dispatch('notify', type: 'success', message: $count . ' berita berhasil dihapus.');
+        $this->dispatch('notify', type: 'success', message: $count.' berita berhasil dihapus.');
     }
 
     public function bulkStatus(string $status): void
     {
         if (empty($this->selected)) {
             $this->dispatch('notify', type: 'error', message: 'Pilih minimal satu data.');
+
             return;
         }
 
@@ -162,7 +172,7 @@ class BeritaTable extends Component
     public function render()
     {
         return view('livewire.admin.berita-table', [
-            'categories' => \App\Models\Category::byModule('post')->orderBy('name')->get(),
+            'categories' => Category::byModule('post')->orderBy('name')->get(),
         ]);
     }
 }

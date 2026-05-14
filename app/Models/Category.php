@@ -36,7 +36,7 @@ class Category extends Model
     {
         return $query->where(function ($q) use ($term) {
             $q->where('name', 'like', "%{$term}%")
-              ->orWhere('slug', 'like', "%{$term}%");
+                ->orWhere('slug', 'like', "%{$term}%");
         });
     }
 }

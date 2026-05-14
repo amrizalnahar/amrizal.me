@@ -13,8 +13,11 @@ class UserTable extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $sortField = 'created_at';
+
     public string $sortDirection = 'desc';
+
     public int $perPage = 10;
 
     public ?int $confirmingDelete = null;
@@ -40,6 +43,7 @@ class UserTable extends Component
 
         if ($user->id === auth()->id()) {
             $this->dispatch('notify', type: 'error', message: 'Anda tidak dapat menonaktifkan akun sendiri.');
+
             return;
         }
 
@@ -60,6 +64,7 @@ class UserTable extends Component
             if ($user->id === auth()->id()) {
                 $this->dispatch('notify', type: 'error', message: 'Anda tidak dapat menghapus akun sendiri.');
                 $this->confirmingDelete = null;
+
                 return;
             }
 

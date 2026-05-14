@@ -19,6 +19,7 @@ class QueueDemoFail extends Command
 
         if ($count < 1) {
             $this->error('Jumlah minimal 1.');
+
             return self::FAILURE;
         }
 
@@ -39,7 +40,7 @@ class QueueDemoFail extends Command
         }
 
         $this->info("{$count} demo job(s) berhasil didispatch ke queue.");
-        $this->warn("Jalankan \"php artisan queue:work\" agar job diproses dan masuk ke failed_jobs.");
+        $this->warn('Jalankan "php artisan queue:work" agar job diproses dan masuk ke failed_jobs.');
 
         return self::SUCCESS;
     }

@@ -20,8 +20,8 @@ class GenerateRsaKeys extends Command
         $this->info('RSA key pair generated successfully.');
         $this->newLine();
         $this->line("  Key ID:      {$keys['key_id']}");
-        $this->line('  Public key:  storage/app/rsa-keys/' . $keys['key_id'] . '.public.pem');
-        $this->line('  Private key: storage/app/rsa-keys/' . $keys['key_id'] . '.private.pem');
+        $this->line('  Public key:  storage/app/rsa-keys/'.$keys['key_id'].'.public.pem');
+        $this->line('  Private key: storage/app/rsa-keys/'.$keys['key_id'].'.private.pem');
         $this->newLine();
         $this->warn('  Keep the private key secure. Never expose it to the client.');
 

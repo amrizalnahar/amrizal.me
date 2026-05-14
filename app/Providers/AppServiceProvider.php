@@ -4,10 +4,10 @@ namespace App\Providers;
 
 use App\Models\SiteSetting;
 use Illuminate\Queue\Events\JobProcessing;
-use Illuminate\Support\Facades\Queue;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
     {
         try {
             // Check if the table exists before doing anything else
-            if (!Schema::hasTable('site_settings')) {
+            if (! Schema::hasTable('site_settings')) {
                 return;
             }
         } catch (\Exception $e) {

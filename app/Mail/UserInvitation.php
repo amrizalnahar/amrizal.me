@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\SiteSetting;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -24,7 +25,7 @@ class UserInvitation extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Undangan Akses Admin Panel - ' . \App\Models\SiteSetting::getValue('site_name', config('app.name')),
+            subject: 'Undangan Akses Admin Panel - '.SiteSetting::getValue('site_name', config('app.name')),
         );
     }
 

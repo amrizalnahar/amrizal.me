@@ -16,14 +16,23 @@ class ExperienceForm extends Component
     public ?Experience $experience = null;
 
     public string $company_name = '';
+
     public string $position = '';
+
     public string $description_id = '';
+
     public ?string $description_en = '';
+
     public $logo = null;
+
     public ?string $existingLogo = null;
+
     public ?string $started_at = '';
+
     public ?string $ended_at = '';
+
     public bool $is_current = false;
+
     public int $sort_order = 0;
 
     public function mount(?Experience $experience = null): void

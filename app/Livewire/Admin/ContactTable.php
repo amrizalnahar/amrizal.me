@@ -14,11 +14,17 @@ class ContactTable extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $statusFilter = '';
+
     public string $sortField = 'created_at';
+
     public string $sortDirection = 'desc';
+
     public int $perPage = 10;
+
     public ?int $deleteId = null;
+
     public ?string $deleteTitle = null;
 
     public function updatingSearch(): void
@@ -52,9 +58,9 @@ class ContactTable extends Component
         return Contact::query()
             ->when($this->search, function ($q) {
                 $q->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhere('email', 'like', '%' . $this->search . '%')
-                        ->orWhere('subject', 'like', '%' . $this->search . '%');
+                    $query->where('name', 'like', '%'.$this->search.'%')
+                        ->orWhere('email', 'like', '%'.$this->search.'%')
+                        ->orWhere('subject', 'like', '%'.$this->search.'%');
                 });
             })
             ->when($this->statusFilter, function ($q) {

@@ -31,10 +31,10 @@ class SeoHelper
         $base = rtrim(config('app.url'), '/');
 
         if ($path) {
-            return $base . '/' . ltrim($path, '/');
+            return $base.'/'.ltrim($path, '/');
         }
 
-        return $base . request()->getPathInfo();
+        return $base.request()->getPathInfo();
     }
 
     /**
@@ -47,7 +47,7 @@ class SeoHelper
 
             return str_starts_with($imagePath, 'http')
                 ? $imagePath
-                : asset($storagePath . ltrim($imagePath, '/'));
+                : asset($storagePath.ltrim($imagePath, '/'));
         }
 
         return config('seo.default_image', asset('images/og-default.jpg'));
@@ -97,7 +97,7 @@ class SeoHelper
         $pageConfig = config("seo.pages.{$pageKey}");
 
         return [
-            'title' => ($pageConfig['title'] ?? $pageKey) . ' — ' . config('seo.site_name'),
+            'title' => ($pageConfig['title'] ?? $pageKey).' — '.config('seo.site_name'),
             'description' => $pageConfig['description'] ?? config('seo.description'),
             'keywords' => $pageConfig['keywords'] ?? implode(', ', config('seo.keywords', [])),
             'og_type' => $ogType,

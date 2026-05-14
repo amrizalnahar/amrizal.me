@@ -12,7 +12,9 @@ use Livewire\Component;
 class EmailTester extends Component
 {
     public string $email = '';
+
     public ?string $result = null;
+
     public bool $success = false;
 
     protected function rules(): array
@@ -36,12 +38,12 @@ class EmailTester extends Component
         $this->reset(['result', 'success']);
 
         try {
-            Mail::to($this->email)->queue(new TestEmail());
-            $this->result = 'Email berhasil dikirim ke ' . $this->email;
+            Mail::to($this->email)->queue(new TestEmail);
+            $this->result = 'Email berhasil dikirim ke '.$this->email;
             $this->success = true;
             $this->dispatch('notify', type: 'success', message: 'Email tes berhasil dikirim.');
         } catch (\Exception $e) {
-            $this->result = 'Gagal mengirim email: ' . $e->getMessage();
+            $this->result = 'Gagal mengirim email: '.$e->getMessage();
             $this->success = false;
             $this->dispatch('notify', type: 'error', message: 'Gagal mengirim email tes.');
         }

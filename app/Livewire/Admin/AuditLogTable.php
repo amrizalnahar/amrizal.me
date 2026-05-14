@@ -14,10 +14,15 @@ class AuditLogTable extends Component
     use WithPagination;
 
     public string $eventFilter = '';
+
     public string $modelFilter = '';
+
     public ?int $userFilter = null;
+
     public ?string $dateFrom = null;
+
     public ?string $dateTo = null;
+
     public int $perPage = 25;
 
     public ?int $expandedRow = null;
@@ -56,7 +61,7 @@ class AuditLogTable extends Component
     {
         $logs = AuditTrail::with('user')
             ->when($this->eventFilter, fn ($q) => $q->where('event', $this->eventFilter))
-            ->when($this->modelFilter, fn ($q) => $q->where('auditable_type', 'like', '%' . $this->modelFilter . '%'))
+            ->when($this->modelFilter, fn ($q) => $q->where('auditable_type', 'like', '%'.$this->modelFilter.'%'))
             ->when($this->userFilter, fn ($q) => $q->where('user_id', $this->userFilter))
             ->when($this->dateFrom, fn ($q) => $q->whereDate('created_at', '>=', $this->dateFrom))
             ->when($this->dateTo, fn ($q) => $q->whereDate('created_at', '<=', $this->dateTo))

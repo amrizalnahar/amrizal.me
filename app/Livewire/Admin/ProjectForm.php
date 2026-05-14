@@ -3,7 +3,6 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Project;
-use App\Models\ProjectTechnology;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
@@ -17,25 +16,45 @@ class ProjectForm extends Component
     public ?Project $project = null;
 
     public string $title_id = '';
+
     public string $title_en = '';
+
     public string $type = '';
+
     public string $company_name = '';
+
     public string $short_description_id = '';
+
     public string $short_description_en = '';
+
     public string $full_description_id = '';
+
     public string $full_description_en = '';
+
     public string $period = '';
+
     public string $role = '';
+
     public string $demo_url = '';
+
     public string $repo_url = '';
+
     public $thumbnail = null;
+
     public ?string $existingThumbnail = null;
+
     public array $technologies = [];
+
     public string $newTechnology = '';
+
     public array $members = [];
+
     public string $newMemberName = '';
+
     public string $newMemberRole = '';
+
     public string $status = 'draft';
+
     public int $sort_order = 0;
 
     public function mount(?Project $project = null): void
@@ -117,8 +136,9 @@ class ProjectForm extends Component
         $tech = trim($this->newTechnology);
 
         if (in_array($tech, $this->technologies)) {
-            $this->dispatch('notify', type: 'error', message: 'Teknologi "' . $tech . '" sudah ada.');
+            $this->dispatch('notify', type: 'error', message: 'Teknologi "'.$tech.'" sudah ada.');
             $this->newTechnology = '';
+
             return;
         }
 
