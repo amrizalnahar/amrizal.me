@@ -6,10 +6,11 @@
 @section('content')
 
 <!-- Hero About -->
-<section class="pt-32 pb-16 md:pt-40 md:pb-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="hero-aurora pt-32 pb-16 md:pt-40 md:pb-24 bg-neutral-50 dark:bg-neutral-950">
+    <x-aurora-background />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
-            <div class="shrink-0">
+            <div class="shrink-0 relative z-10">
                 <div class="w-48 h-48 md:w-64 md:h-64 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-400 p-1 shadow-lg">
                     <div class="w-full h-full rounded-xl bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center overflow-hidden">
                         @if ($profile && $profile->photo)
@@ -21,25 +22,27 @@
                 </div>
             </div>
             <div class="flex-1 text-center md:text-left">
-                <h1 class="text-3xl md:text-5xl font-bold text-neutral-900 dark:text-white text-balance" data-i18n="about.page_title">{{ __('public.about.page_title') }}</h1>
-                <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed text-balance">
-                    @if ($profile)
-                        {{ $profile->localize('summary') }}
-                    @else
-                        <span data-i18n="about.default_summary">{{ __('public.about.default_summary') }}</span>
+                <x-glass-container class="p-6 md:p-8">
+                    <h1 class="text-3xl md:text-5xl font-bold text-neutral-900 dark:text-white text-balance" data-i18n="about.page_title">{{ __('public.about.page_title') }}</h1>
+                    <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed text-balance">
+                        @if ($profile)
+                            {{ $profile->localize('summary') }}
+                        @else
+                            <span data-i18n="about.default_summary">{{ __('public.about.default_summary') }}</span>
+                        @endif
+                    </p>
+                    @php
+                        $cvFile = $profile ? $profile->localize('cv') : '';
+                    @endphp
+                    @if ($cvFile)
+                        <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
+                            <a href="{{ Storage::url($cvFile) }}" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-white bg-primary-600 hover:bg-primary-900 shadow-sm hover:shadow-md transition-all" data-i18n="about.download_cv">
+                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                {{ __('public.about.download_cv') }}
+                            </a>
+                        </div>
                     @endif
-                </p>
-                @php
-                    $cvFile = $profile ? $profile->localize('cv') : '';
-                @endphp
-                @if ($cvFile)
-                    <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
-                        <a href="{{ Storage::url($cvFile) }}" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-white bg-primary-600 hover:bg-primary-900 shadow-sm hover:shadow-md transition-all" data-i18n="about.download_cv">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            {{ __('public.about.download_cv') }}
-                        </a>
-                    </div>
-                @endif
+                </x-glass-container>
             </div>
         </div>
     </div>

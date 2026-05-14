@@ -9,29 +9,25 @@
 
 @section('content')
 
-<!-- Breadcrumb -->
-<section class="pt-24 pb-4 md:pt-28">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-            <span data-i18n="blog.back_to_blog">{{ __('public.blog.back_to_blog') }}</span>
-        </a>
-    </div>
-</section>
-
-<!-- Article Header -->
-<section class="pt-4 pb-8 md:pb-12">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap items-center gap-2 mb-4">
-            @if ($post->category)
-                <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->name }}</span>
+<section class="hero-aurora pt-24 pb-8 md:pt-28 md:pb-12 bg-neutral-50 dark:bg-neutral-950">
+    <x-aurora-background />
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <x-glass-container class="p-6 md:p-8">
+            <a href="{{ route('blog.index') }}" class="inline-flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors mb-4">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                <span data-i18n="blog.back_to_blog">{{ __('public.blog.back_to_blog') }}</span>
+            </a>
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+                @if ($post->category)
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->name }}</span>
+                @endif
+                <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ $post->published_at?->format('d M Y') }} · {{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span> · <span class="inline-flex items-center gap-0.5">{{ number_format($post->views) }} <span data-i18n="common.views">{{ __('public.common.views') }}</span></span></span>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">{{ $post->localize('title') }}</h1>
+            @if ($post->author?->name)
+                <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 text-balance"><span data-i18n="blog.written_by">{{ __('public.blog.written_by') }}</span> {{ $post->author->name }}</p>
             @endif
-            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ $post->published_at?->format('d M Y') }} · {{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span> · <span class="inline-flex items-center gap-0.5">{{ number_format($post->views) }} <span data-i18n="common.views">{{ __('public.common.views') }}</span></span></span>
-        </div>
-        <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">{{ $post->localize('title') }}</h1>
-        @if ($post->author?->name)
-            <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 text-balance"><span data-i18n="blog.written_by">{{ __('public.blog.written_by') }}</span> {{ $post->author->name }}</p>
-        @endif
+        </x-glass-container>
     </div>
 </section>
 

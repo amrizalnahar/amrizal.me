@@ -6,27 +6,30 @@
 @section('content')
 
 <!-- Hero -->
-<section class="pt-32 pb-16 md:pt-40 md:pb-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="hero-aurora pt-32 pb-16 md:pt-40 md:pb-24 bg-neutral-50 dark:bg-neutral-950">
+    <x-aurora-background />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
             <div class="flex-1 text-center md:text-left">
-                <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase" data-i18n="home.hero_subtitle">{{ __('public.home.hero_subtitle') }}</p>
-                <h1 class="text-4xl md:text-6xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance" data-i18n-html="home.hero_title">
-                    {!! __('public.home.hero_title') !!}
-                </h1>
-                <p class="mt-4 text-lg md:text-xl text-neutral-600 dark:text-neutral-300 max-w-xl mx-auto md:mx-0 text-balance" data-i18n="home.hero_description">
-                    {{ __('public.home.hero_description') }}
-                </p>
-                <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
-                    <a href="/portfolio" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-white bg-primary-600 hover:bg-primary-900 shadow-sm hover:shadow-md transition-all" data-i18n="home.cta_portfolio">
-                        {{ __('public.home.cta_portfolio') }}
-                    </a>
-                    <a href="/about" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-neutral-700 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:bg-primary-600/5 transition-all" data-i18n="home.cta_about">
-                        {{ __('public.home.cta_about') }}
-                    </a>
-                </div>
+                <x-glass-container class="p-6 md:p-8">
+                    <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase" data-i18n="home.hero_subtitle">{{ __('public.home.hero_subtitle') }}</p>
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance" data-i18n-html="home.hero_title">
+                        {!! __('public.home.hero_title') !!}
+                    </h1>
+                    <p class="mt-4 text-lg md:text-xl text-neutral-600 dark:text-neutral-300 max-w-xl mx-auto md:mx-0 text-balance" data-i18n="home.hero_description">
+                        {{ __('public.home.hero_description') }}
+                    </p>
+                    <div class="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
+                        <a href="/portfolio" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-white bg-primary-600 hover:bg-primary-900 shadow-sm hover:shadow-md transition-all" data-i18n="home.cta_portfolio">
+                            {{ __('public.home.cta_portfolio') }}
+                        </a>
+                        <a href="/about" class="inline-flex items-center px-6 py-3 rounded-md text-sm font-semibold text-neutral-700 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:bg-primary-600/5 transition-all" data-i18n="home.cta_about">
+                            {{ __('public.home.cta_about') }}
+                        </a>
+                    </div>
+                </x-glass-container>
             </div>
-            <div class="shrink-0">
+            <div class="shrink-0 relative z-10">
                 <div class="w-48 h-48 md:w-64 md:h-64 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-400 p-1 shadow-lg">
                     <div class="w-full h-full rounded-xl bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center overflow-hidden">
                         @if ($profile && $profile->photo)
