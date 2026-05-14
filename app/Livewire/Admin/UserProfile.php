@@ -18,13 +18,17 @@ class UserProfile extends Component
     use WithFileUploads;
 
     public string $name = '';
+
     public string $email = '';
 
     public $avatar = null;
+
     public ?string $existingAvatar = null;
 
     public string $current_password = '';
+
     public string $password = '';
+
     public string $password_confirmation = '';
 
     public function mount(): void

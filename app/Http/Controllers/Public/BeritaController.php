@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Public;
 
+use App\Helpers\SeoHelper;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class BeritaController extends Controller
 {
@@ -20,7 +20,7 @@ class BeritaController extends Controller
 
         $categories = Category::byModule('post')->get();
 
-        $seo = \App\Helpers\SeoHelper::pageSeo('blog');
+        $seo = SeoHelper::pageSeo('blog');
 
         return view('pages.blog.index', [
             'posts' => $posts,
@@ -40,11 +40,11 @@ class BeritaController extends Controller
         $post->increment('views');
 
         $seo = [
-            'title' => ($post->seo_title ?? $post->localize('title')) . ' — Blog',
+            'title' => ($post->seo_title ?? $post->localize('title')).' — Blog',
             'description' => $post->seo_description,
             'keywords' => $post->seo_keywords,
             'og_type' => 'article',
-            'og_image' => \App\Helpers\SeoHelper::ogImage($post->thumbnail),
+            'og_image' => SeoHelper::ogImage($post->thumbnail),
             'canonical_url' => route('blog.show', $post->slug),
             'meta_author' => $post->author?->name ?? config('seo.author'),
         ];
@@ -53,9 +53,9 @@ class BeritaController extends Controller
             ->where('id', '!=', $post->id)
             ->where(function ($q) use ($post) {
                 $q->where('category_id', $post->category_id)
-                  ->orWhereHas('tags', function ($tq) use ($post) {
-                      $tq->whereIn('tags.id', $post->tags->pluck('id'));
-                  });
+                    ->orWhereHas('tags', function ($tq) use ($post) {
+                        $tq->whereIn('tags.id', $post->tags->pluck('id'));
+                    });
             })
             ->latest('published_at')
             ->limit(3)

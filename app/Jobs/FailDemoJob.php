@@ -16,11 +16,10 @@ class FailDemoJob implements ShouldQueue
 
     public function __construct(
         public string $reason = 'Demo failed job untuk testing Queue Monitor'
-    ) {
-    }
+    ) {}
 
     public function handle(): void
     {
-        throw new \Exception("[DEMO] {$this->reason} pada " . now()->format('d M Y H:i:s'));
+        throw new \Exception("[DEMO] {$this->reason} pada ".now()->format('d M Y H:i:s'));
     }
 }

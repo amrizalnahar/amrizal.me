@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\SeoHelper;
 use App\Traits\HasAuditTrail;
 use App\Traits\HasCategory;
 use App\Traits\HasLocalizable;
@@ -44,8 +45,8 @@ class Post extends Model
     public function scopePublished($query)
     {
         return $query->where('status', 'published')
-                     ->whereNotNull('published_at')
-                     ->where('published_at', '<=', now());
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now());
     }
 
     public function scopeByCategory($query, $categoryId)
@@ -57,9 +58,9 @@ class Post extends Model
     {
         return $query->where(function ($q) use ($term) {
             $q->where('title_id', 'like', "%{$term}%")
-              ->orWhere('title_en', 'like', "%{$term}%")
-              ->orWhere('content_id', 'like', "%{$term}%")
-              ->orWhere('content_en', 'like', "%{$term}%");
+                ->orWhere('title_en', 'like', "%{$term}%")
+                ->orWhere('content_id', 'like', "%{$term}%")
+                ->orWhere('content_en', 'like', "%{$term}%");
         });
     }
 
@@ -80,7 +81,7 @@ class Post extends Model
             return $this->meta_description;
         }
 
-        return \App\Helpers\SeoHelper::metaDescription($this->localize('content'));
+        return SeoHelper::metaDescription($this->localize('content'));
     }
 
     /**
@@ -92,6 +93,6 @@ class Post extends Model
             return $this->meta_keywords;
         }
 
-        return \App\Helpers\SeoHelper::keywords($this->tags->toArray(), $this->category?->name);
+        return SeoHelper::keywords($this->tags->toArray(), $this->category?->name);
     }
 }

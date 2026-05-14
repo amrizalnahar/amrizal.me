@@ -11,8 +11,7 @@ class PublicKeyController
 {
     public function __construct(
         private readonly RsaEncryptionService $rsaService
-    ) {
-    }
+    ) {}
 
     public function __invoke(): JsonResponse
     {

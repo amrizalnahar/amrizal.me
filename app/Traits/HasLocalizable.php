@@ -1,7 +1,10 @@
 <?php
+
 // app/Traits/HasLocalizable.php
 
 namespace App\Traits;
+
+use App\Helpers\LocalizeHelper;
 
 trait HasLocalizable
 {
@@ -11,7 +14,7 @@ trait HasLocalizable
      */
     public function localize(string $field): string
     {
-        return \App\Helpers\LocalizeHelper::field($this, $field);
+        return LocalizeHelper::field($this, $field);
     }
 
     /**
@@ -21,6 +24,7 @@ trait HasLocalizable
     {
         if (is_string($key) && str_ends_with($key, '_localized')) {
             $field = preg_replace('/_localized$/', '', $key);
+
             return $this->localize($field);
         }
 
@@ -33,6 +37,7 @@ trait HasLocalizable
     public function hasTranslation(string $field): bool
     {
         $value = $this->{"{$field}_en"} ?? null;
+
         return $value !== null && $value !== '';
     }
 }

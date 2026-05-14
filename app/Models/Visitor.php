@@ -21,6 +21,7 @@ class Visitor extends Model
         if ($days) {
             $query->where('visited_at', '>=', now()->subDays($days));
         }
+
         return $query->distinct('ip_address')->count('ip_address');
     }
 }

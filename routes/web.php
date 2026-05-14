@@ -1,5 +1,15 @@
 <?php
 
+use App\Http\Controllers\Auth\PublicKeyController;
+use App\Http\Controllers\Public\AboutController;
+use App\Http\Controllers\Public\BeritaController;
+use App\Http\Controllers\Public\ContactController;
+use App\Http\Controllers\Public\HomeController;
+use App\Http\Controllers\Public\PortfolioController;
+use App\Http\Controllers\Public\ProjectController;
+use App\Http\Controllers\Public\RssController;
+use App\Http\Controllers\Public\SitemapController;
+use App\Livewire\Admin\AuditLogTable;
 use App\Livewire\Admin\BeritaForm;
 use App\Livewire\Admin\BeritaTable;
 use App\Livewire\Admin\CertificateForm;
@@ -9,33 +19,23 @@ use App\Livewire\Admin\ContactTable;
 use App\Livewire\Admin\Dashboard;
 use App\Livewire\Admin\EducationForm;
 use App\Livewire\Admin\EducationTable;
+use App\Livewire\Admin\EmailTester;
 use App\Livewire\Admin\ExperienceForm;
 use App\Livewire\Admin\ExperienceTable;
+use App\Livewire\Admin\KategoriManager;
 use App\Livewire\Admin\ProfileForm;
 use App\Livewire\Admin\ProjectForm;
 use App\Livewire\Admin\ProjectTable;
-use App\Livewire\Admin\SkillCategoryManager;
-use App\Livewire\Admin\UserProfile;
-use App\Livewire\Admin\KategoriManager;
-use App\Livewire\Admin\TagManager;
-use App\Livewire\Admin\UserTable;
-use App\Livewire\Admin\UserForm;
-use App\Livewire\Admin\RoleManager;
-use App\Livewire\Admin\SiteSettingsForm;
-use App\Livewire\Admin\AuditLogTable;
-use App\Livewire\Admin\SystemLogViewer;
-use App\Livewire\Admin\EmailTester;
 use App\Livewire\Admin\QueueMonitor;
+use App\Livewire\Admin\RoleManager;
 use App\Livewire\Admin\ScheduleTaskManager;
-use App\Http\Controllers\Auth\PublicKeyController;
-use App\Http\Controllers\Public\AboutController;
-use App\Http\Controllers\Public\BeritaController;
-use App\Http\Controllers\Public\ContactController;
-use App\Http\Controllers\Public\HomeController;
-use App\Http\Controllers\Public\PortfolioController;
-use App\Http\Controllers\Public\ProjectController;
-use App\Http\Controllers\Public\SitemapController;
-use App\Http\Controllers\Public\RssController;
+use App\Livewire\Admin\SiteSettingsForm;
+use App\Livewire\Admin\SkillCategoryManager;
+use App\Livewire\Admin\SystemLogViewer;
+use App\Livewire\Admin\TagManager;
+use App\Livewire\Admin\UserForm;
+use App\Livewire\Admin\UserProfile;
+use App\Livewire\Admin\UserTable;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
@@ -83,7 +83,7 @@ Route::get('/robots.txt', function () {
     // Build Disallow lines from config
     $disallowLines = '';
     foreach (config('seo.robots.disallow', ['/admin/', '/login/']) as $path) {
-        $disallowLines .= 'Disallow: ' . trim($path) . "\n";
+        $disallowLines .= 'Disallow: '.trim($path)."\n";
     }
     $robots = str_replace('{{DISALLOW_PATHS}}', $disallowLines, $robots);
 

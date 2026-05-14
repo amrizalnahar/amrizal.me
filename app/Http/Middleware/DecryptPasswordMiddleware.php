@@ -12,8 +12,7 @@ class DecryptPasswordMiddleware
 {
     public function __construct(
         private readonly RsaEncryptionService $rsaService
-    ) {
-    }
+    ) {}
 
     public function handle(Request $request, Closure $next)
     {

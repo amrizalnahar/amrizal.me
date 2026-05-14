@@ -15,12 +15,17 @@ use Spatie\Permission\Models\Role;
 class UserForm extends Component
 {
     public ?User $user = null;
+
     public bool $isCreate = true;
 
     public string $name = '';
+
     public string $email = '';
+
     public string $password = '';
+
     public string $role = '';
+
     public bool $is_active = true;
 
     public bool $invitationSent = false;

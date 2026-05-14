@@ -16,13 +16,21 @@ class EducationForm extends Component
     public ?Education $education = null;
 
     public string $institution_name = '';
+
     public string $degree = '';
+
     public string $major_id = '';
+
     public ?string $major_en = '';
+
     public $logo = null;
+
     public ?string $existingLogo = null;
+
     public ?int $started_at = null;
+
     public ?int $ended_at = null;
+
     public int $sort_order = 0;
 
     public function mount(?Education $education = null): void

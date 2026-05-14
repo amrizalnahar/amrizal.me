@@ -16,12 +16,19 @@ class ProfileForm extends Component
     public ?Profile $profile = null;
 
     public string $summary_id = '';
+
     public string $summary_en = '';
+
     public $photo = null;
+
     public ?string $existingPhoto = null;
+
     public $cv_id = null;
+
     public ?string $existingCvId = null;
+
     public $cv_en = null;
+
     public ?string $existingCvEn = null;
 
     public function mount(): void

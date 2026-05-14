@@ -49,7 +49,7 @@ trait HasSlug
                 ->whereNull('deleted_at')
                 ->exists()
         ) {
-            $slug = $originalSlug . '-' . $count++;
+            $slug = $originalSlug.'-'.$count++;
         }
 
         return $slug;

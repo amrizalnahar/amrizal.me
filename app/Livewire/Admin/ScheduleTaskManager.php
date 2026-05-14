@@ -11,22 +11,28 @@ use Livewire\Component;
 class ScheduleTaskManager extends Component
 {
     public string $search = '';
+
     public string $statusFilter = '';
+
     public ?int $selectedTaskId = null;
+
     public string $scheduledFor = '';
+
     public bool $showExecuteModal = false;
+
     public bool $showHistoryModal = false;
+
     public array $executionHistory = [];
 
     public function mount(): void
     {
-        $service = new ScheduleTaskService();
+        $service = new ScheduleTaskService;
         $service->getAvailableTasks();
     }
 
     public function refreshTasks(): void
     {
-        $service = new ScheduleTaskService();
+        $service = new ScheduleTaskService;
         $service->getAvailableTasks();
         $this->dispatch('notify', type: 'success', message: 'Daftar task berhasil diperbarui.');
     }
@@ -41,7 +47,7 @@ class ScheduleTaskManager extends Component
     public function openHistoryModal(int $taskId): void
     {
         $this->selectedTaskId = $taskId;
-        $service = new ScheduleTaskService();
+        $service = new ScheduleTaskService;
         $this->executionHistory = $service->getExecutionHistory($taskId)->toArray();
         $this->showHistoryModal = true;
     }
@@ -67,7 +73,7 @@ class ScheduleTaskManager extends Component
 
         try {
             $scheduledFor = new \DateTime($this->scheduledFor);
-            $service = new ScheduleTaskService();
+            $service = new ScheduleTaskService;
             $result = $service->executeTask($this->selectedTaskId, $scheduledFor);
 
             $this->showExecuteModal = false;
@@ -99,8 +105,8 @@ class ScheduleTaskManager extends Component
         if ($this->search) {
             $query->where(function ($q) {
                 $q->where('name', 'like', "%{$this->search}%")
-                  ->orWhere('command', 'like', "%{$this->search}%")
-                  ->orWhere('description', 'like', "%{$this->search}%");
+                    ->orWhere('command', 'like', "%{$this->search}%")
+                    ->orWhere('description', 'like', "%{$this->search}%");
             });
         }
 

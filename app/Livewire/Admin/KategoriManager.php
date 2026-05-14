@@ -15,20 +15,30 @@ class KategoriManager extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $moduleFilter = '';
+
     public string $sortField = 'created_at';
+
     public string $sortDirection = 'desc';
+
     public int $perPage = 10;
 
     // Form fields
     public ?int $editingId = null;
+
     public string $name = '';
+
     public string $slug = '';
+
     public string $module_type = 'post';
+
     public string $description = '';
 
     public ?int $confirmingDelete = null;
+
     public array $selected = [];
+
     public ?string $deleteError = null;
 
     protected function rules(): array
@@ -167,7 +177,7 @@ class KategoriManager extends Component
                     ->whereNull('deleted_at')
                     ->exists()
             ) {
-                $slug = $base . '-' . $count++;
+                $slug = $base.'-'.$count++;
             }
 
             $this->slug = $slug;
@@ -225,7 +235,8 @@ class KategoriManager extends Component
         $category = Category::findOrFail($this->confirmingDelete);
 
         if ($this->hasRelations($category)) {
-            $this->deleteError = 'Kategori "' . $category->name . '" tidak bisa dihapus karena masih digunakan oleh konten (Berita).';
+            $this->deleteError = 'Kategori "'.$category->name.'" tidak bisa dihapus karena masih digunakan oleh konten (Berita).';
+
             return;
         }
 
@@ -240,6 +251,7 @@ class KategoriManager extends Component
         $this->deleteError = null;
         if (empty($this->selected)) {
             $this->dispatch('notify', type: 'warning', message: 'Pilih minimal satu kategori untuk dihapus.');
+
             return;
         }
         $this->dispatch('open-modal', 'bulk-delete-modal');
@@ -249,6 +261,7 @@ class KategoriManager extends Component
     {
         if (empty($this->selected)) {
             $this->dispatch('close-modal', 'bulk-delete-modal');
+
             return;
         }
 
@@ -259,6 +272,7 @@ class KategoriManager extends Component
         foreach ($categories as $category) {
             if ($this->hasRelations($category)) {
                 $blocked[] = $category->name;
+
                 continue;
             }
             $category->delete();
@@ -269,9 +283,9 @@ class KategoriManager extends Component
         $this->dispatch('close-modal', 'bulk-delete-modal');
 
         if ($deleted > 0 && empty($blocked)) {
-            $this->dispatch('notify', type: 'success', message: $deleted . ' kategori berhasil dihapus.');
+            $this->dispatch('notify', type: 'success', message: $deleted.' kategori berhasil dihapus.');
         } elseif ($deleted > 0 && ! empty($blocked)) {
-            $this->dispatch('notify', type: 'warning', message: $deleted . ' kategori dihapus. ' . count($blocked) . ' kategori lain tidak bisa dihapus karena masih memiliki relasi konten.');
+            $this->dispatch('notify', type: 'warning', message: $deleted.' kategori dihapus. '.count($blocked).' kategori lain tidak bisa dihapus karena masih memiliki relasi konten.');
         } else {
             $this->dispatch('notify', type: 'error', message: 'Semua kategori terpilih tidak bisa dihapus karena masih memiliki relasi konten.');
         }
@@ -299,6 +313,7 @@ class KategoriManager extends Component
         // Add computed total content count
         $categories->getCollection()->transform(function ($category) {
             $category->total_content = $category->posts_count;
+
             return $category;
         });
 

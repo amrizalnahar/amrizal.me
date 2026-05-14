@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\SiteSetting;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -16,7 +17,7 @@ class TestEmail extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Test Email dari ' . \App\Models\SiteSetting::getValue('site_name', config('app.name')),
+            subject: 'Test Email dari '.SiteSetting::getValue('site_name', config('app.name')),
         );
     }
 

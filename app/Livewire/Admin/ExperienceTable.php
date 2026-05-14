@@ -14,10 +14,15 @@ class ExperienceTable extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $sortField = 'sort_order';
+
     public string $sortDirection = 'asc';
+
     public int $perPage = 10;
+
     public ?int $deleteId = null;
+
     public ?string $deleteTitle = null;
 
     public function updatingSearch(): void
@@ -46,8 +51,8 @@ class ExperienceTable extends Component
         return Experience::ordered()
             ->when($this->search, function ($q) {
                 $q->where(function ($query) {
-                    $query->where('company_name', 'like', '%' . $this->search . '%')
-                        ->orWhere('position', 'like', '%' . $this->search . '%');
+                    $query->where('company_name', 'like', '%'.$this->search.'%')
+                        ->orWhere('position', 'like', '%'.$this->search.'%');
                 });
             })
             ->orderBy($this->sortField, $this->sortDirection)

@@ -16,18 +16,31 @@ class CertificateForm extends Component
     public ?Certificate $certificate = null;
 
     public string $title_id = '';
+
     public ?string $title_en = '';
+
     public string $issuer_name = '';
+
     public $issuer_logo = null;
+
     public ?string $existingIssuerLogo = null;
+
     public string $description_id = '';
+
     public ?string $description_en = '';
+
     public $certificate_image = null;
+
     public ?string $existingCertificateImage = null;
+
     public ?string $issued_at = '';
+
     public ?string $expired_at = '';
+
     public ?string $verify_url = '';
+
     public string $status = 'draft';
+
     public int $sort_order = 0;
 
     public function mount(?Certificate $certificate = null): void

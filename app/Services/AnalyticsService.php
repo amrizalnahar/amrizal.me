@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AnalyticsService
 {
@@ -207,7 +207,7 @@ class AnalyticsService
             $weeks[] = [
                 'start' => $current->copy(),
                 'end' => $weekEnd->copy(),
-                'label' => 'M' . count($weeks) + 1,
+                'label' => 'M'.count($weeks) + 1,
             ];
             $current->addWeek();
         }
@@ -275,6 +275,7 @@ class AnalyticsService
         for ($m = 1; $m <= 12; $m++) {
             $counts[] = DB::table($table)->when($table !== 'visits', fn ($q) => $q->whereNull('deleted_at'))->whereYear($column, $year)->whereMonth($column, $m)->count();
         }
+
         return $counts;
     }
 
@@ -284,6 +285,7 @@ class AnalyticsService
         for ($m = 1; $m <= 12; $m++) {
             $counts[] = DB::table($table)->where('status', 'published')->whereNull('deleted_at')->whereYear('published_at', $year)->whereMonth('published_at', $m)->count();
         }
+
         return $counts;
     }
 

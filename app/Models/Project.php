@@ -5,8 +5,8 @@ namespace App\Models;
 use App\Traits\HasLocalizable;
 use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Project extends Model
 {

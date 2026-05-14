@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class MasterDataSeeder extends Seeder
 {
@@ -46,7 +47,7 @@ class MasterDataSeeder extends Seeder
         foreach ($tags as $tagName) {
             Tag::create([
                 'name' => $tagName,
-                'slug' => \Illuminate\Support\Str::slug($tagName),
+                'slug' => Str::slug($tagName),
             ]);
         }
     }

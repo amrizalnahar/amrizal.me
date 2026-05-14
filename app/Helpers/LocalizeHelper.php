@@ -1,4 +1,5 @@
 <?php
+
 // app/Helpers/LocalizeHelper.php
 
 namespace App\Helpers;

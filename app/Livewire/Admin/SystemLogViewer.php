@@ -10,8 +10,11 @@ use Livewire\Component;
 class SystemLogViewer extends Component
 {
     public string $search = '';
+
     public string $levelFilter = '';
+
     public int $page = 1;
+
     public int $perPage = 50;
 
     protected function getLogPath(): string
@@ -43,7 +46,7 @@ class SystemLogViewer extends Component
                     'message' => $line,
                 ];
             } elseif ($currentEntry) {
-                $currentEntry['message'] .= "\n" . $line;
+                $currentEntry['message'] .= "\n".$line;
             }
         }
 
@@ -63,6 +66,7 @@ class SystemLogViewer extends Component
             if ($this->search && ! str_contains(strtolower($entry['message']), strtolower($this->search))) {
                 return false;
             }
+
             return true;
         });
     }

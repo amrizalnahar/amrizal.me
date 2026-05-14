@@ -28,5 +28,4 @@ class SiteSetting extends Model
 
         Cache::forget("site_setting_{$key}");
     }
-
 }

@@ -14,11 +14,17 @@ class CertificateTable extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $statusFilter = '';
+
     public string $sortField = 'sort_order';
+
     public string $sortDirection = 'asc';
+
     public int $perPage = 10;
+
     public ?int $deleteId = null;
+
     public ?string $deleteTitle = null;
 
     public function updatingSearch(): void
@@ -52,8 +58,8 @@ class CertificateTable extends Component
         return Certificate::ordered()
             ->when($this->search, function ($q) {
                 $q->where(function ($query) {
-                    $query->where('title_id', 'like', '%' . $this->search . '%')
-                        ->orWhere('issuer_name', 'like', '%' . $this->search . '%');
+                    $query->where('title_id', 'like', '%'.$this->search.'%')
+                        ->orWhere('issuer_name', 'like', '%'.$this->search.'%');
                 });
             })
             ->when($this->statusFilter, function ($q) {

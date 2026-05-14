@@ -15,16 +15,22 @@ class TagManager extends Component
     use WithPagination;
 
     public string $search = '';
+
     public string $sortField = 'created_at';
+
     public string $sortDirection = 'desc';
+
     public int $perPage = 10;
 
     // Form fields
     public ?int $editingId = null;
+
     public string $name = '';
+
     public string $slug = '';
 
     public ?int $confirmingDelete = null;
+
     public array $selected = [];
 
     protected function rules(): array
@@ -135,6 +141,7 @@ class TagManager extends Component
     {
         if (empty($this->selected)) {
             $this->dispatch('notify', type: 'warning', message: 'Pilih minimal satu tag untuk dihapus.');
+
             return;
         }
         $this->dispatch('open-modal', 'bulk-delete-modal');
@@ -144,6 +151,7 @@ class TagManager extends Component
     {
         if (empty($this->selected)) {
             $this->dispatch('close-modal', 'bulk-delete-modal');
+
             return;
         }
 
@@ -152,7 +160,7 @@ class TagManager extends Component
         $count = count($this->selected);
         $this->selected = [];
         $this->dispatch('close-modal', 'bulk-delete-modal');
-        $this->dispatch('notify', type: 'success', message: $count . ' tag berhasil dihapus.');
+        $this->dispatch('notify', type: 'success', message: $count.' tag berhasil dihapus.');
     }
 
     public function cancelBulkDelete(): void
@@ -173,7 +181,7 @@ class TagManager extends Component
                     ->whereNull('deleted_at')
                     ->exists()
             ) {
-                $slug = $base . '-' . $count++;
+                $slug = $base.'-'.$count++;
             }
 
             $this->slug = $slug;
@@ -240,6 +248,7 @@ class TagManager extends Component
 
         $tags->getCollection()->transform(function ($tag) {
             $tag->total_content = $tag->posts_count;
+
             return $tag;
         });
 

@@ -5,9 +5,9 @@ namespace App\Livewire\Admin;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -20,18 +20,31 @@ class BeritaForm extends Component
     public ?Post $post = null;
 
     public string $title_id = '';
+
     public ?string $title_en = '';
+
     public string $slug = '';
+
     public ?int $category_id = null;
+
     public array $selectedTags = [];
+
     public $thumbnail = null;
+
     public ?string $existingThumbnail = null;
+
     public string $content_id = '';
+
     public ?string $content_en = '';
+
     public ?string $meta_title = '';
+
     public ?string $meta_description = '';
+
     public ?string $meta_keywords = '';
+
     public string $status = 'draft';
+
     public string $newTagName = '';
 
     public function mount(?Post $post = null): void
@@ -111,7 +124,7 @@ class BeritaForm extends Component
                     ->whereNull('deleted_at')
                     ->exists()
             ) {
-                $slug = $base . '-' . $count++;
+                $slug = $base.'-'.$count++;
             }
 
             $this->slug = $slug;
@@ -141,11 +154,12 @@ class BeritaForm extends Component
         if ($existingTag) {
             if (! in_array($existingTag->id, $this->selectedTags)) {
                 $this->selectedTags[] = $existingTag->id;
-                $this->dispatch('notify', type: 'success', message: 'Tag "' . $existingTag->name . '" dipilih.');
+                $this->dispatch('notify', type: 'success', message: 'Tag "'.$existingTag->name.'" dipilih.');
             } else {
-                $this->dispatch('notify', type: 'error', message: 'Tag "' . $existingTag->name . '" sudah dipilih.');
+                $this->dispatch('notify', type: 'error', message: 'Tag "'.$existingTag->name.'" sudah dipilih.');
             }
             $this->newTagName = '';
+
             return;
         }
 
@@ -154,14 +168,14 @@ class BeritaForm extends Component
         $count = 1;
 
         while (Tag::where('slug', $slug)->whereNull('deleted_at')->exists()) {
-            $slug = $base . '-' . $count++;
+            $slug = $base.'-'.$count++;
         }
 
         $tag = Tag::create(['name' => $name, 'slug' => $slug]);
 
         $this->selectedTags[] = $tag->id;
         $this->newTagName = '';
-        $this->dispatch('notify', type: 'success', message: 'Tag "' . $tag->name . '" berhasil ditambahkan.');
+        $this->dispatch('notify', type: 'success', message: 'Tag "'.$tag->name.'" berhasil ditambahkan.');
     }
 
     public function save(): void
