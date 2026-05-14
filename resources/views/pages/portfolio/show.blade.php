@@ -5,38 +5,34 @@
 
 @section('content')
 
-<!-- Breadcrumb -->
-<section class="pt-24 pb-4 md:pt-28">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <a href="{{ route('portfolio.index') }}" class="inline-flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-            <span data-i18n="portfolio.back_to_portfolio">{{ __('public.portfolio.back_to_portfolio') }}</span>
-        </a>
-    </div>
-</section>
-
-<!-- Hero Detail -->
-<section class="pt-4 pb-8 md:pb-12">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-wrap items-center gap-2 mb-4">
-            @if ($project->company_name)
-                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-400/10 text-primary-400 border border-primary-400/20">
-                    {{ $project->company_name }}
-                </span>
-            @endif
-            <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ $project->type }}</span>
-        </div>
-        <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">{{ $project->localize('title') }}</h1>
-        <div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-neutral-600 dark:text-neutral-300">
-            <div class="flex items-center gap-1.5">
-                <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                {{ $project->period }}
+<section class="hero-aurora pt-24 pb-8 md:pt-28 md:pb-12 bg-neutral-50 dark:bg-neutral-950">
+    <x-aurora-background />
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <x-glass-container class="p-6 md:p-8">
+            <a href="{{ route('portfolio.index') }}" class="inline-flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors mb-4">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                <span data-i18n="portfolio.back_to_portfolio">{{ __('public.portfolio.back_to_portfolio') }}</span>
+            </a>
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+                @if ($project->company_name)
+                    <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-400/10 text-primary-400 border border-primary-400/20">
+                        {{ $project->company_name }}
+                    </span>
+                @endif
+                <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ $project->type }}</span>
             </div>
-            <div class="flex items-center gap-1.5">
-                <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                {{ $project->role }}
+            <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance">{{ $project->localize('title') }}</h1>
+            <div class="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-neutral-600 dark:text-neutral-300">
+                <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    {{ $project->period }}
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    {{ $project->role }}
+                </div>
             </div>
-        </div>
+        </x-glass-container>
     </div>
 </section>
 

@@ -6,16 +6,19 @@
 @section('content')
 
 <!-- Hero -->
-<section class="pt-32 pb-12 md:pt-40 md:pb-16">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="hero-aurora pt-32 pb-12 md:pt-40 md:pb-16 bg-neutral-50 dark:bg-neutral-950">
+    <x-aurora-background />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="max-w-2xl">
-            <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase" data-i18n="contact.page_title">{{ __('public.contact.page_title') }}</p>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance" data-i18n="contact.hero_title">
-                {{ __('public.contact.hero_title') }}
-            </h1>
-            <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 text-balance" data-i18n="contact.hero_desc">
-                {{ __('public.contact.hero_desc') }}
-            </p>
+            <x-glass-container class="p-6 md:p-8">
+                <p class="text-sm font-medium text-primary-600 mb-3 tracking-wide uppercase" data-i18n="contact.page_title">{{ __('public.contact.page_title') }}</p>
+                <h1 class="text-3xl md:text-5xl font-extrabold text-neutral-900 dark:text-white leading-tight text-balance" data-i18n="contact.hero_title">
+                    {{ __('public.contact.hero_title') }}
+                </h1>
+                <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 text-balance" data-i18n="contact.hero_desc">
+                    {{ __('public.contact.hero_desc') }}
+                </p>
+            </x-glass-container>
         </div>
     </div>
 </section>
