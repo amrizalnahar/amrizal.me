@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'site_name' => env('SEO_SITE_NAME', 'amrizal.site'),
+    'site_name' => env('SEO_SITE_NAME', 'amrizal.nahar'),
     'description' => env('SEO_DESCRIPTION', 'Personal website of Amrizal — System Analyst & Builder. Analyzing systems, designing architecture, and building with code.'),
     'keywords' => [
         'system analyst',

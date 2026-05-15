@@ -1,4 +1,4 @@
-# Design System — amrizal.site Frontend
+# Design System — amrizal.nahar Frontend
 
 > Pendekatan: Hybrid Design Tokens + Blade Components (prototipe via HTML statis + Tailwind CDN)
 > Target: Laravel + Blade SSR, Tailwind CSS v3+

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Bilingual (ID/EN) personal portfolio CMS for **amrizal.site**. Full Laravel application with a public frontend and an admin panel. Public visitors see a portfolio (home, about, blog, projects, contact); admins manage content via Livewire components.
+Bilingual (ID/EN) personal portfolio CMS for **amrizal.nahar**. Full Laravel application with a public frontend and an admin panel. Public visitors see a portfolio (home, about, blog, projects, contact); admins manage content via Livewire components.
 
 ## Stack
 

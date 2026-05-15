@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
-@section('title', 'Halaman Tidak Ditemukan — ' . config('app.name'))
-@section('description', 'Halaman yang Anda cari tidak ditemukan. Kembali ke beranda amrizal.site.')
+@section('title', __('public.error.page_title') . ' — ' . config('app.name'))
+@section('description', __('public.error.meta_description'))
 
 @section('content')
 <section class="min-h-screen flex items-center justify-center py-16 bg-neutral-50 dark:bg-neutral-950">
@@ -26,40 +26,42 @@
     </h1>
 
     <!-- Message -->
-    <p class="mt-4 text-xl font-semibold text-neutral-900 dark:text-white">
-      Halaman tidak ditemukan
+    <p class="mt-4 text-xl font-semibold text-neutral-900 dark:text-white" data-i18n="error.heading">
+      {{ __('public.error.heading') }}
     </p>
-    <p class="mt-2 text-neutral-600 dark:text-neutral-400 text-balance">
-      Sepertinya halaman yang Anda cari telah dipindahkan, dihapus, atau tidak pernah ada. Jangan khawatir, mari kembali ke jalur yang benar.
+    <p class="mt-2 text-neutral-600 dark:text-neutral-400 text-balance" data-i18n="error.message">
+      {{ __('public.error.message') }}
     </p>
 
     <!-- Actions -->
     <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-      <a href="{{ route('home') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-semibold text-white bg-primary-600 hover:bg-primary-900 shadow-sm hover:shadow-md transition-all">
+      <a href="{{ route('home') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-semibold text-white bg-primary-600 hover:bg-primary-900 shadow-sm hover:shadow-md transition-all" data-i18n="error.back_to_home">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-        Kembali ke Beranda
+        {{ __('public.error.back_to_home') }}
       </a>
-      <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-semibold text-neutral-700 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:bg-primary-600/5 transition-all">
+      <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-md text-sm font-semibold text-neutral-700 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:bg-primary-600/5 transition-all" data-i18n="error.contact_me">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-        Hubungi Saya
+        {{ __('public.error.contact_me') }}
       </a>
     </div>
 
     <!-- Quick Links -->
     <div class="mt-10 pt-8 border-t border-neutral-200 dark:border-neutral-800">
-      <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4">Atau kunjungi halaman populer:</p>
+      <p class="text-sm text-neutral-500 dark:text-neutral-400 mb-4" data-i18n="error.popular_pages">
+        {{ __('public.error.popular_pages') }}
+      </p>
       <div class="flex flex-wrap items-center justify-center gap-2">
-        <a href="{{ route('portfolio.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-primary-600/30 hover:text-primary-600 transition-colors">
-          Portofolio
+        <a href="{{ route('portfolio.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-primary-600/30 hover:text-primary-600 transition-colors" data-i18n="nav.portfolio">
+          {{ __('public.nav.portfolio') }}
         </a>
-        <a href="{{ route('blog.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-primary-600/30 hover:text-primary-600 transition-colors">
-          Blog
+        <a href="{{ route('blog.index') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-primary-600/30 hover:text-primary-600 transition-colors" data-i18n="nav.blog">
+          {{ __('public.nav.blog') }}
         </a>
-        <a href="{{ route('about') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-primary-600/30 hover:text-primary-600 transition-colors">
-          Tentang Saya
+        <a href="{{ route('about') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-primary-600/30 hover:text-primary-600 transition-colors" data-i18n="nav.about">
+          {{ __('public.nav.about') }}
         </a>
-        <a href="{{ route('contact') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-primary-600/30 hover:text-primary-600 transition-colors">
-          Kontak
+        <a href="{{ route('contact') }}" class="px-4 py-2 rounded-lg text-sm font-medium bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:border-primary-600/30 hover:text-primary-600 transition-colors" data-i18n="nav.contact">
+          {{ __('public.nav.contact') }}
         </a>
       </div>
     </div>

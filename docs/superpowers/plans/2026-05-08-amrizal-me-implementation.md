@@ -1,8 +1,8 @@
-# amrizal.site Implementation Plan
+# amrizal.nahar Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Implement the amrizal.site portfolio website from HTML prototype to Laravel production, building on the existing Laravel 13 + Livewire admin codebase.
+**Goal:** Implement the amrizal.nahar portfolio website from HTML prototype to Laravel production, building on the existing Laravel 13 + Livewire admin codebase.
 
 **Architecture:** Extend the existing Laravel 13 app (Breeze auth, Livewire admin, spatie permissions). The admin panel uses custom Livewire components (already built for berita/kategori/tags/users). Frontend uses Blade with Tailwind CSS, ported from the 9 HTML prototype files. All public-facing content supports bilingual ID/EN with `_id` field as required and `_en` as optional fallback.
 
@@ -1775,7 +1775,7 @@ git commit -m "feat: add admin contact message management"
 - Modify: `resources/views/livewire/admin/dashboard.blade.php`
 - Modify: `app/Livewire/Admin/SiteSettingsForm.php`
 
-- [ ] **Step 1: Update Dashboard to show amrizal.site stats**
+- [ ] **Step 1: Update Dashboard to show amrizal.nahar stats**
 
 ```php
 public function render()
@@ -1799,7 +1799,7 @@ Add fields for: contact_email, contact_whatsapp, github_url, linkedin_url, locat
 
 ```bash
 git add app/Livewire/Admin/Dashboard.php app/Livewire/Admin/SiteSettingsForm.php resources/views/livewire/admin/
-git commit -m "feat: update dashboard and site settings for amrizal.site"
+git commit -m "feat: update dashboard and site settings for amrizal.nahar"
 ```
 
 ---

@@ -57,7 +57,7 @@
 <!-- Article Content -->
 <section class="pb-16 md:pb-24">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="card-animate article-content text-neutral-800 dark:text-neutral-200" data-delay="1">
+        <div class="card-animate article-content pt-8 text-neutral-800 dark:text-neutral-200" data-delay="1">
             {!! $post->localize('content') !!}
         </div>
 
