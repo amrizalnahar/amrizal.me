@@ -53,7 +53,7 @@ class EducationForm extends Component
     {
         return [
             'institution_name' => ['required', 'string', 'max:255'],
-            'degree' => ['required', 'string', 'max:255'],
+            'degree' => ['required', 'in:SMA,D3,S1,S2,S3'],
             'major_id' => ['required', 'string'],
             'major_en' => ['nullable', 'string'],
             'logo' => [

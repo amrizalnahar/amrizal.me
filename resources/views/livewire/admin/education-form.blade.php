@@ -21,7 +21,14 @@
                     <!-- Degree -->
                     <div class="md:col-span-2">
                         <x-input-label for="degree" value="Gelar" />
-                        <x-text-input id="degree" wire:model="degree" type="text" class="mt-1 block w-full" placeholder="Contoh: S1, S2, D3" />
+                        <select id="degree" wire:model="degree" class="mt-1 block w-full border-neutral-300 focus:border-primary-600 focus:ring-primary-600 rounded-md shadow-sm text-sm">
+                            <option value="">Pilih gelar</option>
+                            <option value="SMA">SMA - Sekolah Menengah Atas</option>
+                            <option value="D3">D3 - Diploma 3</option>
+                            <option value="S1">S1 - Sarjana</option>
+                            <option value="S2">S2 - Magister</option>
+                            <option value="S3">S3 - Doktor</option>
+                        </select>
                         <x-input-error :messages="$errors->get('degree')" class="mt-1" />
                     </div>
 
