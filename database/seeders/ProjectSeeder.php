@@ -50,7 +50,7 @@ class ProjectSeeder extends Seeder
                 'repo_url' => null,
                 'thumbnail' => null,
                 'gallery' => null,
-                'status' => 'publish',
+                'status' => 'draft',
                 'sort_order' => 2,
                 'technologies' => ['Laravel', 'Vue.js', 'jQuery', 'Bootstrap', 'MySQL', 'Elasticsearch', 'Redis', 'DOMPDF', 'Maatwebsite Excel', 'Intervention Image'],
                 'members' => [
@@ -58,7 +58,7 @@ class ProjectSeeder extends Seeder
                 ],
             ],
             [
-                'title_id' => 'Enhancement Sistem Kepatuhan (GCL-AAB) Phase 5–6',
+                'title_id' => 'Enhancement Sistem Kepatuhan (GCL-AAB) 2025-2026',
                 'title_en' => null,
                 'type' => 'office',
                 'company_name' => 'PT. Asuransi Astra Buana',
@@ -88,7 +88,7 @@ class ProjectSeeder extends Seeder
                 'short_description_en' => null,
                 'full_description_id' => '<div><h3>Deskripsi Proyek</h3><p>AAB Career adalah sistem manajemen rekrutmen (Applicant Tracking System) berbasis web yang terdiri dari dua komponen utama: <strong>backend Laravel 11</strong> yang menyediakan API dan CMS administrasi, serta <strong>frontend dashboard Next.js 14</strong> yang menjadi antarmuka bagi calon pelamar dan tim TA (Talent Acquisition).</p><p>Domain bisnis yang dilayani mencakup manajemen lowongan pekerjaan (Job Order), pendaftaran dan pelacakan lamaran, pengelolaan profil pelamar secara komprehensif (data pribadi, pendidikan, pengalaman kerja, organisasi, keluarga), penjadwalan Medical Check Up (MCU), serta konfirmasi manfaat kerja (FKM). Sistem menggunakan autentikasi berbasis cookie Laravel Sanctum dengan tiga guard berbeda: applicant, admin-ta, dan admin.</p><h3>Permasalahan</h3><ul><li>Proses rekrutmen manual yang tidak efisien melalui email atau spreadsheet.</li><li>Tidak ada transparansi status lamaran bagi pelamar.</li><li>Data pelamar tersebar dan tidak terstandarisasi dalam berbagai format dokumen.</li><li>Manajemen jadwal MCU tidak terintegrasi dengan sistem rekrutmen.</li><li>Kesulitan dalam pelaporan dan analisis data rekrutmen real-time.</li><li>Kebutuhan validasi data yang ketat untuk memenuhi standar kepatuhan dan kualitas SDM.</li></ul><h3>Solusi yang Dibangun</h3><ul><li>Sistem <strong>Job Order</strong> dengan CRUD lowongan, publikasi, dan manajemen status lowongan.</li><li>Sistem lamaran pekerjaan (<strong>Application</strong>) dengan alur tahapan seleksi (<strong>ApplicationStageStatus</strong>).</li><li>Dashboard pelamar untuk melacak status lamaran real-time dengan notifikasi dan riwayat perubahan status.</li><li>Form Data Pribadi (FDP) terstruktur dengan 15+ tabel relasional dan validasi berbasis Zod di frontend serta Laravel di backend.</li><li>Modul <strong>MedicalSchedule</strong> dan <strong>ApplicantMedicalSchedule</strong> untuk penjadwalan MCU berbasis tanggal yang dapat dipilih pelamar.</li><li>Fitur export data pelamar ke Excel, dashboard admin TA dengan grafik dan ringkasan lowongan, serta filter dan pencarian lanjutan.</li><li>Sistem <strong>Capability-Based Authorization</strong>, validasi multi-panel pada FDP, pengecekan kelengkapan profil, dan fitur review aplikasi oleh admin TA.</li></ul><h3>Tujuan Proyek</h3><ul><li>Digitalisasi seluruh siklus rekrutmen dari publikasi lowongan hingga konfirmasi manfaat (FKM).</li><li>Peningkatan transparansi dan pengalaman pelamar melalui dashboard personal yang responsif.</li><li>Efisiensi administrasi tim TA dalam mengelola lowongan, menyaring pelamar, menjadwalkan MCU, dan menghasilkan laporan.</li><li>Integrasi data master nasional untuk wilayah Indonesia, institusi pendidikan, dan struktur organisasi perusahaan.</li><li>Keamanan dan kepatuhan data melalui autentikasi Sanctum, kontrol akses berbasis capability, dan fitur penghapusan akun.</li></ul><h3>Tech Stack</h3><p><strong>Backend:</strong> Laravel 11, PHP 8.2, Laravel Sanctum, Inertia.js, Vite, Bootstrap 4.6, Maatwebsite Excel, Intervention Image, Spatie Google Calendar, Spatie Image Optimizer, laravolt/avatar.<br><strong>Frontend:</strong> Next.js 14.1, React 18, Redux Toolkit, RTK Query, TanStack React Query, TanStack React Table, Sass, styled-components, Axios, React Hook Form, Zod, Framer Motion, Recharts, React-PDF.<br><strong>Database &amp; DevOps:</strong> MySQL, Redis, Docker, nginx, Traefik, PHPUnit, Laravel Pint, Laravel Debugbar.</p><h3>Timeline</h3><p><strong>Periode:</strong> April 2024 – Oktober 2025 (~1,5 tahun)<br><strong>Fase:</strong> Setup &amp; Foundation → Core Features Development → Recruitment System Development → Stabilization &amp; Enhancement.</p><h3>Catatan Arsitektur</h3><p>Backend menggunakan sistem <em>hook</em> custom melalui <strong>Eventy</strong> yang memungkinkan registrasi route, capability, dan menu secara dinamis melalui boot providers. Multi-interface frontend dalam satu backend: CMS Admin (Blade + AdminLTE), Dashboard Inertia (React), dan Frontend Web (React).</p></div>',
                 'full_description_en' => null,
-                'role' => 'Lead System Analyst',
+                'role' => 'System Analyst',
                 'period' => '2024 – 2025',
                 'demo_url' => null,
                 'repo_url' => null,
@@ -98,7 +98,7 @@ class ProjectSeeder extends Seeder
                 'sort_order' => 4,
                 'technologies' => ['Laravel', 'Next.js', 'React', 'PostgreSQL', 'Redis', 'Docker', 'Kubernetes', 'Redux Toolkit', 'RTK Query', 'React Hook Form', 'Zod', 'Recharts'],
                 'members' => [
-                    ['name' => 'Amrizal', 'role' => 'Lead System Analyst'],
+                    ['name' => 'Amrizal', 'role' => 'System Analyst'],
                 ],
             ],
             [
@@ -146,7 +146,7 @@ class ProjectSeeder extends Seeder
                 ],
             ],
             [
-                'title_id' => 'Sistem Manajemen Kepatuhan & Hukum (GCL-AAB) Phase 1–4',
+                'title_id' => 'Sistem Manajemen Kepatuhan & Hukum (GCL-AAB)',
                 'title_en' => null,
                 'type' => 'office',
                 'company_name' => 'PT. Asuransi Astra Buana',
