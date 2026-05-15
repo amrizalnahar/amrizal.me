@@ -6,6 +6,7 @@ $aboutSeo = \App\Helpers\SeoHelper::pageSeo('about');
 @section('title', $aboutSeo['title'])
 @section('description', $aboutSeo['description'])
 @section('og_image', $aboutSeo['og_image'])
+@section('canonical_url', route('about'))
 
 @section('content')
 
@@ -17,7 +18,7 @@ $aboutSeo = \App\Helpers\SeoHelper::pageSeo('about');
                 <div class="w-48 h-48 md:w-64 md:h-64 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-400 p-1 shadow-lg">
                     <div class="w-full h-full rounded-xl bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center overflow-hidden">
                         @if ($profile && $profile->photo)
-                            <img src="{{ Storage::url($profile->photo) }}" alt="Profile photo" class="w-full h-full object-cover">
+                            <img src="{{ Storage::url($profile->photo) }}" alt="Profile photo" width="256" height="256" class="w-full h-full object-cover">
                         @else
                             <svg class="w-20 h-20 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                         @endif
@@ -61,7 +62,7 @@ $aboutSeo = \App\Helpers\SeoHelper::pageSeo('about');
                     <div class="shrink-0">
                         <div class="w-12 h-12 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center border border-neutral-200 dark:border-neutral-700">
                             @if ($experience->logo)
-                                <img src="{{ Storage::url($experience->logo) }}" alt="{{ $experience->company_name }}" class="w-6 h-6 object-contain">
+                                <img src="{{ Storage::url($experience->logo) }}" alt="{{ $experience->company_name }}" loading="lazy" width="24" height="24" class="w-6 h-6 object-contain">
                             @else
                                 <svg class="w-6 h-6 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg>
                             @endif
@@ -171,7 +172,7 @@ $aboutSeo = \App\Helpers\SeoHelper::pageSeo('about');
                     <div class="shrink-0">
                         <div class="w-12 h-12 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center border border-neutral-200 dark:border-neutral-700">
                             @if ($education->logo)
-                                <img src="{{ Storage::url($education->logo) }}" alt="{{ $education->institution_name }}" class="w-6 h-6 object-contain">
+                                <img src="{{ Storage::url($education->logo) }}" alt="{{ $education->institution_name }}" loading="lazy" width="24" height="24" class="w-6 h-6 object-contain">
                             @else
                                 <svg class="w-6 h-6 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
                             @endif

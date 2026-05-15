@@ -53,7 +53,7 @@
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="card-animate aspect-video bg-neutral-200 dark:bg-neutral-800 rounded-xl overflow-hidden flex items-center justify-center group" data-delay="1">
             @if ($project->thumbnail)
-                <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }}" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             @else
                 <svg class="w-24 h-24 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
             @endif
@@ -80,7 +80,7 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             @foreach ($project->gallery as $image)
                                 <div class="aspect-video bg-neutral-200 dark:bg-neutral-800 rounded-lg overflow-hidden flex items-center justify-center group">
-                                    <img src="{{ Storage::url($image) }}" alt="Gallery image" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                    <img src="{{ Storage::url($image) }}" alt="{{ $project->localize('title') }} - Gallery image {{ $loop->iteration }}" loading="lazy" width="800" height="450" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                                 </div>
                             @endforeach
                         </div>
@@ -182,7 +182,7 @@
                     <a href="{{ route('portfolio.show', $related->slug) }}" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="{{ $index + 1 }}">
                         <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
                             @if ($related->thumbnail)
-                                <img src="{{ Storage::url($related->thumbnail) }}" alt="{{ $related->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img src="{{ Storage::url($related->thumbnail) }}" alt="{{ $related->localize('title') }}" loading="lazy" width="640" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @else
                                 <div class="absolute inset-0 flex items-center justify-center">
                                     <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>

@@ -6,6 +6,7 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
 @section('title', $portfolioSeo['title'])
 @section('description', $portfolioSeo['description'])
 @section('og_image', $portfolioSeo['og_image'])
+@section('canonical_url', route('portfolio.index'))
 
 @section('content')
 
@@ -47,7 +48,7 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
                 <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="{{ ($index % 3) + 1 }}">
                     <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
                         @if ($project->thumbnail)
-                            <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }}" loading="lazy" width="640" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         @else
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
@@ -165,7 +166,7 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
                     <div class="flex items-start gap-4">
                         <div class="shrink-0 w-12 h-12 rounded-lg bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center border border-neutral-200 dark:border-neutral-700">
                             @if ($certificate->issuer_logo)
-                                <img src="{{ Storage::url($certificate->issuer_logo) }}" alt="{{ $certificate->issuer_name }}" class="w-6 h-6 object-contain">
+                                <img src="{{ Storage::url($certificate->issuer_logo) }}" alt="{{ $certificate->issuer_name }}" loading="lazy" width="24" height="24" class="w-6 h-6 object-contain">
                             @else
                                 <svg class="w-6 h-6 text-primary-600" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
                             @endif
@@ -246,6 +247,14 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
 </section>
 
 @endsection
+
+@push('jsonld')
+    <x-schema-org type="CollectionPage" :data="[
+        'name' => $portfolioSeo['title'],
+        'url' => route('portfolio.index'),
+        'description' => $portfolioSeo['description'],
+    ]" />
+@endpush
 
 @push('scripts')
 <script>

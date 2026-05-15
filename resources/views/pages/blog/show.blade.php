@@ -48,7 +48,7 @@
 <section class="pb-10 md:pb-14">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="aspect-[16/9] bg-neutral-200 dark:bg-neutral-800 rounded-xl overflow-hidden flex items-center justify-center group">
-            <img src="{{ Storage::url($post->thumbnail) }}" alt="{{ $post->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+            <img src="{{ Storage::url($post->thumbnail) }}" alt="{{ $post->localize('title') }}" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
         </div>
     </div>
 </section>
@@ -138,7 +138,7 @@
                 <a href="{{ route('blog.show', $related->slug) }}" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="{{ $loop->index + 1 }}">
                     <div class="aspect-[16/10] bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
                         @if ($related->thumbnail)
-                            <img src="{{ Storage::url($related->thumbnail) }}" alt="{{ $related->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="{{ Storage::url($related->thumbnail) }}" alt="{{ $related->localize('title') }}" loading="lazy" width="640" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         @else
                             <div class="w-full h-full flex items-center justify-center">
                                 <svg class="w-10 h-10 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>

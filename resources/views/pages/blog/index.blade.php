@@ -3,6 +3,7 @@
 @section('title', $seo['title'] ?? __('public.blog.page_title') . ' — ' . config('app.name'))
 @section('description', $seo['description'] ?? 'Artikel seputar teknologi, sistem, dan pengembangan oleh Amrizal — System Analyst & Builder.')
 @section('og_image', $seo['og_image'] ?? config('seo.default_image'))
+@section('canonical_url', route('blog.index'))
 
 @section('content')
 
@@ -49,7 +50,7 @@
                 <a href="{{ route('blog.show', $post->slug) }}" data-post data-category="{{ $post->category?->slug ?? '' }}" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="{{ ($index % 3) + 1 }}">
                     <div class="aspect-[16/10] bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
                         @if ($post->thumbnail)
-                            <img src="{{ Storage::url($post->thumbnail) }}" alt="{{ $post->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="{{ Storage::url($post->thumbnail) }}" alt="{{ $post->localize('title') }}" loading="lazy" width="640" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         @else
                             <div class="w-full h-full flex items-center justify-center">
                                 <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
@@ -63,7 +64,7 @@
                             @endif
                             <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
                         </div>
-                        <h3 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 group-hover:underline transition-colors line-clamp-2">{{ $post->localize('title') }}</h3>
+                        <h2 class="text-lg font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 group-hover:underline transition-colors line-clamp-2">{{ $post->localize('title') }}</h2>
                         <p class="mt-2 text-sm text-neutral-600 dark:text-neutral-300 line-clamp-2">{{ \Illuminate\Support\Str::limit(strip_tags($post->localize('content')), 150) }}</p>
                         <p class="mt-4 text-xs text-neutral-500 dark:text-neutral-400">{{ $post->published_at?->format('d M Y') }}</p>
                     </div>
@@ -84,6 +85,14 @@
 </section>
 
 @endsection
+
+@push('jsonld')
+    <x-schema-org type="Blog" :data="[
+        'name' => config('seo.site_name') . ' Blog',
+        'url' => route('blog.index'),
+        'description' => config('seo.pages.blog.description') ?? config('seo.description'),
+    ]" />
+@endpush
 
 @push('scripts')
 <script>
