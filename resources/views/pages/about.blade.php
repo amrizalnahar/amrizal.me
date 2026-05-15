@@ -163,7 +163,7 @@ $aboutSeo = \App\Helpers\SeoHelper::pageSeo('about');
 </section>
 
 <!-- Education -->
-<section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-950">
+<section class="pb-16 md:pb-24 bg-neutral-50 dark:bg-neutral-950">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10" data-i18n="about.education_title">{{ __('public.about.education_title') }}</h2>
         <div class="max-w-3xl space-y-6">

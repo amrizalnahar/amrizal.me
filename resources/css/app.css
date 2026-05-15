@@ -310,7 +310,7 @@ h1, h2, h3, h4, h5, h6, .font-display {
 .aurora-blob--secondary {
     width: 360px;
     height: 360px;
-    background: rgba(46, 125, 82, 0.22);
+    background: rgba(230, 80, 27, 0.22);
     top: 20px;
     right: -60px;
 }
@@ -318,7 +318,7 @@ h1, h2, h3, h4, h5, h6, .font-display {
 .aurora-blob--accent {
     width: 300px;
     height: 300px;
-    background: rgba(245, 166, 35, 0.18);
+    background: rgba(116, 10, 3, 0.18);
     bottom: -60px;
     left: 35%;
 }
@@ -329,12 +329,12 @@ h1, h2, h3, h4, h5, h6, .font-display {
 }
 
 .dark .aurora-blob--secondary {
-    background: rgba(46, 125, 82, 0.16);
+    background: rgba(230, 80, 27, 0.16);
     filter: blur(50px);
 }
 
 .dark .aurora-blob--accent {
-    background: rgba(245, 166, 35, 0.12);
+    background: rgba(116, 10, 3, 0.12);
     filter: blur(45px);
 }
 
@@ -408,7 +408,7 @@ h1, h2, h3, h4, h5, h6, .font-display {
 .aurora-page-bg .aurora-blob--secondary {
     width: 520px;
     height: 520px;
-    background: rgba(46, 125, 82, 0.24);
+    background: rgba(230, 80, 27, 0.24);
     top: 5%;
     right: -120px;
 }
@@ -416,7 +416,7 @@ h1, h2, h3, h4, h5, h6, .font-display {
 .aurora-page-bg .aurora-blob--accent {
     width: 480px;
     height: 480px;
-    background: rgba(245, 166, 35, 0.18);
+    background: rgba(116, 10, 3, 0.18);
     bottom: -100px;
     left: 25%;
 }
@@ -435,7 +435,7 @@ h1, h2, h3, h4, h5, h6, .font-display {
 .aurora-page-bg .aurora-blob--extra-2 {
     width: 380px;
     height: 380px;
-    background: rgba(46, 125, 82, 0.12);
+    background: rgba(230, 80, 27, 0.12);
     border-radius: 50%;
     position: absolute;
     filter: blur(50px);
@@ -444,19 +444,19 @@ h1, h2, h3, h4, h5, h6, .font-display {
 }
 
 .dark .aurora-page-bg .aurora-blob--primary {
-    background: rgba(195, 17, 12, 0.22);
+    background: rgba(195, 17, 12, 0.55);
 }
 .dark .aurora-page-bg .aurora-blob--secondary {
-    background: rgba(46, 125, 82, 0.18);
+    background: rgba(230, 80, 27, 0.45);
 }
 .dark .aurora-page-bg .aurora-blob--accent {
-    background: rgba(245, 166, 35, 0.14);
+    background: rgba(116, 10, 3, 0.38);
 }
 .dark .aurora-page-bg .aurora-blob--extra-1 {
-    background: rgba(195, 17, 12, 0.12);
+    background: rgba(195, 17, 12, 0.32);
 }
 .dark .aurora-page-bg .aurora-blob--extra-2 {
-    background: rgba(46, 125, 82, 0.10);
+    background: rgba(230, 80, 27, 0.28);
 }
 
 /* Make aurora visible through sections */
@@ -471,9 +471,7 @@ main {
 
 /* All sections get subtle transparent bg so aurora shows through */
 main > section {
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    background-color: rgba(250, 250, 250, 0.92);
+    background-color: rgba(250, 250, 250, 0.82);
 }
 
 .dark main > section {
@@ -481,11 +479,21 @@ main > section {
 }
 
 /* Specific overrides for sections with explicit Tailwind bg classes */
-main > section.bg-neutral-50 { background-color: rgba(250, 250, 250, 0.93); }
-main > section.bg-neutral-100 { background-color: rgba(245, 245, 245, 0.93); }
-main > section.bg-white { background-color: rgba(255, 255, 255, 0.94); }
-main > section.bg-neutral-900 { background-color: rgba(23, 23, 23, 0.93); }
+main > section.bg-neutral-50 { background-color: rgba(250, 250, 250, 0.83); }
+main > section.bg-neutral-100 { background-color: rgba(245, 245, 245, 0.83); }
+main > section.bg-white { background-color: rgba(255, 255, 255, 0.84); }
+main > section.bg-neutral-900 { background-color: rgba(23, 23, 23, 0.87); }
 
-.dark main > section.bg-neutral-950 { background-color: rgba(10, 10, 10, 0.93); }
-.dark main > section.bg-neutral-900 { background-color: rgba(23, 23, 23, 0.93); }
-.dark main > section.bg-neutral-800 { background-color: rgba(38, 38, 38, 0.94); }
+/* Dark mode: target Tailwind dark: classes (escaped colon) */
+.dark main > section.dark\:bg-neutral-950 { background-color: rgba(10, 10, 10, 0.93); }
+.dark main > section.dark\:bg-neutral-900 { background-color: rgba(23, 23, 23, 0.93); }
+.dark main > section.dark\:bg-neutral-800 { background-color: rgba(38, 38, 38, 0.94); }
+
+/* Footer transparency so aurora shows through */
+body > footer.bg-neutral-50 {
+    background-color: rgba(250, 250, 250, 0.82);
+}
+
+.dark body > footer.dark\:bg-neutral-900 {
+    background-color: rgba(10, 10, 10, 0.92);
+}

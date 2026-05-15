@@ -146,4 +146,14 @@ return [
         'tagline' => 'Analyze systems. Design architecture. Build with code.',
         'copyright' => 'All rights reserved.',
     ],
+
+    'error' => [
+        'page_title' => 'Page Not Found',
+        'meta_description' => 'The page you are looking for could not be found. Return to amrizal.nahar homepage.',
+        'heading' => 'Page not found',
+        'message' => 'It looks like the page you were looking for has been moved, deleted, or never existed. Don\'t worry, let\'s get back on track.',
+        'back_to_home' => 'Back to Home',
+        'contact_me' => 'Contact Me',
+        'popular_pages' => 'Or visit popular pages:',
+    ],
 ];

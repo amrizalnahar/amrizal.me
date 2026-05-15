@@ -146,4 +146,14 @@ return [
         'tagline' => 'Analisis sistem. Rancang arsitektur. Bangun dengan kode.',
         'copyright' => 'All rights reserved.',
     ],
+
+    'error' => [
+        'page_title' => 'Halaman Tidak Ditemukan',
+        'meta_description' => 'Halaman yang Anda cari tidak ditemukan. Kembali ke beranda amrizal.nahar.',
+        'heading' => 'Halaman tidak ditemukan',
+        'message' => 'Sepertinya halaman yang Anda cari telah dipindahkan, dihapus, atau tidak pernah ada. Jangan khawatir, mari kembali ke jalur yang benar.',
+        'back_to_home' => 'Kembali ke Beranda',
+        'contact_me' => 'Hubungi Saya',
+        'popular_pages' => 'Atau kunjungi halaman populer:',
+    ],
 ];
