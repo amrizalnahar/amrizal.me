@@ -38,7 +38,7 @@
 </section>
 
 @if(app()->getLocale() === 'en' && !$project->hasTranslation('title'))
-<section class="pb-6 md:pb-8">
+<section class="py-6 md:py-8">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-50 dark:bg-primary-900/10 border border-primary-200 dark:border-primary-800 text-primary-700 dark:text-primary-400 text-sm">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
@@ -49,7 +49,7 @@
 @endif
 
 <!-- Thumbnail -->
-<section class="pb-10 md:pb-14">
+<section class="py-10 md:py-14">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="card-animate aspect-video bg-neutral-200 dark:bg-neutral-800 rounded-xl overflow-hidden flex items-center justify-center group" data-delay="1">
             @if ($project->thumbnail)
@@ -86,13 +86,6 @@
                         </div>
                     </div>
                 @endif
-
-                <div class="card-animate" data-delay="1">
-                    <h2 class="text-xl font-semibold text-neutral-900 dark:text-white mb-3" data-i18n="common.challenges_solutions">{{ __('public.common.challenges_solutions') }}</h2>
-                    <div class="prose dark:prose-invert max-w-none text-neutral-700 dark:text-neutral-300 leading-relaxed space-y-4">
-                        {!! $project->localize('full_description') !!}
-                    </div>
-                </div>
             </div>
 
             <!-- Sidebar -->
