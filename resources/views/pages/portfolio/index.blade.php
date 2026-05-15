@@ -1,7 +1,11 @@
 @extends('layouts.public')
 
-@section('title', __('public.portfolio.page_title') . ' — ' . config('app.name'))
-@section('description', 'Portofolio proyek dan sertifikat Amrizal — System Analyst & Builder.')
+@php
+$portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
+@endphp
+@section('title', $portfolioSeo['title'])
+@section('description', $portfolioSeo['description'])
+@section('og_image', $portfolioSeo['og_image'])
 
 @section('content')
 

@@ -1,7 +1,11 @@
 @extends('layouts.public')
 
-@section('title', __('public.contact.page_title') . ' — ' . config('app.name'))
-@section('description', 'Hubungi Amrizal — System Analyst & Builder. Tersedia untuk diskusi, kolaborasi, atau sekadar bertanya.')
+@php
+$contactSeo = \App\Helpers\SeoHelper::pageSeo('contact');
+@endphp
+@section('title', $contactSeo['title'])
+@section('description', $contactSeo['description'])
+@section('og_image', $contactSeo['og_image'])
 
 @section('content')
 

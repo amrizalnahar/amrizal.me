@@ -10,7 +10,14 @@
     <meta property="og:description" content="@yield('description', 'Personal website of Amrizal — System Analyst & Builder')">
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:image" content="@yield('og_image', config('seo.default_image'))">
+    <meta property="og:image:width" content="{{ config('seo.og.image_width', 1200) }}">
+    <meta property="og:image:height" content="{{ config('seo.og.image_height', 630) }}">
+    <meta name="twitter:card" content="{{ config('seo.twitter.card_type', 'summary_large_image') }}">
+    <meta name="author" content="@yield('meta_author', config('seo.author'))">
+    <meta name="keywords" content="@yield('meta_keywords', implode(', ', config('seo.keywords', [])))">
+    <meta name="robots" content="@yield('meta_robots', config('seo.default_robots', 'index, follow'))">
+    <link rel="canonical" href="@yield('canonical_url', url()->current())">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @yield('structured_data')
 

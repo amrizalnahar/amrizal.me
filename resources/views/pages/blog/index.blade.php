@@ -1,7 +1,8 @@
 @extends('layouts.public')
 
-@section('title', ($seo['title'] ?? __('public.blog.page_title')) . ' — ' . config('app.name'))
+@section('title', $seo['title'] ?? __('public.blog.page_title') . ' — ' . config('app.name'))
 @section('description', $seo['description'] ?? 'Artikel seputar teknologi, sistem, dan pengembangan oleh Amrizal — System Analyst & Builder.')
+@section('og_image', $seo['og_image'] ?? config('seo.default_image'))
 
 @section('content')
 

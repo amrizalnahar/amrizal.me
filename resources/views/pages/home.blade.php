@@ -1,7 +1,11 @@
 @extends('layouts.public')
 
-@section('title', 'amrizal.site — ' . __('public.home.hero_subtitle'))
-@section('description', 'Personal website of Amrizal — System Analyst & Builder. Analyzing systems, designing architecture, and building with code.')
+@php
+$homeSeo = \App\Helpers\SeoHelper::pageSeo('home');
+@endphp
+@section('title', $homeSeo['title'])
+@section('description', $homeSeo['description'])
+@section('og_image', $homeSeo['og_image'])
 
 @section('content')
 
@@ -205,3 +209,16 @@
 </section>
 
 @endsection
+
+@push('jsonld')
+    <x-schema-org type="WebSite" :data="[
+        'name' => config('seo.site_name'),
+        'url' => url('/'),
+        'description' => config('seo.description'),
+        'author' => [
+            '@type' => 'Person',
+            'name' => config('seo.author'),
+            'url' => url('/about'),
+        ],
+    ]" />
+@endpush

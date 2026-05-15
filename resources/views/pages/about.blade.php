@@ -1,7 +1,11 @@
 @extends('layouts.public')
 
-@section('title', __('public.about.page_title') . ' — ' . config('app.name'))
-@section('description', 'Profil, pengalaman, dan keahlian Amrizal sebagai System Analyst & Builder.')
+@php
+$aboutSeo = \App\Helpers\SeoHelper::pageSeo('about');
+@endphp
+@section('title', $aboutSeo['title'])
+@section('description', $aboutSeo['description'])
+@section('og_image', $aboutSeo['og_image'])
 
 @section('content')
 
@@ -93,47 +97,65 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10" data-i18n="about.workflow_title">{{ __('public.about.workflow_title') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- 1. Discover -->
             <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6" data-delay="1">
                 <div class="w-12 h-12 rounded-lg bg-primary-600/10 flex items-center justify-center mb-4">
                     <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 </div>
-                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2" data-i18n="about.discover">Discover</h3>
+                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2" data-i18n="about.discover">{{ __('public.about.discover') }}</h3>
                 <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed" data-i18n="about.discover_desc">{{ __('public.about.discover_desc') }}</p>
                 <div class="mt-4 flex flex-wrap gap-2">
-                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Claude</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">claude</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">google meet</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">google workspace</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">ms teams</span>
                 </div>
             </div>
+
+            <!-- 2. Design -->
             <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6" data-delay="2">
                 <div class="w-12 h-12 rounded-lg bg-primary-600/10 flex items-center justify-center mb-4">
                     <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0121 18.382V7.618a1 1 0 01-.447-.894L15 7m0 13V7"></path></svg>
                 </div>
-                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2" data-i18n="about.design">Design</h3>
+                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2" data-i18n="about.design">{{ __('public.about.design') }}</h3>
                 <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed" data-i18n="about.design_desc">{{ __('public.about.design_desc') }}</p>
                 <div class="mt-4 flex flex-wrap gap-2">
-                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Cursor</span>
-                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Claude</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">claude</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">balsamiq</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">draw.io</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">figma</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">google workspace</span>
                 </div>
             </div>
+
+            <!-- 3. Build -->
             <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6" data-delay="3">
                 <div class="w-12 h-12 rounded-lg bg-primary-600/10 flex items-center justify-center mb-4">
                     <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                 </div>
-                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2" data-i18n="about.build">Build</h3>
+                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2" data-i18n="about.build">{{ __('public.about.build') }}</h3>
                 <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed" data-i18n="about.build_desc">{{ __('public.about.build_desc') }}</p>
                 <div class="mt-4 flex flex-wrap gap-2">
-                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Cursor</span>
-                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Claude Code</span>
-                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Copilot</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">claude code</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">coding</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">google workspace</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">manual test</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">unit test</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">system integration test</span>
                 </div>
             </div>
-            <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6" data-delay="1">
+
+            <!-- 4. Deploy -->
+            <div class="card-animate bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 p-6" data-delay="4">
                 <div class="w-12 h-12 rounded-lg bg-primary-600/10 flex items-center justify-center mb-4">
                     <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 </div>
-                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2" data-i18n="about.deploy">Deploy</h3>
+                <h3 class="text-lg font-semibold text-neutral-900 dark:text-white mb-2" data-i18n="about.deploy">{{ __('public.about.deploy') }}</h3>
                 <p class="text-sm text-neutral-600 dark:text-neutral-300 leading-relaxed" data-i18n="about.deploy_desc">{{ __('public.about.deploy_desc') }}</p>
                 <div class="mt-4 flex flex-wrap gap-2">
-                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">Cursor</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">work instructions</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">post deployment</span>
+                    <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20">manual book</span>
                 </div>
             </div>
         </div>
@@ -229,3 +251,15 @@
 </section>
 
 @endsection
+
+@push('jsonld')
+    <x-schema-org type="ProfilePage" :data="[
+        'mainEntity' => [
+            '@type' => 'Person',
+            'name' => config('seo.author'),
+            'description' => config('seo.description'),
+            'url' => url('/about'),
+            'image' => $profile && $profile->photo ? \App\Helpers\SeoHelper::ogImage($profile->photo) : config('seo.default_image'),
+        ],
+    ]" />
+@endpush
