@@ -17,8 +17,9 @@ class SkillSeeder extends Seeder
                 'sort_order' => 1,
                 'skills' => [
                     ['name_id' => 'Business Process Analysis', 'name_en' => 'Business Process Analysis'],
+                    ['name_id' => 'Design Wireframe', 'name_en' => 'Design Wireframe'],
+                    ['name_id' => 'Business Process Mapping', 'name_en' => 'Business Process Mapping'],
                     ['name_id' => 'System Architecture Design', 'name_en' => 'System Architecture Design'],
-                    ['name_id' => 'UML & BPMN Modeling', 'name_en' => 'UML & BPMN Modeling'],
                     ['name_id' => 'Requirements Engineering', 'name_en' => 'Requirements Engineering'],
                 ],
             ],
@@ -28,9 +29,10 @@ class SkillSeeder extends Seeder
                 'sort_order' => 2,
                 'skills' => [
                     ['name_id' => 'PHP / Laravel', 'name_en' => 'PHP / Laravel'],
-                    ['name_id' => 'Python', 'name_en' => 'Python'],
-                    ['name_id' => 'JavaScript / TypeScript', 'name_en' => 'JavaScript / TypeScript'],
+                    ['name_id' => 'ReactJs', 'name_en' => 'ReactJs'],
+                    ['name_id' => 'InertiaJs', 'name_en' => 'InertiaJs'],
                     ['name_id' => 'SQL & Database Design', 'name_en' => 'SQL & Database Design'],
+                    ['name_id' => 'Version Control', 'name_en' => 'Version Control'],
                 ],
             ],
             [
@@ -38,9 +40,10 @@ class SkillSeeder extends Seeder
                 'name_en' => 'Project Management',
                 'sort_order' => 3,
                 'skills' => [
+                    ['name_id' => 'Waterfall', 'name_en' => 'Waterfall'],
                     ['name_id' => 'Agile / Scrum', 'name_en' => 'Agile / Scrum'],
                     ['name_id' => 'Project Planning & Estimation', 'name_en' => 'Project Planning & Estimation'],
-                    ['name_id' => 'Stakeholder Management', 'name_en' => 'Stakeholder Management'],
+                    ['name_id' => 'Backlog Refinement', 'name_en' => 'Backlog Refinement'],
                 ],
             ],
         ];
