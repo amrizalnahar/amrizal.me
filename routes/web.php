@@ -39,57 +39,61 @@ use App\Livewire\Admin\UserTable;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes
-Route::get('/', HomeController::class)->name('home');
-Route::get('/about', AboutController::class)->name('about');
-Route::get('/blog', [BeritaController::class, 'index'])->name('blog.index');
-Route::get('/blog/{slug}', [BeritaController::class, 'show'])->name('blog.show');
+Route::middleware(\App\Http\Middleware\AllowIndexing::class)
+    ->group(function () {
+        Route::get('/', HomeController::class)->name('home');
+        Route::get('/about', AboutController::class)->name('about');
+        Route::get('/blog', [BeritaController::class, 'index'])->name('blog.index');
+        Route::get('/blog/{slug}', [BeritaController::class, 'show'])->name('blog.show');
 
-Route::get('/berita', fn () => redirect()->route('blog.index'));
-Route::get('/berita/{slug}', fn ($slug) => redirect()->route('blog.show', $slug));
+        Route::get('/berita', fn () => redirect()->route('blog.index'));
+        Route::get('/berita/{slug}', fn ($slug) => redirect()->route('blog.show', $slug));
 
-Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
-Route::get('/portfolio/{slug}', [ProjectController::class, 'show'])->name('portfolio.show');
+        Route::get('/portfolio', [PortfolioController::class, 'index'])->name('portfolio.index');
+        Route::get('/portfolio/{slug}', [ProjectController::class, 'show'])->name('portfolio.show');
 
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+        Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+        Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 
-Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
-Route::get('/feed.xml', RssController::class)->name('rss');
+        Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
+        Route::get('/feed.xml', RssController::class)->name('rss');
 
-Route::post('/locale', function () {
-    $locale = request('locale');
-    if (! in_array($locale, ['id', 'en'])) {
-        return response()->json(['success' => false], 400);
-    }
+        Route::post('/locale', function () {
+            $locale = request('locale');
+            if (! in_array($locale, ['id', 'en'])) {
+                return response()->json(['success' => false], 400);
+            }
 
-    session(['locale' => $locale]);
-    app()->setLocale($locale);
+            session(['locale' => $locale]);
+            app()->setLocale($locale);
 
-    return response()->json(['success' => true, 'locale' => $locale]);
-})->name('locale.switch');
+            return response()->json(['success' => true, 'locale' => $locale]);
+        })->name('locale.switch');
 
-Route::get('/auth/public-key', PublicKeyController::class)
-    ->middleware('throttle:10,1')
-    ->name('auth.public-key');
-Route::get('/robots.txt', function () {
-    $robots = file_get_contents(resource_path('views/robots.txt'));
+        Route::get('/auth/public-key', PublicKeyController::class)
+            ->middleware('throttle:10,1')
+            ->name('auth.public-key');
 
-    // Replace APP_URL placeholder
-    $robots = str_replace('{{APP_URL}}', config('app.url'), $robots);
+        Route::get('/robots.txt', function () {
+            $robots = file_get_contents(resource_path('views/robots.txt'));
 
-    // Replace CRAWL_DELAY placeholder
-    $robots = str_replace('{{CRAWL_DELAY}}', config('seo.robots.crawl_delay', 10), $robots);
+            // Replace APP_URL placeholder
+            $robots = str_replace('{{APP_URL}}', config('app.url'), $robots);
 
-    // Build Disallow lines from config
-    $disallowLines = '';
-    foreach (config('seo.robots.disallow', ['/admin/', '/login/']) as $path) {
-        $disallowLines .= 'Disallow: '.trim($path)."\n";
-    }
-    $robots = str_replace('{{DISALLOW_PATHS}}', $disallowLines, $robots);
+            // Replace CRAWL_DELAY placeholder
+            $robots = str_replace('{{CRAWL_DELAY}}', config('seo.robots.crawl_delay', 10), $robots);
 
-    return response($robots)
-        ->header('Content-Type', 'text/plain');
-})->name('robots.txt');
+            // Build Disallow lines from config
+            $disallowLines = '';
+            foreach (config('seo.robots.disallow', ['/admin/', '/login/']) as $path) {
+                $disallowLines .= 'Disallow: '.trim($path)."\n";
+            }
+            $robots = str_replace('{{DISALLOW_PATHS}}', $disallowLines, $robots);
+
+            return response($robots)
+                ->header('Content-Type', 'text/plain');
+        })->name('robots.txt');
+    });
 
 Route::get('/admin', function () {
     return auth()->check()
