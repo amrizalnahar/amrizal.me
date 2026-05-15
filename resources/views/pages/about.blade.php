@@ -11,7 +11,6 @@ $aboutSeo = \App\Helpers\SeoHelper::pageSeo('about');
 
 <!-- Hero About -->
 <section class="hero-aurora pt-32 pb-16 md:pt-40 md:pb-24 bg-neutral-50 dark:bg-neutral-950">
-    <x-aurora-background />
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
             <div class="shrink-0 relative z-10">
@@ -93,7 +92,7 @@ $aboutSeo = \App\Helpers\SeoHelper::pageSeo('about');
 </section>
 
 <!-- Workflow Saya -->
-<section class="py-16 md:py-24">
+<section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-950">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10" data-i18n="about.workflow_title">{{ __('public.about.workflow_title') }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -163,7 +162,7 @@ $aboutSeo = \App\Helpers\SeoHelper::pageSeo('about');
 </section>
 
 <!-- Education -->
-<section class="py-16 md:py-24">
+<section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-950">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-10" data-i18n="about.education_title">{{ __('public.about.education_title') }}</h2>
         <div class="max-w-3xl space-y-6">

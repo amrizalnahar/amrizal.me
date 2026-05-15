@@ -158,7 +158,15 @@
 
     @stack('styles')
 </head>
-<body class="font-sans bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-50 antialiased">
+<body class="font-sans text-neutral-900 dark:text-neutral-50 antialiased">
+
+    <div class="aurora-page-bg">
+        <div class="aurora-blob aurora-blob--primary" aria-hidden="true"></div>
+        <div class="aurora-blob aurora-blob--secondary" aria-hidden="true"></div>
+        <div class="aurora-blob aurora-blob--accent" aria-hidden="true"></div>
+        <div class="aurora-blob aurora-blob--extra-1" aria-hidden="true"></div>
+        <div class="aurora-blob aurora-blob--extra-2" aria-hidden="true"></div>
+    </div>
 
     <x-global-ui />
     <x-public-navbar :active="$activeNav ?? 'home'" />

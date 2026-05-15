@@ -11,7 +11,6 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
 
 <!-- Header -->
 <section class="hero-aurora pt-32 pb-12 md:pt-40 md:pb-16 bg-neutral-50 dark:bg-neutral-950">
-    <x-aurora-background />
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="max-w-2xl">
             <x-glass-container class="p-6 md:p-8">
@@ -24,8 +23,8 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
 </section>
 
 <!-- Filters -->
-<section id="portfolio-filters" class="pb-8">
-    <div class="max-w-7xl mx-auto my-12 px-4 sm:px-6 lg:px-8">
+<section id="portfolio-filters" class="pb-8 bg-neutral-50 dark:bg-neutral-950">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div class="flex flex-wrap gap-2">
                 <button id="filter-all" class="px-4 py-1.5 rounded-full text-sm font-medium bg-primary-600 text-white" data-i18n="common.all">{{ __('public.common.all') }}</button>
@@ -41,7 +40,7 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
 </section>
 
 <!-- Projects Grid -->
-<section id="projects-section" class="pb-16 md:pb-24">
+<section id="projects-section" class="pb-16 md:pb-24 bg-neutral-50 dark:bg-neutral-950">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="projects-grid">
             @forelse ($projects as $index => $project)

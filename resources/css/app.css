@@ -300,41 +300,41 @@ h1, h2, h3, h4, h5, h6, .font-display {
 }
 
 .aurora-blob--primary {
-    width: 300px;
-    height: 300px;
-    background: rgba(195, 17, 12, 0.10);
-    top: -60px;
-    left: -60px;
+    width: 420px;
+    height: 420px;
+    background: rgba(195, 17, 12, 0.28);
+    top: -80px;
+    left: -80px;
 }
 
 .aurora-blob--secondary {
-    width: 250px;
-    height: 250px;
-    background: rgba(46, 125, 82, 0.08);
-    top: 40px;
-    right: -40px;
+    width: 360px;
+    height: 360px;
+    background: rgba(46, 125, 82, 0.22);
+    top: 20px;
+    right: -60px;
 }
 
 .aurora-blob--accent {
-    width: 200px;
-    height: 200px;
-    background: rgba(245, 166, 35, 0.06);
-    bottom: -40px;
-    left: 40%;
+    width: 300px;
+    height: 300px;
+    background: rgba(245, 166, 35, 0.18);
+    bottom: -60px;
+    left: 35%;
 }
 
 .dark .aurora-blob--primary {
-    background: rgba(195, 17, 12, 0.06);
+    background: rgba(195, 17, 12, 0.20);
     filter: blur(55px);
 }
 
 .dark .aurora-blob--secondary {
-    background: rgba(46, 125, 82, 0.05);
+    background: rgba(46, 125, 82, 0.16);
     filter: blur(50px);
 }
 
 .dark .aurora-blob--accent {
-    background: rgba(245, 166, 35, 0.04);
+    background: rgba(245, 166, 35, 0.12);
     filter: blur(45px);
 }
 
@@ -342,23 +342,25 @@ h1, h2, h3, h4, h5, h6, .font-display {
 .glass {
     position: relative;
     z-index: 1;
-    background: rgba(255, 255, 255, 0.60);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.40);
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.55);
     border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
 .dark .glass {
-    background: rgba(255, 255, 255, 0.07);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 /* Mobile: reduce blur for performance */
 @media (max-width: 768px) {
     .glass {
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
     }
     .aurora-blob {
         filter: blur(35px);
@@ -373,10 +375,10 @@ h1, h2, h3, h4, h5, h6, .font-display {
 /* Fallback for browsers without backdrop-filter support */
 @supports not (backdrop-filter: blur(12px)) {
     .glass {
-        background: rgba(250, 250, 250, 0.95);
+        background: rgba(250, 250, 250, 0.92);
     }
     .dark .glass {
-        background: rgba(10, 10, 10, 0.95);
+        background: rgba(30, 30, 30, 0.92);
     }
 }
 
@@ -385,3 +387,105 @@ h1, h2, h3, h4, h5, h6, .font-display {
     position: relative;
     overflow: hidden;
 }
+
+/* Global page aurora background — fixed behind all content */
+.aurora-page-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.aurora-page-bg .aurora-blob--primary {
+    width: 600px;
+    height: 600px;
+    background: rgba(195, 17, 12, 0.30);
+    top: -120px;
+    left: -100px;
+}
+
+.aurora-page-bg .aurora-blob--secondary {
+    width: 520px;
+    height: 520px;
+    background: rgba(46, 125, 82, 0.24);
+    top: 5%;
+    right: -120px;
+}
+
+.aurora-page-bg .aurora-blob--accent {
+    width: 480px;
+    height: 480px;
+    background: rgba(245, 166, 35, 0.18);
+    bottom: -100px;
+    left: 25%;
+}
+
+.aurora-page-bg .aurora-blob--extra-1 {
+    width: 400px;
+    height: 400px;
+    background: rgba(195, 17, 12, 0.14);
+    border-radius: 50%;
+    position: absolute;
+    filter: blur(50px);
+    top: 55%;
+    left: -80px;
+}
+
+.aurora-page-bg .aurora-blob--extra-2 {
+    width: 380px;
+    height: 380px;
+    background: rgba(46, 125, 82, 0.12);
+    border-radius: 50%;
+    position: absolute;
+    filter: blur(50px);
+    top: 45%;
+    right: 5%;
+}
+
+.dark .aurora-page-bg .aurora-blob--primary {
+    background: rgba(195, 17, 12, 0.22);
+}
+.dark .aurora-page-bg .aurora-blob--secondary {
+    background: rgba(46, 125, 82, 0.18);
+}
+.dark .aurora-page-bg .aurora-blob--accent {
+    background: rgba(245, 166, 35, 0.14);
+}
+.dark .aurora-page-bg .aurora-blob--extra-1 {
+    background: rgba(195, 17, 12, 0.12);
+}
+.dark .aurora-page-bg .aurora-blob--extra-2 {
+    background: rgba(46, 125, 82, 0.10);
+}
+
+/* Make aurora visible through sections */
+body {
+    background-color: transparent;
+}
+
+main {
+    position: relative;
+    z-index: 1;
+}
+
+/* All sections get subtle transparent bg so aurora shows through */
+main > section {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background-color: rgba(250, 250, 250, 0.92);
+}
+
+.dark main > section {
+    background-color: rgba(10, 10, 10, 0.92);
+}
+
+/* Specific overrides for sections with explicit Tailwind bg classes */
+main > section.bg-neutral-50 { background-color: rgba(250, 250, 250, 0.93); }
+main > section.bg-neutral-100 { background-color: rgba(245, 245, 245, 0.93); }
+main > section.bg-white { background-color: rgba(255, 255, 255, 0.94); }
+main > section.bg-neutral-900 { background-color: rgba(23, 23, 23, 0.93); }
+
+.dark main > section.bg-neutral-950 { background-color: rgba(10, 10, 10, 0.93); }
+.dark main > section.bg-neutral-900 { background-color: rgba(23, 23, 23, 0.93); }
+.dark main > section.bg-neutral-800 { background-color: rgba(38, 38, 38, 0.94); }

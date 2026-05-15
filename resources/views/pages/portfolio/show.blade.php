@@ -8,7 +8,6 @@
 @section('content')
 
 <section class="hero-aurora pt-24 pb-8 md:pt-28 md:pb-12 bg-neutral-50 dark:bg-neutral-950">
-    <x-aurora-background />
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <x-glass-container class="p-6 md:p-8">
             <a href="{{ route('portfolio.index') }}" class="inline-flex items-center gap-1 text-sm text-neutral-500 dark:text-neutral-400 hover:text-primary-600 transition-colors mb-4">

@@ -11,7 +11,6 @@ $contactSeo = \App\Helpers\SeoHelper::pageSeo('contact');
 
 <!-- Hero -->
 <section class="hero-aurora pt-32 pb-12 md:pt-40 md:pb-16 bg-neutral-50 dark:bg-neutral-950">
-    <x-aurora-background />
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="max-w-2xl">
             <x-glass-container class="p-6 md:p-8">
@@ -28,8 +27,8 @@ $contactSeo = \App\Helpers\SeoHelper::pageSeo('contact');
 </section>
 
 <!-- Contact Content -->
-<section class="pb-16 md:pb-24">
-    <div class="max-w-7xl mx-auto my-12 px-4 sm:px-6 lg:px-8">
+<section class="pb-16 md:pb-24 bg-neutral-50 dark:bg-neutral-950">
+    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16">
             <!-- Contact Info -->
             <div class="lg:col-span-2 space-y-6">
