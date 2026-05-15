@@ -11,7 +11,6 @@ $homeSeo = \App\Helpers\SeoHelper::pageSeo('home');
 
 <!-- Hero -->
 <section class="hero-aurora pt-32 pb-16 md:pt-40 md:pb-24 bg-neutral-50 dark:bg-neutral-950">
-    <x-aurora-background />
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
             <div class="flex-1 text-center md:text-left">
@@ -153,7 +152,7 @@ $homeSeo = \App\Helpers\SeoHelper::pageSeo('home');
 </section>
 
 <!-- Latest Articles -->
-<section class="py-16 md:py-24">
+<section class="py-16 md:py-24 bg-neutral-50 dark:bg-neutral-950">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between mb-10">
             <div>
