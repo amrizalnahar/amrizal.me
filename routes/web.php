@@ -219,4 +219,12 @@ Route::middleware(['auth', 'role:super-admin'])
             ->name('schedule-tasks');
     });
 
+// Fallback 404 — must be last route; ensures web middleware (SetLocale) runs on 404 pages
+Route::fallback(function () {
+    if (str_starts_with(request()->path(), 'admin')) {
+        return response()->view('errors.404-admin', [], 404);
+    }
+    return response()->view('errors.404', [], 404);
+});
+
 require __DIR__.'/auth.php';
