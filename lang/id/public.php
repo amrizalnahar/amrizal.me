@@ -86,22 +86,30 @@ return [
     ],
 
     'about' => [
-        'page_title' => 'Tentang Saya',
-        'default_summary' => 'Saya adalah System Analyst yang tidak berhenti di dokumen. Setelah bertahun-tahun menganalisis kebutuhan bisnis dan merancang arsitektur sistem, saya mulai "turun ke kode" — langsung mengeksekusi solusi yang saya rancang. Dengan bantuan AI tools, saya bisa bergerak lebih cepat dari analisis ke production tanpa mengorbankan kualitas.',
-        'download_cv' => 'Unduh CV',
+        'page_title'       => 'Tentang Saya',
+        'default_summary'  => 'Saya adalah System Analyst yang tidak berhenti di dokumen. Setelah bertahun-tahun menganalisis kebutuhan bisnis dan merancang arsitektur sistem, saya mulai "turun ke kode" — langsung mengeksekusi solusi yang saya rancang. Dengan bantuan AI tools, saya bisa bergerak lebih cepat dari analisis ke production tanpa mengorbankan kualitas.',
+        'download_cv'      => 'Unduh CV',
         'experience_title' => 'Pengalaman Kerja',
-        'current' => 'Sekarang',
-        'workflow_title' => 'Workflow Saya',
-        'discover' => 'Discover',
-        'discover_desc' => 'Wawancara stakeholder, dokumentasi requirement, dan user story mapping.',
-        'design' => 'Design',
-        'design_desc' => 'ERD, flow diagram, arsitektur sistem, dan API contract design.',
-        'build' => 'Build',
-        'build_desc' => 'Development, testing, dan code review dengan bantuan AI-assisted coding.',
-        'deploy' => 'Deploy',
-        'deploy_desc' => 'CI/CD setup, dokumentasi, dan monitoring dengan AI-assisted configuration.',
-        'education_title' => 'Riwayat Pendidikan',
-        'skills_title' => 'Keahlian',
+        'current'          => 'Sekarang',
+
+        // ── Workflow ────────────────────────────────────────────────
+        'workflow_title'   => 'Workflow Saya',
+
+        'discover'         => 'Discover',
+        'discover_desc'    => 'Wawancara stakeholder, identifikasi pain points, penulisan PRD/FSD, user story, dan acceptance criteria.',
+
+        'design'           => 'Design',
+        'design_desc'      => 'Perancangan ERD, arsitektur sistem, API contract, flowchart/swimlane, wireframe ,walkthrough, revisi, dan sign-off.',
+
+        'build'            => 'Build',
+        'build_desc'       => 'Pendampingan development, klarifikasi logika bisnis, review test case QA, validasi requirement, dan UAT.',
+
+        'deploy'           => 'Deploy',
+        'deploy_desc'      => 'Penyusunan release notes, serah terima dokumentasi, dan retrospektif proyek.',
+        // ────────────────────────────────────────────────────────────
+
+        'education_title'  => 'Riwayat Pendidikan',
+        'skills_title'     => 'Keahlian',
     ],
 
     'blog' => [
