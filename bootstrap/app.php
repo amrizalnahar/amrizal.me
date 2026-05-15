@@ -8,7 +8,9 @@ use App\Http\Middleware\TrackVisitor;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schedule;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 use Spatie\Permission\Middleware\RoleMiddleware;
 use Spatie\Permission\Middleware\RoleOrPermissionMiddleware;
@@ -40,5 +42,9 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->renderable(function (NotFoundHttpException $e, Request $request) {
+            if (str_starts_with($request->path(), 'admin')) {
+                return response()->view('errors.404-admin', [], 404);
+            }
+        });
     })->create();
