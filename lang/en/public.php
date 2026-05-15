@@ -32,6 +32,8 @@ return [
         'next' => 'Next',
         'previous_article' => 'Previous Article',
         'next_article' => 'Next Article',
+        'previous_project' => 'Previous Project',
+        'next_project' => 'Next Project',
         'tag' => 'Tag',
         'technologies' => 'Technologies',
         'team' => 'Team',

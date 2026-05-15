@@ -172,6 +172,36 @@
     </div>
 </section>
 
+<!-- Prev / Next -->
+@if ($previousProject || $nextProject)
+<section class="pb-10 md:pb-14 border-t border-neutral-200 dark:border-neutral-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            @if ($previousProject)
+                <a href="{{ route('portfolio.show', $previousProject->slug) }}" class="group flex items-center gap-3 text-left">
+                    <svg class="w-5 h-5 text-neutral-400 group-hover:text-primary-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    <div>
+                        <p class="text-xs text-neutral-500 dark:text-neutral-400" data-i18n="common.previous_project">{{ __('public.common.previous_project') }}</p>
+                        <p class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-1">{{ $previousProject->localize('title') }}</p>
+                    </div>
+                </a>
+            @else
+                <div></div>
+            @endif
+            @if ($nextProject)
+                <a href="{{ route('portfolio.show', $nextProject->slug) }}" class="group flex items-center gap-3 text-right sm:flex-row-reverse self-end sm:self-auto">
+                    <svg class="w-5 h-5 text-neutral-400 group-hover:text-primary-600 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    <div>
+                        <p class="text-xs text-neutral-500 dark:text-neutral-400" data-i18n="common.next_project">{{ __('public.common.next_project') }}</p>
+                        <p class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:text-primary-600 transition-colors line-clamp-1">{{ $nextProject->localize('title') }}</p>
+                    </div>
+                </a>
+            @endif
+        </div>
+    </div>
+</section>
+@endif
+
 <!-- Related Projects -->
 @if ($relatedProjects->count() > 0)
     <section class="pb-16 md:pb-24 border-t border-neutral-200 dark:border-neutral-800">
