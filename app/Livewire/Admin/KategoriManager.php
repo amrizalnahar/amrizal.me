@@ -29,6 +29,10 @@ class KategoriManager extends Component
 
     public string $name = '';
 
+    public string $name_id = '';
+
+    public string $name_en = '';
+
     public string $slug = '';
 
     public string $module_type = 'post';
@@ -44,11 +48,20 @@ class KategoriManager extends Component
     protected function rules(): array
     {
         return [
-            'name' => [
+            'name_id' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('categories', 'name')
+                Rule::unique('categories', 'name_id')
+                    ->where('module_type', $this->module_type)
+                    ->whereNull('deleted_at')
+                    ->ignore($this->editingId),
+            ],
+            'name_en' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('categories', 'name_en')
                     ->where('module_type', $this->module_type)
                     ->whereNull('deleted_at')
                     ->ignore($this->editingId),
@@ -70,8 +83,10 @@ class KategoriManager extends Component
     protected function messages(): array
     {
         return [
-            'name.required' => 'Nama kategori wajib diisi.',
-            'name.unique' => 'Nama kategori sudah digunakan.',
+            'name_id.required' => 'Nama kategori (ID) wajib diisi.',
+            'name_id.unique' => 'Nama kategori (ID) sudah digunakan.',
+            'name_en.required' => 'Nama kategori (EN) wajib diisi.',
+            'name_en.unique' => 'Nama kategori (EN) sudah digunakan.',
             'slug.required' => 'Slug wajib diisi.',
             'slug.unique' => 'Slug sudah digunakan.',
             'module_type.required' => 'Tipe modul wajib dipilih.',
@@ -119,6 +134,8 @@ class KategoriManager extends Component
     {
         $this->editingId = null;
         $this->name = '';
+        $this->name_id = '';
+        $this->name_en = '';
         $this->slug = '';
         $this->module_type = 'post';
         $this->description = '';
@@ -165,8 +182,8 @@ class KategoriManager extends Component
 
     public function generateSlug(): void
     {
-        if (! empty($this->name)) {
-            $base = Str::slug($this->name);
+        if (! empty($this->name_id)) {
+            $base = Str::slug($this->name_id);
             $slug = $base;
             $count = 1;
 
@@ -184,7 +201,7 @@ class KategoriManager extends Component
         }
     }
 
-    public function updatedName(): void
+    public function updatedNameId(): void
     {
         if (empty($this->slug) || $this->editingId === null) {
             $this->generateSlug();
@@ -198,7 +215,9 @@ class KategoriManager extends Component
         Category::updateOrCreate(
             ['id' => $this->editingId],
             [
-                'name' => $this->name,
+                'name' => $this->name_id,
+                'name_id' => $this->name_id,
+                'name_en' => $this->name_en,
                 'slug' => $this->slug,
                 'module_type' => $this->module_type,
                 'description' => $this->description ?: null,
@@ -213,7 +232,8 @@ class KategoriManager extends Component
     {
         $category = Category::findOrFail($id);
         $this->editingId = $category->id;
-        $this->name = $category->name;
+        $this->name_id = $category->name_id ?? $category->name;
+        $this->name_en = $category->name_en ?? '';
         $this->slug = $category->slug;
         $this->module_type = $category->module_type;
         $this->description = $category->description ?? '';

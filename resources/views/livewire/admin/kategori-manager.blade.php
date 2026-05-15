@@ -84,8 +84,11 @@
                             @endphp
                             <input type="checkbox" wire:click.prevent="toggleSelectPage" @checked($allPageSelected) wire:key="select-all-page-{{ $categories->currentPage() }}" class="rounded border-neutral-300 text-primary-600 focus:ring-primary-600">
                         </th>
-                        <th class="px-5 py-3 cursor-pointer hover:text-neutral-800" wire:click="sortBy('name')">
-                            Nama {!! $sortField === 'name' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' !!}
+                        <th class="px-5 py-3 cursor-pointer hover:text-neutral-800" wire:click="sortBy('name_id')">
+                            Nama (ID) {!! $sortField === 'name_id' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' !!}
+                        </th>
+                        <th class="px-5 py-3 cursor-pointer hover:text-neutral-800" wire:click="sortBy('name_en')">
+                            Nama (EN) {!! $sortField === 'name_en' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' !!}
                         </th>
                         <th class="px-5 py-3 cursor-pointer hover:text-neutral-800" wire:click="sortBy('slug')">
                             Slug {!! $sortField === 'slug' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' !!}
@@ -104,7 +107,8 @@
                             <td class="px-5 py-3.5">
                                 <input type="checkbox" wire:model.live="selected" value="{{ $category->id }}" class="rounded border-neutral-300 text-primary-600 focus:ring-primary-600">
                             </td>
-                            <td class="px-5 py-3.5 font-medium text-neutral-800">{{ $category->name }}</td>
+                            <td class="px-5 py-3.5 font-medium text-neutral-800">{{ $category->name_id ?? $category->name }}</td>
+                            <td class="px-5 py-3.5 text-neutral-500">{{ $category->name_en ?? '-' }}</td>
                             <td class="px-5 py-3.5 text-neutral-500">{{ $category->slug }}</td>
                             <td class="px-5 py-3.5">
                                 <span class="inline-flex px-2 py-0.5 rounded-full text-xs font-medium
@@ -143,7 +147,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-5 py-8 text-center text-neutral-500">Tidak ada data kategori.</td>
+                            <td colspan="8" class="px-5 py-8 text-center text-neutral-500">Tidak ada data kategori.</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -173,9 +177,15 @@
                     </div>
 
                     <div>
-                        <x-input-label for="name" value="Nama Kategori" />
-                        <x-text-input id="name" wire:model="name" type="text" class="mt-1 block w-full" placeholder="Masukkan nama kategori" />
-                        <x-input-error :messages="$errors->get('name')" class="mt-1" />
+                        <x-input-label for="name_id" value="Nama Kategori (ID)" />
+                        <x-text-input id="name_id" wire:model="name_id" type="text" class="mt-1 block w-full" placeholder="Masukkan nama kategori Indonesia" />
+                        <x-input-error :messages="$errors->get('name_id')" class="mt-1" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="name_en" value="Nama Kategori (EN)" />
+                        <x-text-input id="name_en" wire:model="name_en" type="text" class="mt-1 block w-full" placeholder="Enter English category name" />
+                        <x-input-error :messages="$errors->get('name_en')" class="mt-1" />
                     </div>
 
                     <div>

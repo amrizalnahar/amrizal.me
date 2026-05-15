@@ -19,7 +19,7 @@
             </a>
             <div class="flex flex-wrap items-center gap-2 mb-4">
                 @if ($post->category)
-                    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->name }}</span>
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->localize('name') }}</span>
                 @endif
                 <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ $post->published_at?->format('d M Y') }} · {{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span> · <span class="inline-flex items-center gap-0.5">{{ number_format($post->views) }} <span data-i18n="common.views">{{ __('public.common.views') }}</span></span></span>
             </div>
@@ -67,7 +67,7 @@
             <div class="flex flex-wrap items-center gap-2">
                 <span class="text-sm text-neutral-500 dark:text-neutral-400" data-i18n="common.tag">{{ __('public.common.tag') }}:</span>
                 @foreach ($post->tags as $tag)
-                    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:text-primary-600 transition-colors">{{ $tag->name }}</span>
+                    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700 hover:border-primary-600/30 hover:text-primary-600 transition-colors">{{ $tag->localize('name') }}</span>
                 @endforeach
             </div>
         </div>
@@ -148,7 +148,7 @@
                     <div class="p-4">
                         <div class="flex items-center gap-2 mb-2">
                             @if ($related->category)
-                                <span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-primary-600/10 text-primary-600">{{ $related->category->name }}</span>
+                                <span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-primary-600/10 text-primary-600">{{ $related->category->localize('name') }}</span>
                             @endif
                             <span class="text-[10px] text-neutral-500 dark:text-neutral-400">{{ ceil(str_word_count(strip_tags($related->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
                         </div>

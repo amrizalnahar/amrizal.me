@@ -31,7 +31,7 @@
             <div class="flex flex-wrap gap-2" id="blog-filters">
                 <button data-filter="all" class="px-4 py-1.5 rounded-full text-sm font-medium bg-primary-600 text-white transition-colors" data-i18n="common.all">{{ __('public.common.all') }}</button>
                 @foreach ($categories as $category)
-                    <button data-filter="{{ $category->slug }}" class="px-4 py-1.5 rounded-full text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">{{ $category->name }}</button>
+                    <button data-filter="{{ $category->slug }}" class="px-4 py-1.5 rounded-full text-sm font-medium bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors">{{ $category->localize('name') }}</button>
                 @endforeach
             </div>
             <div class="relative w-full sm:w-auto">
@@ -60,7 +60,7 @@
                     <div class="p-6">
                         <div class="flex items-center gap-2 mb-3">
                             @if ($post->category)
-                                <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->name }}</span>
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->localize('name') }}</span>
                             @endif
                             <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
                         </div>

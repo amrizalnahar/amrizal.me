@@ -91,7 +91,7 @@ class ContentSeeder extends Seeder
                 'author_id' => $authorId,
             ]);
 
-            $tagIds = $allTags->whereIn('name', $postData['tags'])->pluck('id')->toArray();
+            $tagIds = $allTags->whereIn('name_id', $postData['tags'])->pluck('id')->toArray();
             $post->tags()->attach($tagIds);
         }
     }
