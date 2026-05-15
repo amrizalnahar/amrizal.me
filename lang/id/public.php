@@ -32,6 +32,8 @@ return [
         'next' => 'Selanjutnya',
         'previous_article' => 'Artikel Sebelumnya',
         'next_article' => 'Artikel Selanjutnya',
+        'previous_project' => 'Proyek Sebelumnya',
+        'next_project' => 'Proyek Selanjutnya',
         'tag' => 'Tag',
         'technologies' => 'Teknologi',
         'team' => 'Tim',
