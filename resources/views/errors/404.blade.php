@@ -4,10 +4,10 @@
 @section('description', 'Halaman yang Anda cari tidak ditemukan. Kembali ke beranda amrizal.site.')
 
 @section('content')
-<div class="min-h-screen flex items-center justify-center pt-16 my-16 bg-neutral-50 dark:bg-neutral-950">
+<section class="min-h-screen flex items-center justify-center py-16 bg-neutral-50 dark:bg-neutral-950">
   <div class="max-w-lg mx-auto px-4 sm:px-6 text-center">
     <!-- Illustration -->
-    <div class="relative mx-auto w-40 h-40 sm:w-48 sm:h-48 mb-8">
+    <div class="relative mx-auto w-40 h-40 sm:w-48 sm:h-48 mb-8 overflow-hidden">
       <div class="absolute inset-0 rounded-full bg-gradient-to-br from-primary-600/10 to-primary-400/10 dark:from-primary-600/5 dark:to-primary-400/5"></div>
       <div class="absolute inset-0 flex items-center justify-center">
         <svg class="w-20 h-20 sm:w-24 sm:h-24 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -64,5 +64,5 @@
       </div>
     </div>
   </div>
-</div>
+</section>
 @endsection
