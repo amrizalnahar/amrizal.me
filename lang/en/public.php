@@ -86,22 +86,30 @@ return [
     ],
 
     'about' => [
-        'page_title' => 'About Me',
-        'default_summary' => 'I\'m a System Analyst who doesn\'t stop at documents. After years of analyzing business needs and designing system architecture, I started "getting into code" — directly executing the solutions I design. With AI tools, I can move faster from analysis to production without sacrificing quality.',
-        'download_cv' => 'Download CV',
+        'page_title'       => 'About Me',
+        'default_summary'  => 'I\'m a System Analyst who doesn\'t stop at documents. After years of analyzing business needs and designing system architecture, I started "getting into code" — directly executing the solutions I design. With AI tools, I can move faster from analysis to production without sacrificing quality.',
+        'download_cv'      => 'Download CV',
         'experience_title' => 'Work Experience',
-        'current' => 'Present',
-        'workflow_title' => 'My Workflow',
-        'discover' => 'Discover',
-        'discover_desc' => 'Stakeholder interviews, requirement documentation, and user story mapping.',
-        'design' => 'Design',
-        'design_desc' => 'ERD, flow diagrams, system architecture, and API contract design.',
-        'build' => 'Build',
-        'build_desc' => 'Development, testing, and code review with AI-assisted coding.',
-        'deploy' => 'Deploy',
-        'deploy_desc' => 'CI/CD setup, documentation, and monitoring with AI-assisted configuration.',
-        'education_title' => 'Education',
-        'skills_title' => 'Skills',
+        'current'          => 'Present',
+
+        // ── Workflow ────────────────────────────────────────────────
+        'workflow_title'   => 'My Workflow',
+
+        'discover'         => 'Discover',
+        'discover_desc'    => 'Stakeholder interviews, pain point identification, PRD/FSD writing, user stories, and acceptance criteria.',
+
+        'design'           => 'Design',
+        'design_desc'      => 'ERD, system architecture, API contracts, flowcharts/swimlanes, wireframes, walkthroughs, revisions, and sign-off.',
+
+        'build'            => 'Build',
+        'build_desc'       => 'Development support, business logic clarification, QA test case review, requirement validation, and UAT.',
+
+        'deploy'           => 'Deploy',
+        'deploy_desc'      => 'Release notes, documentation handover, and project retrospective.',
+        // ────────────────────────────────────────────────────────────
+
+        'education_title'  => 'Education',
+        'skills_title'     => 'Skills',
     ],
 
     'blog' => [
