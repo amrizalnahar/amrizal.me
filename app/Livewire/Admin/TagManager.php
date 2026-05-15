@@ -27,6 +27,10 @@ class TagManager extends Component
 
     public string $name = '';
 
+    public string $name_id = '';
+
+    public string $name_en = '';
+
     public string $slug = '';
 
     public ?int $confirmingDelete = null;
@@ -36,11 +40,19 @@ class TagManager extends Component
     protected function rules(): array
     {
         return [
-            'name' => [
+            'name_id' => [
                 'required',
                 'string',
                 'max:255',
-                Rule::unique('tags', 'name')
+                Rule::unique('tags', 'name_id')
+                    ->whereNull('deleted_at')
+                    ->ignore($this->editingId),
+            ],
+            'name_en' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('tags', 'name_en')
                     ->whereNull('deleted_at')
                     ->ignore($this->editingId),
             ],
@@ -58,8 +70,10 @@ class TagManager extends Component
     protected function messages(): array
     {
         return [
-            'name.required' => 'Nama tag wajib diisi.',
-            'name.unique' => 'Nama tag sudah digunakan.',
+            'name_id.required' => 'Nama tag (ID) wajib diisi.',
+            'name_id.unique' => 'Nama tag (ID) sudah digunakan.',
+            'name_en.required' => 'Nama tag (EN) wajib diisi.',
+            'name_en.unique' => 'Nama tag (EN) sudah digunakan.',
             'slug.required' => 'Slug wajib diisi.',
             'slug.unique' => 'Slug sudah digunakan.',
         ];
@@ -101,6 +115,8 @@ class TagManager extends Component
     {
         $this->editingId = null;
         $this->name = '';
+        $this->name_id = '';
+        $this->name_en = '';
         $this->slug = '';
         $this->confirmingDelete = null;
         $this->selected = [];
@@ -170,8 +186,8 @@ class TagManager extends Component
 
     public function generateSlug(): void
     {
-        if (! empty($this->name)) {
-            $base = Str::slug($this->name);
+        if (! empty($this->name_id)) {
+            $base = Str::slug($this->name_id);
             $slug = $base;
             $count = 1;
 
@@ -188,7 +204,7 @@ class TagManager extends Component
         }
     }
 
-    public function updatedName(): void
+    public function updatedNameId(): void
     {
         if (empty($this->slug) || $this->editingId === null) {
             $this->generateSlug();
@@ -202,7 +218,9 @@ class TagManager extends Component
         Tag::updateOrCreate(
             ['id' => $this->editingId],
             [
-                'name' => $this->name,
+                'name' => $this->name_id,
+                'name_id' => $this->name_id,
+                'name_en' => $this->name_en,
                 'slug' => $this->slug,
             ]
         );
@@ -215,7 +233,8 @@ class TagManager extends Component
     {
         $tag = Tag::findOrFail($id);
         $this->editingId = $tag->id;
-        $this->name = $tag->name;
+        $this->name_id = $tag->name_id ?? $tag->name;
+        $this->name_en = $tag->name_en ?? '';
         $this->slug = $tag->slug;
         $this->dispatch('open-modal', 'tag-modal');
     }

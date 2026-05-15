@@ -180,7 +180,7 @@ $homeSeo = \App\Helpers\SeoHelper::pageSeo('home');
                     <div class="p-6">
                         <div class="flex items-center gap-2 mb-3">
                             @if ($post->category)
-                                <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->name }}</span>
+                                <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-600/10 text-primary-600">{{ $post->category->localize('name') }}</span>
                             @endif
                             <span class="text-xs text-neutral-500 dark:text-neutral-400">{{ ceil(str_word_count(strip_tags($post->localize('content'))) / 200) }} <span data-i18n="common.min_read">{{ __('public.common.min_read') }}</span></span>
                         </div>

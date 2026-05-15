@@ -13,6 +13,8 @@ class Tag extends Model
 
     protected $fillable = [
         'name',
+        'name_id',
+        'name_en',
         'slug',
     ];
 
@@ -25,6 +27,8 @@ class Tag extends Model
     {
         return $query->where(function ($q) use ($term) {
             $q->where('name', 'like', "%{$term}%")
+                ->orWhere('name_id', 'like', "%{$term}%")
+                ->orWhere('name_en', 'like', "%{$term}%")
                 ->orWhere('slug', 'like', "%{$term}%");
         });
     }
