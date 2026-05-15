@@ -6,6 +6,7 @@ $contactSeo = \App\Helpers\SeoHelper::pageSeo('contact');
 @section('title', $contactSeo['title'])
 @section('description', $contactSeo['description'])
 @section('og_image', $contactSeo['og_image'])
+@section('canonical_url', route('contact'))
 
 @section('content')
 
@@ -155,3 +156,11 @@ $contactSeo = \App\Helpers\SeoHelper::pageSeo('contact');
 </section>
 
 @endsection
+
+@push('jsonld')
+    <x-schema-org type="ContactPage" :data="[
+        'name' => $contactSeo['title'],
+        'url' => route('contact'),
+        'description' => $contactSeo['description'],
+    ]" />
+@endpush

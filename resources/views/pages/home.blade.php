@@ -6,6 +6,7 @@ $homeSeo = \App\Helpers\SeoHelper::pageSeo('home');
 @section('title', $homeSeo['title'])
 @section('description', $homeSeo['description'])
 @section('og_image', $homeSeo['og_image'])
+@section('canonical_url', url('/'))
 
 @section('content')
 
@@ -36,7 +37,7 @@ $homeSeo = \App\Helpers\SeoHelper::pageSeo('home');
                 <div class="w-48 h-48 md:w-64 md:h-64 rounded-2xl bg-gradient-to-br from-primary-600 to-primary-400 p-1 shadow-lg">
                     <div class="w-full h-full rounded-xl bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center overflow-hidden">
                         @if ($profile && $profile->photo)
-                            <img src="{{ Storage::url($profile->photo) }}" alt="Profile photo" class="w-full h-full object-cover">
+                            <img src="{{ Storage::url($profile->photo) }}" alt="Profile photo" width="256" height="256" class="w-full h-full object-cover">
                         @else
                             <svg class="w-20 h-20 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                         @endif
@@ -66,7 +67,7 @@ $homeSeo = \App\Helpers\SeoHelper::pageSeo('home');
                     <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
                         <div class="absolute inset-0 flex items-center justify-center">
                             @if ($project->thumbnail)
-                                <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }} thumbnail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }} thumbnail" loading="lazy" width="640" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @else
                                 <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
                             @endif
@@ -169,7 +170,7 @@ $homeSeo = \App\Helpers\SeoHelper::pageSeo('home');
                 <a href="{{ route('blog.show', $post->slug) }}" class="card-animate group block bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="{{ $index + 1 }}">
                     <div class="aspect-[16/10] bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
                         @if ($post->thumbnail)
-                            <img src="{{ Storage::url($post->thumbnail) }}" alt="{{ $post->localize('title') }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <img src="{{ Storage::url($post->thumbnail) }}" alt="{{ $post->localize('title') }}" loading="lazy" width="640" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         @else
                             <div class="w-full h-full flex items-center justify-center">
                                 <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
