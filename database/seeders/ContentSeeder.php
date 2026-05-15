@@ -22,15 +22,6 @@ class ContentSeeder extends Seeder
 
         $posts = [
             [
-                'title_id' => 'Setup Cursor IDE untuk Laravel Development',
-                'title_en' => 'Setting Up Cursor IDE for Laravel Development',
-                'content_id' => '<p>Cursor IDE menjadi tools favorit saya belakangan ini untuk development Laravel. Dengan integrasi AI yang seamless, workflow coding jadi signifikan lebih cepat tanpa mengorbankan kualitas kode.</p><p>Dalam artikel ini, saya akan sharing konfigurasi Cursor yang saya pakai sehari-hari: dari cursor rules khusus Laravel, custom commands untuk scaffolding, hingga integrasi dengan PHPUnit dan Pint.</p><h3>Cursor Rules untuk Laravel</h3><p>Rules file adalah kunci utama agar AI memahami konteks project Laravel kita. Saya biasanya mendefinisikan:</p><ul><li>Struktur folder dan naming convention</li><li>Penggunaan Eloquent vs Query Builder</li><li>Standard PSR-12 dan Laravel Pint</li><li>Policy untuk blade components vs Livewire</li></ul><p>Dengan rules yang jelas, output AI jauh lebih konsisten dan sesuai dengan codebase existing.</p>',
-                'content_en' => '<p>Cursor IDE has become my favorite tool lately for Laravel development. With seamless AI integration, the coding workflow becomes significantly faster without sacrificing code quality.</p><p>In this article, I will share my daily Cursor configuration: from Laravel-specific cursor rules, custom commands for scaffolding, to integration with PHPUnit and Pint.</p><h3>Cursor Rules for Laravel</h3><p>The rules file is the main key for AI to understand our Laravel project context. I usually define:</p><ul><li>Folder structure and naming conventions</li><li>Usage of Eloquent vs Query Builder</li><li>PSR-12 standard and Laravel Pint</li><li>Policy for blade components vs Livewire</li></ul><p>With clear rules, AI output becomes much more consistent and aligned with the existing codebase.</p>',
-                'category' => 'Pemrograman',
-                'tags' => ['Laravel', 'PHP', 'DevOps'],
-                'published_at' => '2024-03-15 08:00:00',
-            ],
-            [
                 'title_id' => 'Dari Spreadsheet ke Dashboard: Redesign Laporan Operasional',
                 'title_en' => 'From Spreadsheet to Dashboard: Redesigning Operational Reports',
                 'content_id' => '<p>Selama dua tahun, tim operasional menghabiskan hampir 2 hari per minggu hanya untuk menggabungkan dan memformat laporan Excel. Proses manual ini rentan error dan lambat.</p><p>Saya mengidentifikasi pain point utama: data tersebar di berbagai sumber, tidak ada single source of truth, dan setiap divisi punya format laporan yang berbeda.</p><h3>Proses Analisis</h3><p>Tahap pertama adalah wawancara mendalam dengan stakeholders. Dari situ saya memetakan data flow dan menentukan KPI yang benar-benar dibutuhkan vs yang hanya "nice to have".</p><p>Tahap kedua: perancangan arsitektur data. Kami memilih Laravel sebagai backend dengan MySQL untuk data warehouse sederhana, dan Vue.js untuk frontend dashboard.</p><h3>Hasil</h3><p>Waktu reporting turun dari 16 jam/minggu menjadi real-time. Stakeholder bisa langsung melihat metrics terkini tanpa menunggu akhir pekan.</p>',
@@ -49,24 +40,6 @@ class ContentSeeder extends Seeder
                 'published_at' => '2024-05-10 09:00:00',
             ],
             [
-                'title_id' => 'Migrasi Monolith ke Microservices: Lesson Learned',
-                'title_en' => 'Monolith to Microservices Migration: Lessons Learned',
-                'content_id' => '<p>Migrasi dari monolith ke microservices bukanlah silver bullet. Saya belajar ini dengan cara keras setelah memimpin migrasi sistem ERP yang sudah berjalan 5 tahun.</p><p>Big bang migration hampir membawa kami ke bencana. Akhirnya kami pivot ke strangler fig pattern: mengextract satu service per satu, dimulai dari modul yang paling terisolasi.</p><h3>Kesalahan yang Saya Buat</h3><ul><li>Terlalu optimistis dengan estimasi waktu</li><li>Tidak mempertimbangkan distributed tracing sejak awal</li><li>Underestimate kompleksitas data consistency antar service</li></ul><h3>Apa yang Berhasil</h3><p>API Gateway dengan rate limiting dan JWT auth menjadi fondasi yang solid. Kami gunakan RabbitMQ untuk async communication dan PostgreSQL per service untuk data isolation.</p><p>Kunci sukses sebenarnya adalah: <strong>jangan migrasi jika monolith masih bisa di-scale</strong>.</p>',
-                'content_en' => '<p>Migrating from monolith to microservices is not a silver bullet. I learned this the hard way after leading the migration of an ERP system that had been running for 5 years.</p><p>Big bang migration almost brought us to disaster. We eventually pivoted to the strangler fig pattern: extracting one service at a time, starting with the most isolated module.</p><h3>Mistakes I Made</h3><ul><li>Too optimistic with time estimates</li><li>Not considering distributed tracing from the start</li><li>Underestimating the complexity of data consistency across services</li></ul><h3>What Worked</h3><p>An API Gateway with rate limiting and JWT auth became a solid foundation. We used RabbitMQ for async communication and PostgreSQL per service for data isolation.</p><p>The real key to success is: <strong>do not migrate if the monolith can still be scaled</strong>.</p>',
-                'category' => 'Tinjauan Proyek',
-                'tags' => ['Microservices', 'API', 'PostgreSQL', 'REST', 'Docker'],
-                'published_at' => '2024-06-18 07:00:00',
-            ],
-            [
-                'title_id' => 'Optimasi Query PostgreSQL di Aplikasi High-Traffic',
-                'title_en' => 'Optimizing PostgreSQL Queries in High-Traffic Applications',
-                'content_id' => '<p>Query yang lambat di production bisa menjadi mimpi buruk. Saya pernah menghadapi situasi di mana satu query report membuat CPU database server spike hingga 95%.</p><p>Melalui pg_stat_statements, saya mengidentifikasi query N+1 yang tersembunyi di dalam loop Eloquent. Masalahnya tidak terdeteksi di development karena dataset terlalu kecil.</p><h3>Strategi Optimasi</h3><ul><li><strong>Indexing:</strong> Partial index untuk query yang sering memfilter soft deletes</li><li><strong>Query refactoring:</strong> Mengganti eager loading berlebihan dengan specific select</li><li><strong>Materialized views:</strong> Untuk report kompleks yang tidak butuh real-time</li><li><strong>Connection pooling:</strong> PgBouncer untuk mengelola concurrent connections</li></ul><p>Hasil akhir: query time turun dari 12 detik menjadi 120ms untuk dataset dengan 10 juta rows.</p>',
-                'content_en' => '<p>Slow queries in production can be a nightmare. I once faced a situation where a single report query spiked the database server CPU to 95%.</p><p>Through pg_stat_statements, I identified an N+1 query hidden inside an Eloquent loop. The issue was not detected in development because the dataset was too small.</p><h3>Optimization Strategies</h3><ul><li><strong>Indexing:</strong> Partial indexes for queries that frequently filter soft deletes</li><li><strong>Query refactoring:</strong> Replacing excessive eager loading with specific selects</li><li><strong>Materialized views:</strong> For complex reports that do not need real-time data</li><li><strong>Connection pooling:</strong> PgBouncer to manage concurrent connections</li></ul><p>Final result: query time dropped from 12 seconds to 120ms for a dataset with 10 million rows.</p>',
-                'category' => 'Database',
-                'tags' => ['PostgreSQL', 'Laravel', 'PHP'],
-                'published_at' => '2024-07-05 14:00:00',
-            ],
-            [
                 'title_id' => 'Membangun ERP dengan Laravel dan Livewire',
                 'title_en' => 'Building an ERP with Laravel and Livewire',
                 'content_id' => '<p>ERP sering diasosiasikan dengan teknologi enterprise yang berat dan mahal. Namun dengan Laravel dan Livewire, kami berhasil membangun modul ERP yang lightweight namun powerful untuk UKM.</p><p>Stack yang kami gunakan: Laravel 11, Livewire 3, Tailwind CSS, dan Spatie Permission untuk RBAC. Semua berjalan di single VPS dengan biaya operasional minimal.</p><h3>Arsitektur Modular</h3><p>Setiap modul ERP (inventory, procurement, finance, HR) di-package sebagai Laravel package tersendiri. Ini memungkinkan klien untuk mengaktifkan hanya modul yang dibutuhkan.</p><p>Livewire memungkinkan kami membangun interaktivitas kompleks tanpa memisahkan frontend dan backend secara drastis. Development jadi lebih cepat dan maintenance lebih mudah.</p>',
@@ -74,15 +47,6 @@ class ContentSeeder extends Seeder
                 'category' => 'Pemrograman',
                 'tags' => ['Laravel', 'PHP', 'ERP', 'System Analyst'],
                 'published_at' => '2024-08-12 06:00:00',
-            ],
-            [
-                'title_id' => 'CI/CD Pipeline untuk Laravel dengan GitHub Actions',
-                'title_en' => 'CI/CD Pipeline for Laravel with GitHub Actions',
-                'content_id' => '<p>Manual deployment itu berisiko. Saya pernah menghapus folder vendor di production karena typo saat upload. Sejak itu, saya memutuskan semua project harus punya CI/CD pipeline.</p><p>GitHub Actions menjadi pilihan karena integrated dengan repository dan gratis untuk public repo. Pipeline saya biasanya terdiri dari:</p><h3>Workflow Pipeline</h3><ol><li><strong>Lint dan test:</strong> Pint untuk formatting, PHPUnit untuk unit test, dan static analysis dengan PHPStan</li><li><strong>Build assets:</strong> Vite build untuk production bundle</li><li><strong>Deploy:</strong> rsync ke VPS dengan zero-downtime menggunakan symlink switching</li></ol><p>Proses yang dulu memakan 30 menit manual kini selesai dalam 3 menit otomatis, dengan confidence yang jauh lebih tinggi.</p>',
-                'content_en' => '<p>Manual deployment is risky. I once deleted the vendor folder in production due to a typo during upload. Since then, I decided every project must have a CI/CD pipeline.</p><p>GitHub Actions was chosen because it is integrated with the repository and free for public repos. My pipeline usually consists of:</p><h3>Workflow Pipeline</h3><ol><li><strong>Lint and test:</strong> Pint for formatting, PHPUnit for unit tests, and static analysis with PHPStan</li><li><strong>Build assets:</strong> Vite build for production bundle</li><li><strong>Deploy:</strong> rsync to VPS with zero-downtime using symlink switching</li></ol><p>A process that used to take 30 minutes manually is now completed in 3 minutes automatically, with far higher confidence.</p>',
-                'category' => 'Teknologi',
-                'tags' => ['Laravel', 'DevOps', 'Docker', 'PHP'],
-                'published_at' => '2024-09-20 11:00:00',
             ],
             [
                 'title_id' => 'Perancangan REST API yang Scalable dan Maintainable',
@@ -94,15 +58,6 @@ class ContentSeeder extends Seeder
                 'published_at' => '2024-10-08 09:30:00',
             ],
             [
-                'title_id' => 'Pengalaman Implementasi AWS untuk Startup',
-                'title_en' => 'AWS Implementation Experience for a Startup',
-                'content_id' => '<p>Startup dengan budget terbatas sering kesulitan memilih layanan cloud yang tepat. Saya membantu salah satu startup fintech membangun infrastruktur AWS dari nol dengan biaya di bawah $200/bulan.</p><p>Arsitektur awal kami sangat sederhana: EC2 untuk application server, RDS untuk database, S3 untuk file storage, dan CloudFront untuk CDN. Tidak perlu over-engineering di awal.</p><h3>Apa yang Kami Pelajari</h3><ul><li><strong>Auto Scaling:</strong> Jangan aktifkan sebelum benar-benar dibutuhkan. Monitor dulu traffic pattern selama 3 bulan.</li><li><strong>Backup strategy:</strong> RDS automated backup + snapshot manual sebelum deployment besar.</li><li><strong>Security:</strong> IAM role per service, jangan pernah pakai root credentials di aplikasi.</li></ul><p>Ketika traffic tumbuh, kami migrate ke ECS dengan Fargate untuk container orchestration tanpa harus manage server.</p>',
-                'content_en' => '<p>Startups with limited budgets often struggle to choose the right cloud services. I helped a fintech startup build AWS infrastructure from scratch with costs under $200/month.</p><p>Our initial architecture was very simple: EC2 for the application server, RDS for the database, S3 for file storage, and CloudFront for CDN. No need for over-engineering at the start.</p><h3>What We Learned</h3><ul><li><strong>Auto Scaling:</strong> Do not enable it until it is truly needed. Monitor traffic patterns for 3 months first.</li><li><strong>Backup strategy:</strong> RDS automated backup + manual snapshots before major deployments.</li><li><strong>Security:</strong> IAM role per service, never use root credentials in the application.</li></ul><p>When traffic grew, we migrated to ECS with Fargate for container orchestration without having to manage servers.</p>',
-                'category' => 'Teknologi',
-                'tags' => ['AWS', 'Cloud', 'DevOps', 'Docker'],
-                'published_at' => '2024-11-15 08:00:00',
-            ],
-            [
                 'title_id' => 'Docker untuk Development Environment Laravel',
                 'title_en' => 'Docker for Laravel Development Environment',
                 'content_id' => '<p>"Works on my machine" adalah masalah klasik yang menghabiskan waktu berharga. Docker menyelesaikan masalah ini dengan mendefinisikan environment yang identik untuk semua developer di tim.</p><p>Saya menggunakan Laravel Sail sebagai starting point, namun menyesuaikan beberapa hal: menambahkan Redis untuk queue dan cache, Meilisearch untuk full-text search, dan Mailpit untuk email testing lokal.</p><h3>Docker Compose Setup</h3><p>Konfigurasi docker-compose.yml kami mendefinisikan service terpisah untuk app, web server, database, dan queue worker. Ini memungkinkan developer untuk menjalankan hanya service yang dibutuhkan.</p><p>Selain konsistensi, Docker juga memudahkan onboarding developer baru. Clone repo, run <code>docker-compose up</code>, dan dalam 5 menit environment siap digunakan.</p>',
@@ -110,15 +65,6 @@ class ContentSeeder extends Seeder
                 'category' => 'Pemrograman',
                 'tags' => ['Docker', 'Laravel', 'PHP', 'DevOps'],
                 'published_at' => '2024-12-05 07:30:00',
-            ],
-            [
-                'title_id' => 'Review Proyek: Sistem Inventory dengan Barcode Scanning',
-                'title_en' => 'Project Review: Inventory System with Barcode Scanning',
-                'content_id' => '<p>Project ini dimulai dari masalah sederhana: gudang masih mencatat barang masuk dan keluar secara manual di buku besar. Error human, delay laporan, dan kehilangan barang menjadi hal yang rutin.</p><p>Saya melakukan site visit selama 3 hari untuk memahami alur operasional gudang. Dari situ saya merancang sistem dengan proses: inbound → putaway → picking → packing → outbound.</p><h3>Teknologi</h3><p>Backend menggunakan Laravel dengan MySQL. Frontend untuk scanner berbasis Vue.js yang dijalankan di handheld Android. Barcode formatnya Code 128 yang dicetak otomatis saat inbound.</p><h3>Hasil Bisnis</h3><p>Waktu pencarian barang turun 70%. Accuracy stock mencapai 99.2%. Yang paling berharga: tim gudang yang awalnya skeptis akhirnya jadi champion user yang membantu training rekan-rekannya.</p>',
-                'content_en' => '<p>This project started from a simple problem: the warehouse was still manually recording goods in and out in a ledger. Human error, reporting delays, and lost items became routine.</p><p>I conducted a 3-day site visit to understand the warehouse operational flow. From there I designed a system with processes: inbound → putaway → picking → packing → outbound.</p><h3>Technology</h3><p>Backend using Laravel with MySQL. Frontend for scanners based on Vue.js running on handheld Android devices. Barcode format is Code 128 automatically printed during inbound.</p><h3>Business Results</h3><p>Item search time dropped by 70%. Stock accuracy reached 99.2%. The most valuable outcome: warehouse staff who were initially skeptical became champion users who helped train their colleagues.</p>',
-                'category' => 'Tinjauan Proyek',
-                'tags' => ['Laravel', 'MySQL', 'System Analyst', 'ERP'],
-                'published_at' => '2025-01-20 18:00:00',
             ],
             [
                 'title_id' => 'Cara Saya Menggunakan Claude Code untuk Accelerate Delivery',
