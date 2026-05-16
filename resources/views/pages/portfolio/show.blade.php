@@ -55,7 +55,7 @@
             @if ($project->thumbnail)
                 <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }}" width="1280" height="720" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             @else
-                <svg class="w-24 h-24 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                <x-project-thumbnail-fallback :title="$project->localize('title')" size="lg" />
             @endif
         </div>
     </div>
@@ -207,9 +207,7 @@
                             @if ($related->thumbnail)
                                 <img src="{{ Storage::url($related->thumbnail) }}" alt="{{ $related->localize('title') }}" loading="lazy" width="640" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @else
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                                </div>
+                                <x-project-thumbnail-fallback :title="$related->localize('title')" size="md" />
                             @endif
                             <div class="absolute top-3 left-3">
                                 <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-400/10 text-primary-400 border border-primary-400/20 backdrop-blur-sm">

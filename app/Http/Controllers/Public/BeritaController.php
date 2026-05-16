@@ -18,7 +18,11 @@ class BeritaController extends Controller
             ->orderBy('published_at', 'desc')
             ->get();
 
-        $categories = Category::byModule('post')->get();
+        $categories = Category::byModule('post')
+            ->whereHas('posts', function ($q) {
+                $q->published();
+            })
+            ->get();
 
         $seo = SeoHelper::pageSeo('blog');
 

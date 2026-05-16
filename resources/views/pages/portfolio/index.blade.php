@@ -50,9 +50,7 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
                         @if ($project->thumbnail)
                             <img src="{{ Storage::url($project->thumbnail) }}" alt="{{ $project->localize('title') }}" loading="lazy" width="640" height="360" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         @else
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
-                            </div>
+                            <x-project-thumbnail-fallback :title="$project->localize('title')" size="md" />
                         @endif
                         <div class="absolute top-3 left-3">
                             <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-400/10 text-primary-400 border border-primary-400/20 backdrop-blur-sm">
@@ -88,7 +86,7 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
                 {{-- Fallback: 3 hardcoded placeholder cards --}}
                 <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="1">
                     <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
-                        <div class="absolute inset-0 flex items-center justify-center"><svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg></div>
+                        <x-project-thumbnail-fallback title="Platform E-Commerce" size="md" />
                         <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-400/10 text-primary-400 border border-primary-400/20 backdrop-blur-sm">Retail / e-Commerce</span></div>
                     </div>
                     <div class="p-6">
@@ -108,7 +106,7 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
 
                 <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="2">
                     <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
-                        <div class="absolute inset-0 flex items-center justify-center"><svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+                        <x-project-thumbnail-fallback title="WMS" size="md" />
                         <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20 backdrop-blur-sm">Logistik Internal</span></div>
                     </div>
                     <div class="p-6">
@@ -128,7 +126,7 @@ $portfolioSeo = \App\Helpers\SeoHelper::pageSeo('portfolio');
 
                 <article class="card-animate group bg-white dark:bg-neutral-900 rounded-xl border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md dark:hover:shadow-lg dark:hover:shadow-white/5 hover:-translate-y-1 transition-all duration-300 overflow-hidden" data-delay="3">
                     <div class="relative aspect-video bg-neutral-200 dark:bg-neutral-800 overflow-hidden">
-                        <div class="absolute inset-0 flex items-center justify-center"><svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
+                        <x-project-thumbnail-fallback title="Last Mile" size="md" />
                         <div class="absolute top-3 left-3"><span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-primary-600/10 text-primary-600 border border-primary-600/20 backdrop-blur-sm">Logistik / Supply Chain</span></div>
                     </div>
                     <div class="p-6">

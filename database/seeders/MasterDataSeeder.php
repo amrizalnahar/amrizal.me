@@ -42,6 +42,14 @@ class MasterDataSeeder extends Seeder
             ['name' => 'Microservices', 'name_id' => 'Microservices', 'name_en' => 'Microservices'],
             ['name' => 'ERP', 'name_id' => 'ERP', 'name_en' => 'ERP'],
             ['name' => 'Agile', 'name_id' => 'Agile', 'name_en' => 'Agile'],
+            ['name' => 'Artificial Intelligence', 'name_id' => 'Artificial Intelligence', 'name_en' => 'Artificial Intelligence'],
+            ['name' => 'Machine Learning', 'name_id' => 'Machine Learning', 'name_en' => 'Machine Learning'],
+            ['name' => 'Data Science', 'name_id' => 'Data Science', 'name_en' => 'Data Science'],
+            ['name' => 'User Story', 'name_id' => 'User Story', 'name_en' => 'User Story'],
+            ['name' => 'PRD', 'name_id' => 'PRD', 'name_en' => 'PRD'],
+            ['name' => 'Testing', 'name_id' => 'Testing', 'name_en' => 'Testing'],
+            ['name' => 'Headless', 'name_id' => 'Headless', 'name_en' => 'Headless'],
+            ['name' => 'Project Management', 'name_id' => 'Project Management', 'name_en' => 'Project Management']
         ];
 
         foreach ($tags as $tagData) {
