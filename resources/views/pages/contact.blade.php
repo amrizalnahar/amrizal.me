@@ -106,11 +106,17 @@ $contactSeo = \App\Helpers\SeoHelper::pageSeo('contact');
                         </div>
                     @endif
 
+                    @if ($errors->has('_gotcha'))
+                        <div class="mb-6 p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-300 text-sm">
+                            Terjadi kesalahan. Silakan coba lagi.
+                        </div>
+                    @endif
+
                     <form action="{{ route('contact.store') }}" method="POST" class="space-y-5">
                         @csrf
 
                         <!-- Honeypot -->
-                        <input type="text" name="website" tabindex="-1" autocomplete="off" style="position:absolute;opacity:0;" value="{{ old('website') }}">
+                        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;opacity:0;pointer-events:none;" value="{{ old('_gotcha') }}">
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                             <div>

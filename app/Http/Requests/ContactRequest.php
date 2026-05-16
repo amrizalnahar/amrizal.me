@@ -18,7 +18,7 @@ class ContactRequest extends FormRequest
             'email' => ['required', 'email', 'max:255'],
             'subject' => ['required', 'string', 'max:255'],
             'message' => ['required', 'string', 'min:10'],
-            'website' => ['nullable', 'string', 'max:0'], // honeypot
+            '_gotcha' => ['nullable', 'string'], // honeypot
         ];
     }
 }
