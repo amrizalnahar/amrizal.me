@@ -45,6 +45,10 @@ class ProjectTable extends Component
 
     public function sortBy(string $field): void
     {
+        if (! in_array($field, ['title_id', 'status', 'sort_order', 'views', 'created_at'])) {
+            return;
+        }
+
         if ($this->sortField === $field) {
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
         } else {

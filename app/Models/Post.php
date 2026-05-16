@@ -30,6 +30,7 @@ class Post extends Model
         'status',
         'published_at',
         'author_id',
+        'views',
     ];
 
     protected $casts = [

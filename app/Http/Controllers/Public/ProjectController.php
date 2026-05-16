@@ -11,6 +11,11 @@ class ProjectController extends Controller
     {
         $project = Project::published()->with(['technologies', 'members'])->where('slug', $slug)->firstOrFail();
 
+        if (! session()->has("viewed_project_{$project->id}")) {
+            $project->increment('views');
+            session()->put("viewed_project_{$project->id}", true);
+        }
+
         $relatedProjects = Project::published()
             ->where('id', '!=', $project->id)
             ->whereHas('technologies', function ($q) use ($project) {
