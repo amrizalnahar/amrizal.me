@@ -28,6 +28,7 @@ $aboutSeo = \App\Helpers\SeoHelper::pageSeo('about');
             <div class="flex-1 text-center md:text-left">
                 <x-glass-container class="p-6 md:p-8">
                     <h1 class="text-3xl md:text-5xl font-bold text-neutral-900 dark:text-white text-balance" data-i18n="about.page_title">{{ __('public.about.page_title') }}</h1>
+                    <p class="mt-2 text-lg font-medium text-primary-600">Muhamad Amrizal Nahar</p>
                     <p class="mt-4 text-lg text-neutral-600 dark:text-neutral-300 leading-relaxed text-balance">
                         @if ($profile)
                             {{ $profile->localize('summary') }}

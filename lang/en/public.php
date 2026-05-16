@@ -49,7 +49,7 @@ return [
 
     'home' => [
         'hero_subtitle' => 'System Analyst & Builder',
-        'hero_title' => 'Hi, I\'m <span class="text-primary-600">Amrizal</span>',
+        'hero_title' => 'Hi, I\'m <span class="text-primary-600">Muhamad Amrizal Nahar</span>',
         'hero_description' => 'Analyzing business needs, designing system architecture, and building directly with code — accelerated with AI tools for faster delivery without compromising quality.',
         'cta_portfolio' => 'View Portfolio',
         'cta_about' => 'About Me',

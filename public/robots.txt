@@ -8,4 +8,4 @@ Disallow: /reset-password/
 Disallow: /verify-email/
 Disallow: /confirm-password/
 
-Sitemap: https://amrizal.nahar/sitemap.xml
+Sitemap: https://amrizal.site/sitemap.xml
