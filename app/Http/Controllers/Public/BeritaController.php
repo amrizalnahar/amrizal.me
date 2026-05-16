@@ -41,7 +41,10 @@ class BeritaController extends Controller
             ->where('slug', $slug)
             ->firstOrFail();
 
-        $post->increment('views');
+        if (! session()->has("viewed_post_{$post->id}")) {
+            $post->increment('views');
+            session()->put("viewed_post_{$post->id}", true);
+        }
 
         $seo = [
             'title' => ($post->seo_title ?? $post->localize('title')).' — Blog',

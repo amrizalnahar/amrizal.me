@@ -21,6 +21,7 @@ class Project extends Model
         'demo_url', 'repo_url',
         'thumbnail', 'gallery',
         'status', 'sort_order',
+        'views',
     ];
 
     protected $casts = [

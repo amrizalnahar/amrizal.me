@@ -94,6 +94,9 @@
                         <th class="px-4 py-3">Kategori</th>
                         <th class="px-4 py-3">Tags</th>
                         <th class="px-4 py-3">Status</th>
+                        <th class="px-4 py-3 cursor-pointer hover:text-neutral-800" wire:click="sortBy('views')">
+                            Views {!! $sortField === 'views' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' !!}
+                        </th>
                         <th class="px-4 py-3 cursor-pointer hover:text-neutral-800" wire:click="sortBy('published_at')">
                             Tanggal {!! $sortField === 'published_at' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' !!}
                         </th>
@@ -142,6 +145,7 @@
                                     {{ $post->status === 'published' ? 'Published' : 'Draft' }}
                                 </span>
                             </td>
+                            <td class="px-4 py-3 text-neutral-600">{{ number_format($post->views) }}</td>
                             <td class="px-4 py-3 text-neutral-500">
                                 {{ $post->published_at?->translatedFormat('d M Y') ?? $post->created_at->translatedFormat('d M Y') }}
                             </td>
@@ -163,7 +167,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="px-5 py-8 text-center text-neutral-500">Tidak ada data berita.</td>
+                            <td colspan="10" class="px-5 py-8 text-center text-neutral-500">Tidak ada data berita.</td>
                         </tr>
                     @endforelse
                 </tbody>

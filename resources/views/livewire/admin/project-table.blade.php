@@ -51,6 +51,9 @@
                         <th class="px-4 py-3 cursor-pointer hover:text-neutral-800" wire:click="sortBy('status')">
                             Status {!! $sortField === 'status' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' !!}
                         </th>
+                        <th class="px-4 py-3 cursor-pointer hover:text-neutral-800" wire:click="sortBy('views')">
+                            Views {!! $sortField === 'views' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' !!}
+                        </th>
                         <th class="px-4 py-3 cursor-pointer hover:text-neutral-800" wire:click="sortBy('sort_order')">
                             Urutan {!! $sortField === 'sort_order' ? ($sortDirection === 'asc' ? '↑' : '↓') : '' !!}
                         </th>
@@ -81,6 +84,7 @@
                                     {{ $project->status === 'publish' ? 'Publish' : 'Draft' }}
                                 </span>
                             </td>
+                            <td class="px-4 py-3 text-neutral-600">{{ number_format($project->views) }}</td>
                             <td class="px-4 py-3 text-neutral-600">{{ $project->sort_order }}</td>
                             <td class="px-4 py-3 text-right">
                                 <div class="flex items-center justify-end gap-2">
@@ -95,7 +99,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-5 py-8 text-center text-neutral-500">Tidak ada data proyek.</td>
+                            <td colspan="7" class="px-5 py-8 text-center text-neutral-500">Tidak ada data proyek.</td>
                         </tr>
                     @endforelse
                 </tbody>
