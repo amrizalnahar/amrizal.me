@@ -52,9 +52,7 @@
                         @if ($post->thumbnail)
                             <img src="{{ Storage::url($post->thumbnail) }}" alt="{{ $post->localize('title') }}" loading="lazy" width="640" height="400" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         @else
-                            <div class="w-full h-full flex items-center justify-center">
-                                <svg class="w-16 h-16 text-neutral-400" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-                            </div>
+                            <x-project-thumbnail-fallback :title="$post->localize('title')" size="md" />
                         @endif
                     </div>
                     <div class="p-6">
