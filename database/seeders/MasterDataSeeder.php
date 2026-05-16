@@ -49,7 +49,12 @@ class MasterDataSeeder extends Seeder
             ['name' => 'PRD', 'name_id' => 'PRD', 'name_en' => 'PRD'],
             ['name' => 'Testing', 'name_id' => 'Testing', 'name_en' => 'Testing'],
             ['name' => 'Headless', 'name_id' => 'Headless', 'name_en' => 'Headless'],
-            ['name' => 'Project Management', 'name_id' => 'Project Management', 'name_en' => 'Project Management']
+            ['name' => 'Project Management', 'name_id' => 'Project Management', 'name_en' => 'Project Management'],
+            ['name' => 'Software Architecture', 'name_id' => 'Software Architecture', 'name_en' => 'Software Architecture'],
+            ['name' => 'Career Development', 'name_id' => 'Career Development', 'name_en' => 'Career Development'],
+            ['name' => 'Personal Growth', 'name_id' => 'Personal Growth', 'name_en' => 'Personal Growth'],
+            ['name' => 'Professionalism', 'name_id' => 'Professionalism', 'name_en' => 'Professionalism'],
+            ['name' => 'Product Management', 'name_id' => 'Product Management', 'name_en' => 'Product Management'],
         ];
 
         foreach ($tags as $tagData) {
