@@ -27,7 +27,7 @@ class ContactController extends Controller
     public function store(ContactRequest $request)
     {
         // Honeypot check
-        if ($request->filled('website')) {
+        if ($request->filled('_gotcha')) {
             abort(422);
         }
 
@@ -42,6 +42,6 @@ class ContactController extends Controller
 
         SendContactNotificationJob::dispatch($contact);
 
-        return back()->with('success', 'Pesan berhasil dikirim. Terima kasih!');
+        return back()->with('success', __('public.contact.success'));
     }
 }
