@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', config('app.name'))</title>
-    <meta name="description" content="@yield('description', 'Personal website of Amrizal — System Analyst & Builder')">
+    <meta name="description" content="@yield('description', 'Personal website of Muhamad Amrizal Nahar — System Analyst')">
     <meta property="og:title" content="@yield('title', config('app.name'))">
-    <meta property="og:description" content="@yield('description', 'Personal website of Amrizal — System Analyst & Builder')">
+    <meta property="og:description" content="@yield('description', 'Personal website of Muhamad Amrizal Nahar — System Analyst')">
     <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:image" content="@yield('og_image', config('seo.default_image'))">

@@ -2,8 +2,9 @@
 
 return [
     'site_name' => env('SEO_SITE_NAME', 'amrizal.nahar'),
-    'description' => env('SEO_DESCRIPTION', 'Personal website of Amrizal — System Analyst & Builder. Analyzing systems, designing architecture, and building with code.'),
+    'description' => env('SEO_DESCRIPTION', 'Personal website of Muhamad Amrizal Nahar — System Analyst. Analyzing systems, designing architecture, and building with code.'),
     'keywords' => [
+        'muhamad amrizal nahar',
         'system analyst',
         'software engineer',
         'laravel developer',
@@ -16,7 +17,7 @@ return [
     'twitter_handle' => env('SEO_TWITTER_HANDLE', ''),
     'facebook_app_id' => env('SEO_FB_APP_ID', ''),
     'locale' => env('SEO_OG_LOCALE', 'id_ID'),
-    'author' => env('SEO_AUTHOR', 'Amrizal'),
+    'author' => env('SEO_AUTHOR', 'Muhamad Amrizal Nahar'),
 
     'sitemap' => [
         'home' => [

@@ -49,7 +49,7 @@ return [
 
     'home' => [
         'hero_subtitle' => 'System Analyst & Builder',
-        'hero_title' => 'Halo, saya <span class="text-primary-600">Amrizal</span>',
+        'hero_title' => 'Halo, saya <span class="text-primary-600">Muhamad Amrizal Nahar</span>',
         'hero_description' => 'Menganalisis kebutuhan bisnis, merancang arsitektur sistem, dan membangunnya langsung dengan kode — dipercepat dengan AI tools sehingga delivery lebih cepat tanpa mengorbankan kualitas.',
         'cta_portfolio' => 'Lihat Portofolio',
         'cta_about' => 'Tentang Saya',
