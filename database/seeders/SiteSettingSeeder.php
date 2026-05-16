@@ -10,8 +10,8 @@ class SiteSettingSeeder extends Seeder
     public function run(): void
     {
         $settings = [
-            'site_name' => 'Admin Panel',
-            'site_description' => 'Aplikasi manajemen konten website pribadi berbasis Laravel.',
+            'site_name' => 'Amrizal Nahar',
+            'site_description' => 'Portfolio dan blog profesional Amrizal Nahar, System Analyst & Builder. Berbagi pengalaman dan wawasan seputar perancangan sistem informasi, pengembangan aplikasi web, dan manajemen proyek teknologi.',
 
             'contact_email' => 'zalamri26@gmail.com',
             'contact_phone' => '+6282242458078',
@@ -27,9 +27,9 @@ class SiteSettingSeeder extends Seeder
             'linkedin_url' => 'muhamad-amrizal-nahar-143374170/',
             'location' => 'Indonesia',
             'contact_whatsapp' => '+6282242458078',
-            'seo_site_name' => 'Admin Panel',
-            'seo_description' => 'Aplikasi manajemen konten website pribadi berbasis Laravel.',
-            'seo_author' => 'Admin Panel',
+            'seo_site_name' => 'Amrizal Nahar — System Analyst & Builder',
+            'seo_description' => 'Portfolio dan blog Amrizal Nahar, System Analyst & Builder. Temukan artikel, studi kasus, dan proyek seputar analisis sistem, pengembangan aplikasi, serta teknologi informasi.',
+            'seo_author' => 'Amrizal Nahar',
             'ga4_measurement_id' => null,
         ];
 
