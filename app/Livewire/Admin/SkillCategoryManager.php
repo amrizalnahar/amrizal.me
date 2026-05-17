@@ -86,7 +86,7 @@ class SkillCategoryManager extends Component
         );
 
         $this->closeCategoryModal();
-        $this->dispatch('notify', type: 'success', message: $this->editingCategoryId ? 'Kategori berhasil diperbarui.' : 'Kategori berhasil ditambahkan.');
+        $this->dispatch('notify', type: 'success', message: 'Kategori berhasil disimpan.');
     }
 
     public function editCategory(int $id): void
@@ -169,7 +169,7 @@ class SkillCategoryManager extends Component
         );
 
         $this->closeSkillModal();
-        $this->dispatch('notify', type: 'success', message: $this->editingSkillId ? 'Skill berhasil diperbarui.' : 'Skill berhasil ditambahkan.');
+        $this->dispatch('notify', type: 'success', message: 'Skill berhasil disimpan.');
     }
 
     public function editSkill(int $id): void

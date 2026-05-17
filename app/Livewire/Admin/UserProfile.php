@@ -75,7 +75,7 @@ class UserProfile extends Component
         $this->existingAvatar = $user->avatar;
         $this->reset('avatar');
 
-        $this->dispatch('notify', message: 'Profil berhasil diperbarui.', type: 'success');
+        $this->dispatch('notify', message: 'Profil berhasil disimpan.', type: 'success');
     }
 
     public function removeAvatar(): void

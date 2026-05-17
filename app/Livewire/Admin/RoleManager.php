@@ -80,7 +80,7 @@ class RoleManager extends Component
         );
 
         $this->closeModal();
-        $this->dispatch('notify', type: 'success', message: $this->editingId ? 'Role berhasil diperbarui.' : 'Role berhasil ditambahkan.');
+        $this->dispatch('notify', type: 'success', message: 'Role berhasil disimpan.');
     }
 
     public function edit(int $id): void

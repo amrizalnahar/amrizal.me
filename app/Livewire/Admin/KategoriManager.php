@@ -225,7 +225,7 @@ class KategoriManager extends Component
         );
 
         $this->closeModal();
-        $this->dispatch('notify', type: 'success', message: $this->editingId ? 'Kategori berhasil diperbarui.' : 'Kategori berhasil ditambahkan.');
+        $this->dispatch('notify', type: 'success', message: 'Kategori berhasil disimpan.');
     }
 
     public function edit(int $id): void

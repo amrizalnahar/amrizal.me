@@ -225,7 +225,7 @@ class ProjectForm extends Component
             ]);
         }
 
-        $this->dispatch('notify', type: 'success', message: $this->project ? 'Proyek berhasil diperbarui.' : 'Proyek berhasil ditambahkan.');
+        $this->dispatch('notify', type: 'success', message: 'Proyek berhasil disimpan.');
         $this->redirectRoute('admin.projects');
     }
 

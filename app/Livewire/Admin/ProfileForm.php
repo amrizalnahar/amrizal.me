@@ -81,6 +81,9 @@ class ProfileForm extends Component
             $data['photo'] = $this->photo->store('profiles', 'public');
             $this->existingPhoto = $data['photo'];
             $this->photo = null;
+        } elseif ($this->profile->photo && is_null($this->existingPhoto)) {
+            Storage::disk('public')->delete($this->profile->photo);
+            $data['photo'] = null;
         }
 
         if ($this->cv_id) {
@@ -90,6 +93,9 @@ class ProfileForm extends Component
             $data['cv_id'] = $this->cv_id->store('cvs', 'public');
             $this->existingCvId = $data['cv_id'];
             $this->cv_id = null;
+        } elseif ($this->profile->cv_id && is_null($this->existingCvId)) {
+            Storage::disk('public')->delete($this->profile->cv_id);
+            $data['cv_id'] = null;
         }
 
         if ($this->cv_en) {
@@ -99,6 +105,9 @@ class ProfileForm extends Component
             $data['cv_en'] = $this->cv_en->store('cvs', 'public');
             $this->existingCvEn = $data['cv_en'];
             $this->cv_en = null;
+        } elseif ($this->profile->cv_en && is_null($this->existingCvEn)) {
+            Storage::disk('public')->delete($this->profile->cv_en);
+            $data['cv_en'] = null;
         }
 
         $this->profile->fill($data)->save();

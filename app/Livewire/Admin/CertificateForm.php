@@ -153,7 +153,7 @@ class CertificateForm extends Component
             ]
         );
 
-        $this->dispatch('notify', type: 'success', message: $this->certificate ? 'Sertifikat berhasil diperbarui.' : 'Sertifikat berhasil ditambahkan.');
+        $this->dispatch('notify', type: 'success', message: 'Sertifikat berhasil disimpan.');
         $this->redirectRoute('admin.certificates');
     }
 
