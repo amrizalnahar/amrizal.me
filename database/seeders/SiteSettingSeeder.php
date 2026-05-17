@@ -4,11 +4,19 @@ namespace Database\Seeders;
 
 use App\Models\SiteSetting;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class SiteSettingSeeder extends Seeder
 {
     public function run(): void
     {
+        $sourceFavicon = database_path('seeders/images/settings/favicon.png');
+        $faviconPath = 'settings/favicon.png';
+
+        if (file_exists($sourceFavicon)) {
+            Storage::disk('public')->put($faviconPath, file_get_contents($sourceFavicon));
+        }
+
         $settings = [
             'site_name' => 'Amrizal Nahar',
             'site_description' => 'Portfolio dan blog profesional Amrizal Nahar, System Analyst & Builder. Berbagi pengalaman dan wawasan seputar perancangan sistem informasi, pengembangan aplikasi web, dan manajemen proyek teknologi.',
@@ -31,6 +39,7 @@ class SiteSettingSeeder extends Seeder
             'seo_description' => 'Portfolio dan blog Amrizal Nahar, System Analyst & Builder. Temukan artikel, studi kasus, dan proyek seputar analisis sistem, pengembangan aplikasi, serta teknologi informasi.',
             'seo_author' => 'Amrizal Nahar',
             'ga4_measurement_id' => null,
+            'site_favicon' => file_exists($sourceFavicon) ? $faviconPath : null,
         ];
 
         foreach ($settings as $key => $value) {

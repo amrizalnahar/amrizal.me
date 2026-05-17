@@ -19,6 +19,11 @@
     <meta name="robots" content="@yield('meta_robots', config('seo.default_robots', 'index, follow'))">
     <link rel="canonical" href="@yield('canonical_url', url()->current())">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if($favicon = \App\Models\SiteSetting::getValue('site_favicon'))
+        <link rel="icon" type="image/x-icon" href="{{ \Illuminate\Support\Facades\Storage::url($favicon) }}">
+    @else
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    @endif
     @yield('structured_data')
 
     <script>
