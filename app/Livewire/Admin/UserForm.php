@@ -91,13 +91,13 @@ class UserForm extends Component
             $this->user = User::create($data);
             $this->user->syncRoles([$this->role]);
 
-            $this->dispatch('notify', type: 'success', message: 'User berhasil dibuat.');
+            $this->dispatch('notify', type: 'success', message: 'User berhasil disimpan.');
             $this->redirectRoute('admin.users.edit', ['user' => $this->user], navigate: true);
         } else {
             $this->user->update($data);
             $this->user->syncRoles([$this->role]);
 
-            $this->dispatch('notify', type: 'success', message: 'User berhasil diperbarui.');
+            $this->dispatch('notify', type: 'success', message: 'User berhasil disimpan.');
         }
     }
 

@@ -226,7 +226,7 @@ class TagManager extends Component
         );
 
         $this->closeModal();
-        $this->dispatch('notify', type: 'success', message: $this->editingId ? 'Tag berhasil diperbarui.' : 'Tag berhasil ditambahkan.');
+        $this->dispatch('notify', type: 'success', message: 'Tag berhasil disimpan.');
     }
 
     public function edit(int $id): void

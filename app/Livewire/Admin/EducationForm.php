@@ -116,7 +116,7 @@ class EducationForm extends Component
             ]
         );
 
-        $this->dispatch('notify', type: 'success', message: $this->education ? 'Pendidikan berhasil diperbarui.' : 'Pendidikan berhasil ditambahkan.');
+        $this->dispatch('notify', type: 'success', message: 'Pendidikan berhasil disimpan.');
         $this->redirectRoute('admin.educations');
     }
 

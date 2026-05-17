@@ -126,7 +126,7 @@ class ExperienceForm extends Component
             ]
         );
 
-        $this->dispatch('notify', type: 'success', message: $this->experience ? 'Pengalaman kerja berhasil diperbarui.' : 'Pengalaman kerja berhasil ditambahkan.');
+        $this->dispatch('notify', type: 'success', message: 'Pengalaman kerja berhasil disimpan.');
         $this->redirectRoute('admin.experiences');
     }
 
