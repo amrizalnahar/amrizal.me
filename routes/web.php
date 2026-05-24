@@ -10,6 +10,7 @@ use App\Http\Controllers\Public\ProjectController;
 use App\Http\Controllers\Public\RssController;
 use App\Http\Controllers\Public\SitemapController;
 use App\Livewire\Admin\AuditLogTable;
+use App\Livewire\Admin\BeritaDetail;
 use App\Livewire\Admin\BeritaForm;
 use App\Livewire\Admin\BeritaTable;
 use App\Livewire\Admin\CertificateForm;
@@ -130,6 +131,9 @@ Route::middleware(['auth'])
         Route::get('/blog/create', BeritaForm::class)
             ->middleware('permission:posts-create')
             ->name('blog.create');
+        Route::get('/blog/{post}', BeritaDetail::class)
+            ->middleware('permission:posts-list')
+            ->name('blog.show');
         Route::get('/blog/{post}/edit', BeritaForm::class)
             ->middleware('permission:posts-edit')
             ->name('blog.edit');
