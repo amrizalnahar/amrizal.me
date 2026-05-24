@@ -213,7 +213,7 @@ class BeritaForm extends Component
         $post->tags()->sync($this->selectedTags);
 
         $this->dispatch('notify', type: 'success', message: 'Artikel berhasil disimpan.');
-        $this->redirectRoute('admin.blog');
+        $this->redirectRoute('admin.blog.show', ['post' => $post->id]);
     }
 
     public function render()
