@@ -138,12 +138,7 @@ Route::middleware(['auth'])
         Route::get('/blog/{post}/edit', BeritaForm::class)
             ->middleware('permission:posts-edit')
             ->name('blog.edit');
-        Route::get('/projects/{project}/edit', ProjectForm::class)
-            ->middleware('permission:projects-edit')
-            ->name('projects.edit');
-        Route::get('/projects/{project}', ProjectDetail::class)
-            ->middleware('permission:projects-list')
-            ->name('projects.show');
+
 
         Route::get('/profile', ProfileForm::class)
             ->name('profile');
@@ -166,11 +161,17 @@ Route::middleware(['auth'])
             ->name('skills');
 
         Route::get('/projects', ProjectTable::class)
+            ->middleware('permission:projects-list')
             ->name('projects');
         Route::get('/projects/create', ProjectForm::class)
+            ->middleware('permission:projects-create')
             ->name('projects.create');
         Route::get('/projects/{project}/edit', ProjectForm::class)
+            ->middleware('permission:projects-edit')
             ->name('projects.edit');
+        Route::get('/projects/{project}', ProjectDetail::class)
+            ->middleware('permission:projects-list')
+            ->name('projects.show');
 
         Route::get('/certificates', CertificateTable::class)
             ->name('certificates');
