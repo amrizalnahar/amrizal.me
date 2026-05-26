@@ -189,7 +189,11 @@
 
             <!-- Content -->
             <main class="content-bg min-h-[calc(100vh-64px)] p-6">
-                {{ $slot }}
+                @if(isset($slot))
+                    {{ $slot }}
+                @else
+                    @yield('content')
+                @endif
             </main>
         </div>
     </div>
