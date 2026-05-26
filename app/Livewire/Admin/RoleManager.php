@@ -165,11 +165,19 @@ class RoleManager extends Component
             'Berita' => ['posts-list', 'posts-create', 'posts-edit', 'posts-delete'],
             'Kategori' => ['categories-list', 'categories-create', 'categories-edit', 'categories-delete'],
             'Tags' => ['tags-list', 'tags-create', 'tags-edit', 'tags-delete'],
+            'Proyek' => ['projects-list', 'projects-create', 'projects-edit', 'projects-delete'],
             'Users' => ['users-list', 'users-create', 'users-edit', 'users-delete'],
             'Roles' => ['roles-list', 'roles-create', 'roles-edit', 'roles-delete'],
             'Pengaturan' => ['settings-list', 'settings-edit'],
             'Audit & Log' => ['audit-logs-list', 'system-logs-list'],
             'System Tools' => ['system-email-tester', 'system-queue-monitor', 'schedule-tasks-list', 'schedule-tasks-execute'],
+            // Additional modules
+            'Profil' => ['profile-list', 'profile-create', 'profile-edit', 'profile-delete'],
+            'Pengalaman' => ['experience-list', 'experience-create', 'experience-edit', 'experience-delete'],
+            'Pendidikan' => ['education-list', 'education-create', 'education-edit', 'education-delete'],
+            'Keahlian' => ['skill-list', 'skill-create', 'skill-edit', 'skill-delete'],
+            'Sertifikat' => ['certificate-list', 'certificate-create', 'certificate-edit', 'certificate-delete'],
+            'Pesan Kontak' => ['contact-list', 'contact-create', 'contact-edit', 'contact-delete']
         ];
     }
 

@@ -16,6 +16,8 @@ class RolePermissionSeeder extends Seeder
             'dashboard-access',
             // Posts
             'posts-list', 'posts-create', 'posts-edit', 'posts-delete',
+            // Projects
+            'projects-list', 'projects-create', 'projects-edit', 'projects-delete', 'projects-view',
             // Master
             'categories-list', 'categories-create', 'categories-edit', 'categories-delete',
             'tags-list', 'tags-create', 'tags-edit', 'tags-delete',
@@ -29,6 +31,19 @@ class RolePermissionSeeder extends Seeder
             'system-queue-monitor',
             'schedule-tasks-list',
             'schedule-tasks-execute',
+            // New Modules
+            // Profil
+            'profile-list', 'profile-create', 'profile-edit', 'profile-delete', 'profile-view',
+            // Pengalaman
+            'experience-list', 'experience-create', 'experience-edit', 'experience-delete', 'experience-view',
+            // Pendidikan
+            'education-list', 'education-create', 'education-edit', 'education-delete', 'education-view',
+            // Keahlian
+            'skill-list', 'skill-create', 'skill-edit', 'skill-delete', 'skill-view',
+            // Sertifikat
+            'certificate-list', 'certificate-create', 'certificate-edit', 'certificate-delete', 'certificate-view',
+            // Pesan Kontak
+            'contact-list', 'contact-create', 'contact-edit', 'contact-delete', 'contact-view',
         ];
 
         foreach ($permissions as $permission) {
@@ -42,11 +57,28 @@ class RolePermissionSeeder extends Seeder
         $superAdmin->givePermissionTo(Permission::all());
 
         $editor->givePermissionTo([
-            'dashboard-access',
-            'posts-list', 'posts-create', 'posts-edit', 'posts-delete',
-            'categories-list', 'categories-create', 'categories-edit', 'categories-delete',
-            'tags-list', 'tags-create', 'tags-edit', 'tags-delete',
-        ]);
+    'dashboard-access',
+    // Posts
+    'posts-list', 'posts-create', 'posts-edit', 'posts-delete',
+    // Projects
+    'projects-list', 'projects-create', 'projects-edit', 'projects-delete', 'projects-view',
+    // Master
+    'categories-list', 'categories-create', 'categories-edit', 'categories-delete',
+    'tags-list', 'tags-create', 'tags-edit', 'tags-delete',
+    // New modules
+    // Profil
+    'profile-list', 'profile-create', 'profile-edit', 'profile-delete', 'profile-view',
+    // Pengalaman
+    'experience-list', 'experience-create', 'experience-edit', 'experience-delete', 'experience-view',
+    // Pendidikan
+    'education-list', 'education-create', 'education-edit', 'education-delete', 'education-view',
+    // Keahlian
+    'skill-list', 'skill-create', 'skill-edit', 'skill-delete', 'skill-view',
+    // Sertifikat
+    'certificate-list', 'certificate-create', 'certificate-edit', 'certificate-delete', 'certificate-view',
+    // Pesan Kontak
+    'contact-list', 'contact-create', 'contact-edit', 'contact-delete', 'contact-view',
+]);
 
         $viewer->givePermissionTo([
             'dashboard-access',

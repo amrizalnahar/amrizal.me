@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\SeoHelper;
 use App\Traits\HasLocalizable;
 use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
@@ -22,6 +23,7 @@ class Project extends Model
         'thumbnail', 'gallery',
         'status', 'sort_order',
         'views',
+        'meta_title', 'meta_description', 'meta_keywords',
     ];
 
     protected $casts = [
@@ -52,5 +54,37 @@ class Project extends Model
     public function getSlugSourceAttribute(): string
     {
         return $this->title_id;
+    }
+
+    /**
+     * Resolved SEO title dengan fallback ke title.
+     */
+    public function getSeoTitleAttribute(): string
+    {
+        return $this->meta_title ?? $this->localize('title');
+    }
+
+    /**
+     * Resolved SEO description dengan fallback ke short description.
+     */
+    public function getSeoDescriptionAttribute(): string
+    {
+        if ($this->meta_description) {
+            return $this->meta_description;
+        }
+
+        return SeoHelper::metaDescription($this->localize('short_description'));
+    }
+
+    /**
+     * Resolved SEO keywords dengan fallback ke technologies + type.
+     */
+    public function getSeoKeywordsAttribute(): string
+    {
+        if ($this->meta_keywords) {
+            return $this->meta_keywords;
+        }
+
+        return SeoHelper::keywords($this->technologies->pluck('technology_name')->toArray(), $this->type);
     }
 }

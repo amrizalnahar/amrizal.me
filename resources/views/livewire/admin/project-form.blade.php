@@ -202,7 +202,36 @@
                 <x-input-error :messages="$errors->get('newTechnology')" class="mt-1" />
             </div>
 
-            <!-- Section 8: Status -->
+            <!-- Section 8: SEO Metadata -->
+            <div class="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden" x-data="{ open: false }">
+                <button type="button" @click="open = !open" class="w-full flex items-center justify-between p-6 text-left hover:bg-neutral-50 transition-colors">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                        <span class="font-medium text-neutral-800">Pengaturan SEO</span>
+                        <span class="text-xs text-neutral-400">(opsional)</span>
+                    </div>
+                    <svg class="w-5 h-5 text-neutral-400 transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+                <div x-show="open" x-collapse class="px-6 pb-6 space-y-4 border-t border-neutral-100 pt-4">
+                    <div>
+                        <x-input-label for="meta_title" value="Meta Title" />
+                        <x-text-input id="meta_title" wire:model="meta_title" type="text" class="mt-1 block w-full" placeholder="Biarkan kosong untuk auto-generate dari judul" />
+                        <x-input-error :messages="$errors->get('meta_title')" class="mt-1" />
+                    </div>
+                    <div>
+                        <x-input-label for="meta_description" value="Meta Description" />
+                        <textarea id="meta_description" wire:model="meta_description" rows="3" class="mt-1 block w-full border-neutral-300 focus:border-primary-600 focus:ring-primary-600 rounded-md shadow-sm text-sm" placeholder="Biarkan kosong untuk auto-generate dari deskripsi singkat"></textarea>
+                        <x-input-error :messages="$errors->get('meta_description')" class="mt-1" />
+                    </div>
+                    <div>
+                        <x-input-label for="meta_keywords" value="Meta Keywords" />
+                        <textarea id="meta_keywords" wire:model="meta_keywords" rows="2" class="mt-1 block w-full border-neutral-300 focus:border-primary-600 focus:ring-primary-600 rounded-md shadow-sm text-sm" placeholder="Pisahkan dengan koma. Biarkan kosong untuk auto-generate dari teknologi"></textarea>
+                        <x-input-error :messages="$errors->get('meta_keywords')" class="mt-1" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 9: Status -->
             <div class="bg-white rounded-xl shadow-sm border border-neutral-200 p-6">
                 <x-input-label value="Status" class="mb-3" />
                 <div class="flex gap-4">
