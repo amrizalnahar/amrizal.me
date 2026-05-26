@@ -26,6 +26,7 @@ use App\Livewire\Admin\ExperienceTable;
 use App\Livewire\Admin\KategoriManager;
 use App\Livewire\Admin\ProfileForm;
 use App\Livewire\Admin\ProjectForm;
+use App\Livewire\Admin\ProjectDetail;
 use App\Livewire\Admin\ProjectTable;
 use App\Livewire\Admin\QueueMonitor;
 use App\Livewire\Admin\RoleManager;
@@ -137,6 +138,12 @@ Route::middleware(['auth'])
         Route::get('/blog/{post}/edit', BeritaForm::class)
             ->middleware('permission:posts-edit')
             ->name('blog.edit');
+        Route::get('/projects/{project}/edit', ProjectForm::class)
+            ->middleware('permission:projects-edit')
+            ->name('projects.edit');
+        Route::get('/projects/{project}', ProjectDetail::class)
+            ->middleware('permission:projects-list')
+            ->name('projects.show');
 
         Route::get('/profile', ProfileForm::class)
             ->name('profile');

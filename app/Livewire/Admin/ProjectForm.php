@@ -57,6 +57,12 @@ class ProjectForm extends Component
 
     public int $sort_order = 0;
 
+    public string $meta_title = '';
+
+    public string $meta_description = '';
+
+    public string $meta_keywords = '';
+
     public function mount(?Project $project = null): void
     {
         $this->project = $project;
@@ -79,6 +85,9 @@ class ProjectForm extends Component
             $this->members = $project->members->map(fn ($m) => ['name' => $m->name, 'role' => $m->role, 'sort_order' => $m->sort_order])->toArray();
             $this->status = $project->status;
             $this->sort_order = $project->sort_order ?? 0;
+            $this->meta_title = $project->meta_title ?? '';
+            $this->meta_description = $project->meta_description ?? '';
+            $this->meta_keywords = $project->meta_keywords ?? '';
         }
     }
 
@@ -109,6 +118,9 @@ class ProjectForm extends Component
             'members.*.role' => ['nullable', 'string', 'max:255'],
             'status' => ['required', 'in:draft,publish'],
             'sort_order' => ['required', 'integer', 'min:0'],
+            'meta_title' => ['nullable', 'string', 'max:255'],
+            'meta_description' => ['nullable', 'string'],
+            'meta_keywords' => ['nullable', 'string'],
         ];
     }
 
@@ -208,6 +220,9 @@ class ProjectForm extends Component
                 'thumbnail' => $thumbnailPath,
                 'status' => $this->status,
                 'sort_order' => $this->sort_order,
+                'meta_title' => $this->meta_title ?: null,
+                'meta_description' => $this->meta_description ?: null,
+                'meta_keywords' => $this->meta_keywords ?: null,
             ]
         );
 
@@ -226,7 +241,7 @@ class ProjectForm extends Component
         }
 
         $this->dispatch('notify', type: 'success', message: 'Proyek berhasil disimpan.');
-        $this->redirectRoute('admin.projects');
+        $this->redirectRoute('admin.projects.show', ['project' => $project->id]);
     }
 
     public function render()
