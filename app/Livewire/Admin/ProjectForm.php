@@ -195,11 +195,13 @@ class ProjectForm extends Component
 
         $thumbnailPath = $this->existingThumbnail;
 
+        $disk = env('STORAGE_DISK', 's3');
+
         if ($this->thumbnail) {
             if ($this->existingThumbnail) {
-                Storage::disk('public')->delete($this->existingThumbnail);
+                Storage::disk($disk)->delete($this->existingThumbnail);
             }
-            $thumbnailPath = $this->thumbnail->store('projects', 'public');
+            $thumbnailPath = $this->thumbnail->store('projects', $disk);
         }
 
         $project = Project::updateOrCreate(

@@ -57,7 +57,7 @@
                         <tr class="hover:bg-neutral-50 transition-colors">
                             <td class="px-4 py-3">
                                 @if($education->logo)
-                                    <img src="{{ asset('storage/' . $education->logo) }}" alt="" class="w-10 h-10 rounded-lg object-cover">
+                                    <img src="{{ Storage::url($education->logo) }}" alt="{{ $education->institution_name }}" class="w-10 h-10 rounded-lg object-cover">
                                 @else
                                     <div class="w-10 h-10 rounded-lg bg-neutral-100 flex items-center justify-center">
                                         <svg class="w-5 h-5 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5"></path></svg>

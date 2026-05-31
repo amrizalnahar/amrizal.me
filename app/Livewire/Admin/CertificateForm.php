@@ -121,18 +121,20 @@ class CertificateForm extends Component
         $issuerLogoPath = $this->existingIssuerLogo;
         $certificateImagePath = $this->existingCertificateImage;
 
+        $disk = env('STORAGE_DISK', 's3');
+
         if ($this->issuer_logo) {
             if ($this->existingIssuerLogo) {
-                Storage::disk('public')->delete($this->existingIssuerLogo);
+                Storage::disk($disk)->delete($this->existingIssuerLogo);
             }
-            $issuerLogoPath = $this->issuer_logo->store('certificates', 'public');
+            $issuerLogoPath = $this->issuer_logo->store('certificates', $disk);
         }
 
         if ($this->certificate_image) {
             if ($this->existingCertificateImage) {
-                Storage::disk('public')->delete($this->existingCertificateImage);
+                Storage::disk($disk)->delete($this->existingCertificateImage);
             }
-            $certificateImagePath = $this->certificate_image->store('certificates', 'public');
+            $certificateImagePath = $this->certificate_image->store('certificates', $disk);
         }
 
         Certificate::updateOrCreate(
