@@ -121,7 +121,7 @@ class CertificateForm extends Component
         $issuerLogoPath = $this->existingIssuerLogo;
         $certificateImagePath = $this->existingCertificateImage;
 
-        $disk = env('STORAGE_DISK', 's3');
+        $disk = config('filesystems.default');
 
         if ($this->issuer_logo) {
             if ($this->existingIssuerLogo) {

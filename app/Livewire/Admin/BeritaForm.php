@@ -184,7 +184,7 @@ class BeritaForm extends Component
 
         $thumbnailPath = $this->existingThumbnail;
 
-        $disk = env('STORAGE_DISK', 's3');
+        $disk = config('filesystems.default');
 
         if ($this->thumbnail) {
             if ($this->existingThumbnail) {
