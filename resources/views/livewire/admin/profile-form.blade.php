@@ -54,7 +54,7 @@
                         </div>
                     @elseif($existingPhoto)
                         <div class="relative">
-                            <img src="{{ asset('storage/' . $existingPhoto) }}" class="w-32 h-32 rounded-lg object-cover border border-neutral-200">
+                            <img src="{{ Storage::url($existingPhoto) }}" alt="Profile Photo" class="w-32 h-32 rounded-lg object-cover border border-neutral-200">
                             <button type="button" wire:click="$set('existingPhoto', null)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600">&times;</button>
                         </div>
                     @endif
@@ -81,7 +81,7 @@
                     @elseif($existingCvId)
                         <div class="relative flex items-center gap-2 px-3 py-2 bg-neutral-50 rounded-lg border border-neutral-200">
                             <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"></path></svg>
-                            <a href="{{ asset('storage/' . $existingCvId) }}" target="_blank" class="text-sm text-primary-600 hover:underline">{{ basename($existingCvId) }}</a>
+                            <a href="{{ Storage::url($existingCvId) }}" target="_blank" class="text-sm text-primary-600 hover:underline">{{ basename($existingCvId) }}</a>
                             <button type="button" wire:click="$set('existingCvId', null)" class="ml-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600">&times;</button>
                         </div>
                     @endif
@@ -108,7 +108,7 @@
                     @elseif($existingCvEn)
                         <div class="relative flex items-center gap-2 px-3 py-2 bg-neutral-50 rounded-lg border border-neutral-200">
                             <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"></path></svg>
-                            <a href="{{ asset('storage/' . $existingCvEn) }}" target="_blank" class="text-sm text-primary-600 hover:underline">{{ basename($existingCvEn) }}</a>
+                            <a href="{{ Storage::url($existingCvEn) }}" target="_blank" class="text-sm text-primary-600 hover:underline">{{ basename($existingCvEn) }}</a>
                             <button type="button" wire:click="$set('existingCvEn', null)" class="ml-2 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600">&times;</button>
                         </div>
                     @endif

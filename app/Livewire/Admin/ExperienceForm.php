@@ -104,11 +104,13 @@ class ExperienceForm extends Component
 
         $logoPath = $this->existingLogo;
 
+        $disk = env('STORAGE_DISK', 's3');
+
         if ($this->logo) {
             if ($this->existingLogo) {
-                Storage::disk('public')->delete($this->existingLogo);
+                Storage::disk($disk)->delete($this->existingLogo);
             }
-            $logoPath = $this->logo->store('experiences', 'public');
+            $logoPath = $this->logo->store('experiences', $disk);
         }
 
         Experience::updateOrCreate(

@@ -83,7 +83,7 @@
                         </div>
                     @elseif($existingIssuerLogo)
                         <div class="relative">
-                            <img src="{{ asset('storage/' . $existingIssuerLogo) }}" class="w-32 h-32 rounded-lg object-cover border border-neutral-200">
+                            <img src="{{ Storage::url($existingIssuerLogo) }}" alt="Issuer Logo" class="w-32 h-32 rounded-lg object-cover border border-neutral-200">
                             <button type="button" wire:click="$set('existingIssuerLogo', null)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600">&times;</button>
                         </div>
                     @endif
@@ -108,7 +108,7 @@
                         </div>
                     @elseif($existingCertificateImage)
                         <div class="relative">
-                            <img src="{{ asset('storage/' . $existingCertificateImage) }}" class="w-32 h-32 rounded-lg object-cover border border-neutral-200">
+                            <img src="{{ Storage::url($existingCertificateImage) }}" alt="Certificate Image" class="w-32 h-32 rounded-lg object-cover border border-neutral-200">
                             <button type="button" wire:click="$set('existingCertificateImage', null)" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600">&times;</button>
                         </div>
                     @endif

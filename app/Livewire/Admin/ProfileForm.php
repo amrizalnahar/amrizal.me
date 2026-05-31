@@ -74,39 +74,41 @@ class ProfileForm extends Component
             'summary_en' => $this->summary_en ?: null,
         ];
 
+        $disk = env('STORAGE_DISK', 's3');
+
         if ($this->photo) {
             if ($this->existingPhoto) {
-                Storage::disk('public')->delete($this->existingPhoto);
+                Storage::disk($disk)->delete($this->existingPhoto);
             }
-            $data['photo'] = $this->photo->store('profiles', 'public');
+            $data['photo'] = $this->photo->store('profiles', $disk);
             $this->existingPhoto = $data['photo'];
             $this->photo = null;
         } elseif ($this->profile->photo && is_null($this->existingPhoto)) {
-            Storage::disk('public')->delete($this->profile->photo);
+            Storage::disk($disk)->delete($this->profile->photo);
             $data['photo'] = null;
         }
 
         if ($this->cv_id) {
             if ($this->existingCvId) {
-                Storage::disk('public')->delete($this->existingCvId);
+                Storage::disk($disk)->delete($this->existingCvId);
             }
-            $data['cv_id'] = $this->cv_id->store('cvs', 'public');
+            $data['cv_id'] = $this->cv_id->store('cvs', $disk);
             $this->existingCvId = $data['cv_id'];
             $this->cv_id = null;
         } elseif ($this->profile->cv_id && is_null($this->existingCvId)) {
-            Storage::disk('public')->delete($this->profile->cv_id);
+            Storage::disk($disk)->delete($this->profile->cv_id);
             $data['cv_id'] = null;
         }
 
         if ($this->cv_en) {
             if ($this->existingCvEn) {
-                Storage::disk('public')->delete($this->existingCvEn);
+                Storage::disk($disk)->delete($this->existingCvEn);
             }
-            $data['cv_en'] = $this->cv_en->store('cvs', 'public');
+            $data['cv_en'] = $this->cv_en->store('cvs', $disk);
             $this->existingCvEn = $data['cv_en'];
             $this->cv_en = null;
         } elseif ($this->profile->cv_en && is_null($this->existingCvEn)) {
-            Storage::disk('public')->delete($this->profile->cv_en);
+            Storage::disk($disk)->delete($this->profile->cv_en);
             $data['cv_en'] = null;
         }
 

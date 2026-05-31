@@ -119,20 +119,22 @@ class SiteSettingsForm extends Component
             'ga4MeasurementId' => ['nullable', 'string', 'max:50'],
         ]);
 
+        $disk = env('STORAGE_DISK', 's3');
+
         $logoPath = $this->existingLogo;
         if ($this->siteLogo) {
             if ($this->existingLogo) {
-                Storage::disk('public')->delete($this->existingLogo);
+                Storage::disk($disk)->delete($this->existingLogo);
             }
-            $logoPath = $this->siteLogo->store('settings', 'public');
+            $logoPath = $this->siteLogo->store('settings', $disk);
         }
 
         $faviconPath = $this->existingFavicon;
         if ($this->siteFavicon) {
             if ($this->existingFavicon) {
-                Storage::disk('public')->delete($this->existingFavicon);
+                Storage::disk($disk)->delete($this->existingFavicon);
             }
-            $faviconPath = $this->siteFavicon->store('settings', 'public');
+            $faviconPath = $this->siteFavicon->store('settings', $disk);
         }
 
         SiteSetting::setValue('site_name', $this->siteName ?: null);

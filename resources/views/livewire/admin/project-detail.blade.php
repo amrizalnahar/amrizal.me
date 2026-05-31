@@ -22,7 +22,7 @@
         <div class="bg-white rounded-xl shadow-sm border border-neutral-200 overflow-hidden">
             @if($project->thumbnail)
                 <div class="w-full h-64">
-                    <img src="{{ asset('storage/' . $project->thumbnail) }}" alt="Thumbnail" class="w-full h-full object-cover">
+                    <img src="{{ Storage::url($project->thumbnail) }}" alt="Project Thumbnail" class="w-full h-full object-cover">
                 </div>
             @else
                 <div class="w-full h-64 bg-neutral-100 flex items-center justify-center">
