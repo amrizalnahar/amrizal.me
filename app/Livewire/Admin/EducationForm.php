@@ -95,7 +95,7 @@ class EducationForm extends Component
 
         $logoPath = $this->existingLogo;
 
-        $disk = env('STORAGE_DISK', 's3');
+        $disk = config('filesystems.default');
 
         if ($this->logo) {
             if ($this->existingLogo) {

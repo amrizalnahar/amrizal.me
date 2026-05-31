@@ -119,7 +119,7 @@ class SiteSettingsForm extends Component
             'ga4MeasurementId' => ['nullable', 'string', 'max:50'],
         ]);
 
-        $disk = env('STORAGE_DISK', 's3');
+        $disk = config('filesystems.default');
 
         $logoPath = $this->existingLogo;
         if ($this->siteLogo) {

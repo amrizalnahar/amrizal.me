@@ -74,7 +74,7 @@ class ProfileForm extends Component
             'summary_en' => $this->summary_en ?: null,
         ];
 
-        $disk = env('STORAGE_DISK', 's3');
+        $disk = config('filesystems.default');
 
         if ($this->photo) {
             if ($this->existingPhoto) {
