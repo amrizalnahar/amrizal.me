@@ -30,22 +30,23 @@ return [
 
     'disks' => [
 
-        'local' => [
-            'driver' => 'local',
-            'root' => storage_path('app/private'),
-            'serve' => true,
-            'throw' => false,
-            'report' => false,
-        ],
-
-        // 'public' => [
+        // 'local' => [
         //     'driver' => 'local',
-        //     'root' => storage_path('app/public'),
-        //     'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
-        //     'visibility' => 'public',
+        //     'root' => storage_path('app/private'),
+        //     'serve' => true,
         //     'throw' => false,
         //     'report' => false,
         // ],
+
+        // note: the 'public' disk is configured in laravel cloud S3 to use the 'local' driver but with a different root and url. This is a common setup for Laravel applications where the 'public' disk is used for files that need to be publicly accessible, while the 'local' disk is used for private files.
+        'local' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
 
         's3' => [
             'driver' => 's3',
