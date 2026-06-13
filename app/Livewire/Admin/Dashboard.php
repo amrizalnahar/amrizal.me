@@ -64,12 +64,9 @@ class Dashboard extends Component
         ];
 
         $latestActivities = collect();
-        $recentContacts = collect();
-        $recentPosts = collect();
 
         if (Schema::hasTable('posts')) {
             $stats['posts'] = Post::where('status', 'published')->count();
-            $recentPosts = Post::where('status', 'published')->latest()->take(5)->get();
         }
         if (Schema::hasTable('projects')) {
             $stats['projects'] = Project::count();
@@ -79,12 +76,11 @@ class Dashboard extends Component
         }
         if (Schema::hasTable('contacts')) {
             $stats['unreadContacts'] = Contact::unread()->count();
-            $recentContacts = Contact::latest()->take(5)->get();
         }
         if (Schema::hasTable('audit_trails')) {
             $latestActivities = AuditTrail::with('user')->latest()->limit(10)->get();
         }
 
-        return view('livewire.admin.dashboard', compact('stats', 'latestActivities', 'recentContacts', 'recentPosts'));
+        return view('livewire.admin.dashboard', compact('stats', 'latestActivities'));
     }
 }
