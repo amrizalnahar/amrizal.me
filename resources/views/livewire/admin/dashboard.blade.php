@@ -62,11 +62,13 @@
 
     <!-- Visitor Chart -->
     @if(Schema::hasTable('visitors'))
-        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 mb-6" x-data="{ chart: null }" x-init="
-            const ctx = $refs.chartCanvas.getContext('2d');
-            const stats = @js($this->visitorStats);
+        @php $visitorStats = $this->visitorStats; @endphp
+        <div class="bg-white rounded-xl shadow-sm border border-neutral-200 mb-6" wire:key="visitor-chart-{{ $visitorRange }}" x-data="{ chart: null }" x-init="
+            const stats = @js($visitorStats);
 
-            if (stats.length === 0) return;
+            if (!$refs.chartCanvas || stats.length === 0 || stats.every(s => s.total === 0)) return;
+
+            const ctx = $refs.chartCanvas.getContext('2d');
 
             if (chart) chart.destroy();
 
@@ -117,7 +119,7 @@
                             }
                         },
                         tooltip: {
-                            backgroundColor: 'rgba(40, 9, 5, 0.9)',
+                            backgroundColor: 'rgba(28, 43, 57, 0.9)',
                             titleFont: { size: 12 },
                             bodyFont: { size: 12 },
                             padding: 10,
@@ -161,7 +163,6 @@
             </div>
             <div class="p-5">
                 @php
-                    $visitorStats = $this->visitorStats;
                     $hasData = count($visitorStats) > 0 && collect($visitorStats)->sum('total') > 0;
                 @endphp
 
