@@ -39,6 +39,7 @@ use App\Livewire\Admin\UserForm;
 use App\Livewire\Admin\UserProfile;
 use App\Livewire\Admin\UserTable;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 // Public Routes
 Route::middleware(\App\Http\Middleware\AllowIndexing::class)
@@ -184,6 +185,19 @@ Route::middleware(['auth'])
             ->name('contacts');
         Route::get('/contacts/{contact}', ContactDetail::class)
             ->name('contacts.show');
+
+        Route::post('/upload-trix-image', function () {
+            request()->validate([
+                'file' => ['required', 'image', 'max:5120'],
+            ]);
+
+            $disk = config('filesystems.default');
+            $path = request()->file('file')->store('trix', $disk);
+
+            return response()->json([
+                'url' => Storage::disk($disk)->url($path),
+            ]);
+        })->name('upload-trix-image');
 
     });
 

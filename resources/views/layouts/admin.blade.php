@@ -28,8 +28,16 @@
     </script>
     <style>
         trix-editor { min-height: 300px; }
-        .trix-button-group--file-tools { display: none !important; }
         [x-cloak] { display: none !important; }
+
+        /* Trix editor list fixes — Tailwind preflight removes list styles */
+        trix-editor ul { list-style-type: disc !important; padding-left: 1.5rem !important; }
+        trix-editor ol { list-style-type: decimal !important; padding-left: 1.5rem !important; }
+        trix-editor ul li, trix-editor ol li { margin-bottom: 0.25rem; }
+
+        /* Trix content rendered output list fixes */
+        .trix-content ul { list-style-type: disc !important; padding-left: 1.5rem !important; }
+        .trix-content ol { list-style-type: decimal !important; padding-left: 1.5rem !important; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
@@ -217,6 +225,36 @@
         <span x-text="message"></span>
     </div>
 
+    <script>
+        /* Trix image upload handler */
+        document.addEventListener('trix-attachment-add', function (event) {
+            var attachment = event.attachment;
+            if (!attachment.file) return;
+
+            var formData = new FormData();
+            formData.append('file', attachment.file);
+            formData.append('_token', document.querySelector('meta[name="csrf-token"]').content);
+
+            fetch('{{ route('admin.upload-trix-image') }}', {
+                method: 'POST',
+                body: formData,
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(function (response) {
+                if (!response.ok) throw new Error('Upload failed');
+                return response.json();
+            })
+            .then(function (data) {
+                attachment.setAttributes({
+                    url: data.url,
+                    href: data.url
+                });
+            })
+            .catch(function () {
+                attachment.remove();
+            });
+        });
+    </script>
     @livewireScripts
 </body>
 </html>
