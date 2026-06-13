@@ -26,7 +26,7 @@ $addSection('portfolio', 'Portfolio', false, [
     ['label' => 'Keahlian', 'url' => route('admin.skills'), 'icon' => 'wrench-screwdriver', 'active' => request()->routeIs('admin.skills')],
     ['label' => 'Proyek', 'url' => route('admin.projects'), 'icon' => 'folder-open', 'active' => request()->routeIs('admin.projects*')],
     ['label' => 'Sertifikat', 'url' => route('admin.certificates'), 'icon' => 'document-check', 'active' => request()->routeIs('admin.certificates*')],
-    ['label' => 'Pesan Kontak', 'url' => route('admin.contacts'), 'icon' => 'envelope', 'active' => request()->routeIs('admin.contacts*')],
+    ['label' => 'Pesan Kontak', 'url' => route('admin.contacts'), 'icon' => 'envelope', 'active' => request()->routeIs('admin.contacts*'), 'badge' => \Illuminate\Support\Facades\Schema::hasTable('contacts') ? \App\Models\Contact::unread()->count() : 0],
 ]);
 
 $addSection('blog', 'Blog', false, [
@@ -186,7 +186,11 @@ $addSection('monitoring', 'Monitoring', false, [
                                         <x-icon name="{{ $item['icon'] }}" class="w-5 h-5" />
                                     </div>
                                     <span class="menu-label">{{ $item['label'] }}</span>
-                                    @if($item['active'])
+                                    @if(!empty($item['badge']))
+                                        <span class="menu-label ml-auto text-[10px] font-bold leading-none px-1.5 py-0.5 rounded-full {{ $item['active'] ? 'bg-white text-[#C3110C]' : 'bg-[#C3110C] text-white' }}">
+                                            {{ $item['badge'] > 99 ? '99+' : $item['badge'] }}
+                                        </span>
+                                    @elseif($item['active'])
                                         <div x-bind:class="collapsed ? 'ml-2' : 'ml-auto'" class="w-1.5 h-1.5 rounded-full bg-[#E6501B]"></div>
                                     @endif
                                 </a>
